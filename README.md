@@ -4,3 +4,5 @@
 ## it has to contain certain readings about fruits and all that stuff.
 
 ## Someone has to finish this...
+
+## López Ramírez Kevin Tonatiuh
