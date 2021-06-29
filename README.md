@@ -1,15 +1,14 @@
 # Green & Fresh
 
-# During this project, we are going to recreate a full IoT application
-# it has to contain certain readings about fruits and all that stuff.
+During this project, we are going to recreate a full IoT application it has to contain certain readings about fruits and all that stuff.
 
-# Someone has to finish this...
+Someone has to finish this...
 
-# Robles Melanny
+* Robles Melanny
 
-# López Ramírez Kevin Tonatiuh
+* López Ramírez Kevin Tonatiuh
 
-# Garcia Guarneros 
+* Garcia Guarneros 
 
-# Arreola Xicali Denisse
+* Arreola Xicali Denisse
 
