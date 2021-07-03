@@ -12,7 +12,6 @@ CORS(app)
 
 @app.route('/')
 def home():
-  conn = mysqlConnection()
   return "This will be an HTML with the api's body..."
 
   
@@ -20,12 +19,24 @@ def home():
 @app.route('/api', methods=['GET'])
 def actions():
   params = request.args
-  
+  connection = mysqlConnection()
+
   if 'action' in params:
-    return jsonify({'res': params['action']})
+    action = params['action']
+    if action == 'get_readings':
+      return jsonify(connection.consult("select * from readings;"))
+    if action == 'get_fruits':
+      return jsonify(connection.consult("select * from fruits;"))
+    if action == 'get_devices':
+      return jsonify(connection.consult("select * from devices;"))
+    else:
+      return jsonify(errorJsonHandler("This not return nothing"))
   else :
     return jsonify(errorJsonHandler("The required param 'action' was not specified"))
 
 def errorJsonHandler(res): return {'res' : res}
+
+
+
 
 app.run()

@@ -79,6 +79,9 @@ class mysqlConnection:
             return {
                 'res' : 'Consult error: {}'.format(e),
             }
+
             
+            
+
 
     
