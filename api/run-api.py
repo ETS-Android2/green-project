@@ -30,7 +30,7 @@ def actions():
     if action == 'get_devices':
       return jsonify(connection.consult("select * from devices;"))
     else:
-      return jsonify(errorJsonHandler("This not return nothing"))
+      return jsonify(errorJsonHandler("The param 'action' has a wrong value"))
   else :
     return jsonify(errorJsonHandler("The required param 'action' was not specified"))
 
@@ -39,4 +39,4 @@ def errorJsonHandler(res): return {'res' : res}
 
 
 
-app.run()
+app.run(host="0.0.0.0", port=5000)
