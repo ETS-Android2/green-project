@@ -45,7 +45,7 @@ create table humidity_temperature_readings(
 	temperature DOUBLE,
     humidity INT,
 	fk_device CHAR(8),
-	CONSTRAINT FK_device FOREIGN KEY (fk_device)
+	CONSTRAINT FK_tempHumDevice FOREIGN KEY (fk_device)
         REFERENCES devices (devCode),
 	CONSTRAINT CK_TempHumLimit CHECK ( temperature > 0 
     AND humidity > 0)
