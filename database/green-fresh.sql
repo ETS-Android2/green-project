@@ -2,15 +2,25 @@ drop database if exists greenProject;
 create database greenProject;
 use greenProject;
 
+
+drop table if exists fruits;
+CREATE TABLE fruits( #peso pendiente, imagen pendiente
+	cod varchar(3) PRIMARY KEY,
+    nombre varchar(15),
+    description varchar(250)
+);
+
+
 drop table if exists devices;
 CREATE TABLE devices (
-    divCode CHAR(8) PRIMARY KEY,
+    devCode CHAR(8) PRIMARY KEY,
     ipAddress VARCHAR(15),
     description VARCHAR(200),
     lastConection DATETIME,
     status VARCHAR(11),
     CONSTRAINT Check_Status CHECK (status = 'Online' || status = 'Offline')
 );
+
 
 drop table if exists readings;
 CREATE TABLE readings (
@@ -22,9 +32,12 @@ CREATE TABLE readings (
     B INT,
     temperature DOUBLE,
     humidity INT,
-    divCode CHAR(8),
-    CONSTRAINT FK_device FOREIGN KEY (divCode)
-        REFERENCES devices (divCode),
+    fk_device CHAR(8),
+    fk_fruit varchar(3),
+
+    CONSTRAINT FK_fruit FOREIGN KEY (fk_fruit) REFERENCES fruits(cod),
+    CONSTRAINT FK_device FOREIGN KEY (fk_device)
+        REFERENCES devices (devCode),
     CONSTRAINT CK_Limit CHECK (weight > 0 AND temperature > 0
         AND humidity > 0),
     CONSTRAINT CK_Colors CHECK (R BETWEEN 0 AND 255
