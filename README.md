@@ -4,7 +4,7 @@ During this project, we are going to recreate a full IoT application it has to c
 
 Someone has to finish this...
 
-* Robles Melanny
+* Robles Melanny Robles Dueñas
 
 * López Ramírez Kevin Tonatiuh
 
