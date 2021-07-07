@@ -27,19 +27,28 @@ CREATE TABLE readings (
     R INT,
     G INT,
     B INT,
-    temperature DOUBLE,
-    humidity INT,
     fk_device CHAR(8),
     fk_fruit VARCHAR(3),
     CONSTRAINT FK_fruit FOREIGN KEY (fk_fruit)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_device FOREIGN KEY (fk_device)
         REFERENCES devices (devCode),
-    CONSTRAINT CK_Limit CHECK (weight > 0 AND temperature > 0
-        AND humidity > 0),
     CONSTRAINT CK_Colors CHECK (R BETWEEN 0 AND 255
         AND B BETWEEN 0 AND 255
         AND G BETWEEN 0 AND 255)
+);
+
+drop table if exists humidity_temperature_readings;
+create table humidity_temperature_readings(
+	readNum INT PRIMARY KEY AUTO_INCREMENT,
+    dataTime DATETIME,
+	temperature DOUBLE,
+    humidity INT,
+	fk_device CHAR(8),
+	CONSTRAINT FK_device FOREIGN KEY (fk_device)
+        REFERENCES devices (devCode),
+	CONSTRAINT CK_TempHumLimit CHECK ( temperature > 0 
+    AND humidity > 0)
 );
 
 ## The table fruit_requirements has to contain the requirements of
