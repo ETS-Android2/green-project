@@ -66,4 +66,3 @@ CREATE TABLE fruit_requirements (
     CONSTRAINT FK_maxReading FOREIGN KEY (fk_maximum_requirements)
         REFERENCES readings (readNum)
 );
-
