@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="105dp"
+    android:background="@color/gray_100">
+
+    <RelativeLayout
+        style="@style/sensors_layout"
+        android:id="@+id/rlProductionLines"
+        android:background="@drawable/rect_green_shadow">
+
+        <ImageView
+            style="@style/production_line_fields_icons"
+            android:id="@+id/ivSensorIcon"
+            android:src="@drawable/temperature" />
+
+        <TextView
+            style="@style/production_line_fields"
+            android:id="@+id/tvName"
+            android:layout_toRightOf="@id/ivSensorIcon"
+            android:text="Temperature" />
+
+        <TextView
+            style="@style/sensor_value"
+            android:id="@+id/tvValues"
+            android:text="72.3" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
