@@ -84,11 +84,19 @@ public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAd
 
         LayoutInflater inflater = LayoutInflater.from(this.context);
 
-        //if (v == null) v =inflater.inflate(R.id.SOMETHING_HERE);
+        if (v == null) v =inflater.inflate(R.layout.inspection_result_layout, null);
+
+        ImageView ivIcon = (ImageView)v.findViewById(R.id.ivFruitIcon);
+        TextView tvRejected = (TextView)v.findViewById(R.id.tvRejectedFruitsValue);
+        TextView tvAccepted = (TextView)v.findViewById(R.id.tvAcceptedFruitsValue);
+        TextView tvName = (TextView)v.findViewById(R.id.tvFruitName);
 
         InspectionResult ir = this.productionLines.get(groupPosition).getInspectionResults().get(childPosition);
 
-
+        ivIcon.setImageDrawable(ir.getImage());
+        tvAccepted.setText(String.valueOf(ir.getAcceptedResults()));
+        tvRejected.setText(String.valueOf(ir.getRejectedResults()));
+        tvName.setText(ir.getName());
 
         return v;
     }

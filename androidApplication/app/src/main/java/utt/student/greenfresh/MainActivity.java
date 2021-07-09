@@ -30,15 +30,15 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<InspectionResult> inspectionResults = new ArrayList<InspectionResult>();
 
         InspectionResult appleResults = new InspectionResult(
-            1, "Apple", getResources().getDrawable(R.drawable.offline), 13, 15
+            1, "Apple", getResources().getDrawable(R.drawable.apple), 13, 15
         );
 
         InspectionResult bananaResults = new InspectionResult(
-            2, "Banana", getResources().getDrawable(R.drawable.offline), 7, 21
+            2, "Banana", getResources().getDrawable(R.drawable.bananas), 7, 21
         );
 
         InspectionResult orangeResults = new InspectionResult(
-            3, "Orange", getResources().getDrawable(R.drawable.offline), 3, 11
+            3, "Orange", getResources().getDrawable(R.drawable.orange), 3, 11
         );
 
         inspectionResults.add(appleResults);
@@ -104,13 +104,14 @@ public class MainActivity extends AppCompatActivity {
 
         ExpandableListView elvLineProductions = (ExpandableListView)findViewById(R.id.elvLineProductions);
 
-        ProductionLine_SensorAdapter adapter = new ProductionLine_SensorAdapter(
-            this, productionLines
+
+        ProductionLine_InspectionResultAdapter adapter = new ProductionLine_InspectionResultAdapter(
+                this, productionLines
         );
 
-        /* ProductionLine_InspectionResultAdapter adapter = new ProductionLine_InspectionResultAdapter(
-                this, productionLines
-        );*/
+        /*ProductionLine_SensorAdapter adapter = new ProductionLine_SensorAdapter(
+            this, productionLines
+        ); */
 
         elvLineProductions.setAdapter(adapter);
 
