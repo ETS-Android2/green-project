@@ -2,7 +2,7 @@ package utt.student.greenfresh.classes;
 
 import java.util.ArrayList;
 
-public class Device {
+public class ProductionLine {
     //attributes
     private String id;
     private String name;
@@ -24,7 +24,7 @@ public class Device {
 
     //Constructors
 
-    public Device() {
+    public ProductionLine() {
         this.id = "";
         this.name = "";
         this.ipAddress = "";
@@ -32,11 +32,11 @@ public class Device {
         this.sensors = new ArrayList<Sensor>();
     }
 
-    public Device(String id, String name, String ipAddress, String lastConnection, ArrayList<Sensor> sensor) {
+    public ProductionLine(String id, String name, String ipAddress, String lastConnection, ArrayList<Sensor> sensors) {
         this.id = id;
         this.name = name;
         this.ipAddress = ipAddress;
         this.lastConnection = lastConnection;
-        this.sensors = sensor;
+        this.sensors = sensors;
     }
 }

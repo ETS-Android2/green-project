@@ -8,31 +8,31 @@ import android.widget.BaseExpandableListAdapter;
 
 import java.util.ArrayList;
 
-import utt.student.greenfresh.classes.Device;
+import utt.student.greenfresh.classes.ProductionLine;
 import utt.student.greenfresh.classes.Sensor;
 
 
 public class ExpandableDevicesAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private ArrayList<Device> devices;
+    private ArrayList<ProductionLine> productionLines;
 
-    public ExpandableDevicesAdapter(Context context, ArrayList<Device> devices) {
+    public ExpandableDevicesAdapter(Context context, ArrayList<ProductionLine> productionLines) {
         this.context = context;
-        this.devices = devices;
+        this.productionLines = productionLines;
     }
 
     @Override
-    public int getGroupCount() { return this.devices.size(); }
+    public int getGroupCount() { return this.productionLines.size(); }
 
     @Override
-    public int getChildrenCount(int groupPosition) { return this.devices.get(groupPosition).getSensors().size(); }
+    public int getChildrenCount(int groupPosition) { return this.productionLines.get(groupPosition).getSensors().size(); }
 
     @Override
-    public Object getGroup(int groupPosition) { return this.devices.get(groupPosition); }
+    public Object getGroup(int groupPosition) { return this.productionLines.get(groupPosition); }
 
     @Override
-    public Object getChild(int groupPosition, int childPosition) { return this.devices.get(groupPosition).getSensors().get(childPosition); }
+    public Object getChild(int groupPosition, int childPosition) { return this.productionLines.get(groupPosition).getSensors().get(childPosition); }
 
     @Override
     public long getGroupId(int groupPosition) { return groupPosition; }
@@ -53,7 +53,7 @@ public class ExpandableDevicesAdapter extends BaseExpandableListAdapter {
 
         //if (v == null) v =inflater.inflate(R.id.SOMETHING_HERE);
 
-        Device d = this.devices.get(groupPosition);
+        ProductionLine pl = this.productionLines.get(groupPosition);
 
         return v;
     }
@@ -66,7 +66,7 @@ public class ExpandableDevicesAdapter extends BaseExpandableListAdapter {
 
         //if (v == null) v =inflater.inflate(R.id.SOMETHING_HERE);
 
-        Sensor s = this.devices.get(groupPosition).getSensors().get(childPosition);
+        Sensor s = this.productionLines.get(groupPosition).getSensors().get(childPosition);
 
         return v;
     }
