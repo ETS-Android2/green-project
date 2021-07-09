@@ -34,7 +34,7 @@
         <item name="android:layout_height">24dp</item>
         <item name="android:layout_marginLeft">14dp</item>
         <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">"@color/gray_500"</item>
+        <item name="android:textColor">@color/gray_500</item>
         <item name="android:textSize">15dp</item>
     </style>
 
@@ -53,7 +53,48 @@
         <item name="android:layout_marginTop">5dp</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:textAlignment">textEnd</item>
-        <item name="android:textColor">"@color/gray_500"</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="inspection_results_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">88dp</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <style name="fruit_icons">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+    </style>
+
+    <style name="fruit_title">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="fruit_inspection_left">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="fruit_inspection_right">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/gray_500</item>
         <item name="android:textSize">15dp</item>
     </style>
 
