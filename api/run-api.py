@@ -14,7 +14,7 @@ CORS(app)
 def home():
   return "This will be an HTML with the api's body..."
 
-  
+
 
 @app.route('/api', methods=['GET'])
 def actions():
@@ -24,15 +24,17 @@ def actions():
   if 'action' in params:
     action = params['action']
     if action == 'get_readings':
-      return jsonify(connection.consult("select * from readings;"))
+      return jsonify(connection.consult("select * from  VW_readings_last_hour;"))
     if action == 'get_fruits':
-      return jsonify(connection.consult("select * from fruits;"))
+      return jsonify(connection.consult("select * from VW_fruits_result_today;"))
     if action == 'get_devices':
-      return jsonify(connection.consult("select * from devices;"))
+      return jsonify(connection.consult("select * from VW_productionLines;"))
     else:
       return jsonify(errorJsonHandler("The param 'action' has a wrong value"))
   else :
     return jsonify(errorJsonHandler("The required param 'action' was not specified"))
+
+  
 
 def errorJsonHandler(res): return {'res' : res}
 
