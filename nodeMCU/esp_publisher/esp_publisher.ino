@@ -35,6 +35,9 @@ const char *ssid = "INFINITUM67F2_2.4";
 const char *password = "Ma2F3YqgAb"; 
 const char *mqtt_broker = "201.171.7.12";
 // const char *mqtt_broker = "broker.hivemq.com";   // For testing
+String ipAddress;
+int ipSent = 0;
+String clientId = "NMCU-ARX";
 
 
 WiFiClient espClient;
@@ -49,8 +52,10 @@ char subscribedTopic[] = "/UTT/register/readingsValidation";
 
 // miliseconds sampling rate for the area variables
 int samplingRateA = 60000;    
-// miliseconds sampling rate for fruit results
+// miliseconds sampling rate for fruit results 
+// and last fruit message - DELETE LATER BOTH
 int samplingRateF = 5000;    
+unsigned long lastMsgF = 0;
 
 void setup_wifi(){
   delay(10);
@@ -72,6 +77,9 @@ void setup_wifi(){
   Serial.println("WiFi connected");
   Serial.println("IP address: ");
   Serial.println(WiFi.localIP());
+
+  IPAddress ip = WiFi.localIP();
+  ipAddress = String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
 }
 
 // This function is pending
@@ -98,7 +106,6 @@ void reconnect(){
   // Loop until we're reconnected
   while(!client.connected()){
     Serial.print("Attempting MQTT connection...");
-    String clientId = "NMCU-0319124849";
     // Attempt to connect
     if(client.connect(clientId.c_str())){
       Serial.println("connected");  
@@ -110,6 +117,36 @@ void reconnect(){
       delay(2000);      // Wait 2 seconds before retrying  
     }  
   }
+}
+
+void sendProductionLine(){
+  // JSON message values
+  String JSON_msg;         
+  StaticJsonDocument<300> doc; 
+  doc["ID"] = clientId;
+  doc["IP"] = ipAddress; 
+
+  // Serialize values into JSON_msg
+  serializeJson(doc, JSON_msg);
+      
+  Serial.print(F("Publishing message: "));
+  Serial.println(JSON_msg);
+      
+  // MQTT Publish to topic
+  char JSON_msg_array[100];
+  char JSON_msg_length = JSON_msg.length();
+  JSON_msg.toCharArray(JSON_msg_array, 100);
+  Serial.println(JSON_msg_array);
+  if(client.connected()){
+    client.publish(publishProductionLine, JSON_msg_array);
+    Serial.print("Published to topic:");
+    Serial.println(publishProductionLine);
+    Serial.println();
+  } else {
+    Serial.print("Not connected to broker... couldn't send MQTT message...");  
+    Serial.println();
+  }
+  
 }
 
 void sendFruitResults(){
@@ -140,7 +177,7 @@ void sendFruitResults(){
     // JSON message values
       String JSON_msg;         
       StaticJsonDocument<300> values; 
-      values["n"] = "0319124849"; 
+      values["ID"] = clientId; 
       values["W"] = weight;
 
       // JSON object for the color inside "values"
@@ -183,7 +220,7 @@ void sendAreaVariables(){
     // JSON message values
     String JSON_msg;         
     StaticJsonDocument<300> values; 
-    values["n"] = "0319124849"; 
+    values["ID"] = clientId; 
     values["ToC"] = ToC;
     values["RH"] = RH;
 
@@ -234,6 +271,7 @@ void setup() {
   //client.setServer(mqtt_broker, 1883);                // Initializing connection with the broker
   client.setServer(mqtt_broker, 6000);                // Initializing connection with the broker
   client.setCallback(callback);                       // Callback based on the function with the same name
+  
 }
 
 void loop() {
@@ -258,16 +296,22 @@ void loop() {
   client.loop();
   unsigned long now = millis();
 
-  if((distance <= scale && distance > 0) && (now - lastMsg > samplingRateF)){
+  // The IP Address has to be sent once
+  if (ipSent == 0){
+    sendProductionLine();
+    ipSent++;  
+  }
+
+  if((distance <= scale && distance > 0) && (now - lastMsgF > samplingRateF)){
     Serial.println("\nFruit detected \nInitialize Readings...");
     sendFruitResults();
+    lastMsgF = millis();
   }
 
   now = millis();
   if(now - lastMsg > samplingRateA){
     sendAreaVariables();
+    lastMsg = millis();
   }
-
-  lastMsg = millis();
  
 }
