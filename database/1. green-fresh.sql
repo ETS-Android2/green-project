@@ -1,4 +1,4 @@
-## It's better to run this script first.
+## Its better to run this script first.
 ## This is the main body of the database,
 ## in  this section we can appreciate the 
 ## basic relations.
@@ -9,31 +9,31 @@ use greenProject;
 
 drop table if exists fruits;
 CREATE TABLE fruits (
-    fruitCode VARCHAR(3) PRIMARY KEY,
-    fruitName VARCHAR(15),
+    fruitCode CHAR(3) PRIMARY KEY,
+    fruitName VARCHAR(15) not null,
     description VARCHAR(250)
 );
 
 drop table if exists productionLines;
 CREATE TABLE productionLines (
     prCode CHAR(8) PRIMARY KEY,
-    ipAddress VARCHAR(15),
+    ipAddress VARCHAR(15) not null,
     description VARCHAR(200),
-    lastConnection DATETIME,
-    status VARCHAR(11),
+    lastConnection DATETIME default current_timestamp not null,
+    status VARCHAR(11) not null,
     CONSTRAINT Check_Status CHECK (status = 'Online' || status = 'Offline')
 );
 
 drop table if exists readings;
 CREATE TABLE readings (
     readNum INT PRIMARY KEY AUTO_INCREMENT,
-    date_time DATETIME,
-    weight DOUBLE,
-    R INT,
-    G INT,
-    B INT,
-    fk_productionLine CHAR(8),
-    fk_fruit VARCHAR(3),
+    date_time DATETIME default current_timestamp not null,
+    weight DOUBLE not null,
+    R INT not null,
+    G INT not null,
+    B INT not null,
+    fk_productionLine CHAR(8) not null,
+    fk_fruit VARCHAR(3) not null,
     CONSTRAINT FK_fruit FOREIGN KEY (fk_fruit)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_productionLine FOREIGN KEY (fk_productionLine)
@@ -43,13 +43,13 @@ CREATE TABLE readings (
         AND G BETWEEN 0 AND 255)
 );
 
-drop table if exists eviromentVariables;
-CREATE TABLE eviromentVariables (
+drop table if exists enviromentVariables;
+CREATE TABLE enviromentVariables (
     readNum INT PRIMARY KEY AUTO_INCREMENT,
-    date_time DATETIME,
-    temperature DOUBLE,
-    humidity INT,
-    fk_productionLine CHAR(8),
+    date_time DATETIME default current_timestamp not null,
+    temperature DOUBLE not null,
+    humidity INT not null,
+    fk_productionLine CHAR(8) not null,
     CONSTRAINT FK_productionLineEnviroment FOREIGN KEY (fk_productionLine)
         REFERENCES productionLines (prCode),
     CONSTRAINT CK_enviromentLimit CHECK (temperature > 0 AND humidity > 0)
@@ -66,8 +66,8 @@ CREATE TABLE eviromentVariables (
 drop table if exists fruit_requirements;
 CREATE TABLE fruit_requirements (
     fk_fruitCode VARCHAR(3) PRIMARY KEY,
-    fk_minimum_requirements INT,
-    fk_maximum_requirements INT,
+    fk_minimum_requirements INT not null,
+    fk_maximum_requirements INT not null,
     CONSTRAINT FK_fruit_requirement FOREIGN KEY (fk_fruitCode)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_minReading FOREIGN KEY (fk_minimum_requirements)
@@ -81,11 +81,11 @@ CREATE TABLE fruit_requirements (
 drop table if exists fruit_results;
 CREATE TABLE fruit_results (
     numResult INT PRIMARY KEY,
-    fk_fruit VARCHAR(3),
-    fk_productionLine CHAR(8),
-    day_date DATE,
-    acceptedFruits INT,
-    rejectedFruits INT,
+    fk_fruit VARCHAR(3) not null,
+    fk_productionLine CHAR(8) not null,
+    day_date DATE default (current_date) not null,
+    acceptedFruits INT not null,
+    rejectedFruits INT not null,
     CONSTRAINT FK_fruitResult FOREIGN KEY (fk_fruit)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_productionLine_results FOREIGN KEY (fk_productionLine)
@@ -93,4 +93,19 @@ CREATE TABLE fruit_results (
     CONSTRAINT CK_ CHECK (acceptedFruits > 0
         AND rejectedFruits > 0),
     CONSTRAINT UQ_date_unique_result UNIQUE (day_date , fk_productionLine)
+);
+
+## This table stores the realtion between the production line
+## and the fruit that is scanned.
+
+drop table if exists fruit_productionLine;
+create table fruit_productionLine (
+	fk_fruit VARCHAR(3),
+    fk_productionLine CHAR(8),
+    last_change datetime default current_timestamp not null,
+    CONSTRAINT primary key (fk_fruit, fk_productionLine),
+    CONSTRAINT FK_fruit_relation FOREIGN KEY (fk_fruit)
+        REFERENCES fruits (fruitCode),
+    CONSTRAINT FK_productionLine_relation FOREIGN KEY (fk_productionLine)
+        REFERENCES productionLines (prCode)
 );
