@@ -1,0 +1,49 @@
+@import url(../../../styles.css);
+
+header{
+  background: var(--gray_100);
+}
+
+h1 {
+  margin: 1rem 0 0 0;
+  color: var(--gray_800);
+}
+
+nav ul {
+  list-style:none;
+  padding:0;
+  display:flex;
+  justify-content:center;
+}
+
+nav li {
+  margin-left: 2em;
+  color: var(--gray_700);
+  cursor: pointer;
+}
+
+nav li:hover{
+  color: var(--green_500);
+}
+
+  /* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+  .container-flex { flex-direction: column; }
+  header { text-align: center; }
+  nav li { margin: 0 1rem 0 1rem; font-weight:500;}
+}
+/* smartphone */
+@media only screen and (max-width:480px) { 
+}
