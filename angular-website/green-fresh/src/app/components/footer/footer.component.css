@@ -1,0 +1,55 @@
+footer{
+    position: relative;
+    float: left;
+    background: var(--yellow_200);
+    width: 100%;
+    height: 180px;
+}
+
+.footer-div{
+    position: relative;
+    float: left;
+    width: 50%;
+    height: calc(100% - 20px);
+    margin: 10px 0px;
+}
+
+footer h1{
+    font-size: 18px;
+    color: var(--gray_800);
+}
+
+.footer-members-name{
+    font-size: 14px;
+    margin: 6px 0 0 0;
+    color: var(--gray_700);
+}
+
+.footer-credits{
+    font-size: 14px;
+    margin: 6px 0 0 0;
+    color: var(--gray_700);
+}
+
+/* --- RESPONSIVE --- */
+
+/* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+    .footer-div{ width: 100%; text-align: center;}   
+    footer{ height: 320px;}
+}
+/* smartphone */
+@media only screen and (max-width:480px) { 
+}
