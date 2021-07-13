@@ -1,1 +1,120 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    /*  Basic theme  */
+    --green_500: #77E03A;
+    --yellow_200: #E5EFAC;
+    --orange_200: #F88F55;
+    --red_600: #F8002F;
+    --white: #FFFFFF;
+
+    /*  gray theme  */
+    --gray_800: #252D34;    /* Strong title preferably */
+    --gray_700: #616161;    /* Typography preferably */
+    --gray_500: #9E9E9E;    /* Subtitle preferably */
+    --gray_400: #BDBDBD;    /* Icon preferably */
+    --gray_100: #F5F5F5;    /* Sections preferably */
+}
+
+* { 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    margin:0;
+    font-family:'Ubuntu',sans-serif;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height:1.4;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.container-flex{
+    display:flex;
+    justify-content:space-between;
+}
+
+/* Box Classes */
+.box {
+    position: relative;
+    float: left;
+    border: 1px solid #DDD;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-small{
+    width: calc(25% - 22px);
+}
+
+.box-normal{
+    width: calc(50% - 22px);
+}
+
+.box-large{
+    width: calc(75% - 22px);
+}
+
+.box-full{
+    width: calc(100% - 22px);
+}
+
+.box-short{
+    height: calc(160px - 22px);
+}
+
+.box-tall{
+    height: calc(320px - 22px);
+}
+
+.box-xtall{
+    height: calc(480px - 22px);
+}
+
+.box-xltall{
+    height: calc(640px - 22px);
+}
+
+/* Delete this later */
+.main-image{
+    background-image: url(../src/assets/img/backgroundFruits.jpg);
+    text-align: center;
+    display: flex;
+    position: relative;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+
+footer{
+    position: relative;
+    float: left;
+    background: var(--yellow_200);
+    width: 100%;
+    height: 180px;
+}
+
+.footer-left{
+    position: relative;
+    float: left;
+    width: 50%;
+    height: calc(100% - 20px);
+    margin: 10px 0px;
+}
+
+footer h1{
+    font-size: 18px;
+    color: var(--gray_800);
+}
+
+.footer-members-name{
+    font-size: 14px;
+    margin: 6px 0 0 0;
+    color: var(--gray_700);
+}
