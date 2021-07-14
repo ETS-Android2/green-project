@@ -81,6 +81,9 @@ class mysqlConnection:
                 'res' : 'Consult error: {}'.format(e),
             }
 
+    def closeConnection(self):
+        self.cursor.close()
+
             
             
 
