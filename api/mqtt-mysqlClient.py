@@ -39,11 +39,11 @@ def on_message(client, userdata, msg):
     conn = mysqlConnection()
 
     if intopic == topicInsertPL:
-        if 'ip' and 'ID' in json_data:
+        if 'IP' and 'ID' in json_data:
             
             conn.insert(
                 "call SP_insert_productionLine('%s', '%s', 'Not description by now', 'Online')" 
-                % (json_data['ID'],json_data['ip'])
+                % (json_data['ID'],json_data['IP'])
             )
 
         else: 
@@ -65,13 +65,13 @@ def on_message(client, userdata, msg):
             print(" ** LOG ERROR: The message received: ",json_data,". has not the required params. ")
 
     if intopic == topicInsertFR:
-        if 'Colors' and 'W' and 'ID' in json_data:
+        if 'Color' and 'W' and 'ID' in json_data:
             
-            if 'R' and 'G' and 'B' in json_data['Colors']:
+            if 'R' and 'G' and 'B' in json_data['Color']:
 
                 conn.insert(
                     "call SP_insert_fruitReading('%s', %d, %i, %i, %i);"
-                    % (json_data['ID'], json_data['W'], json_data['Colors']['R'], json_data['Colors']['G'], json_data['Colors']['B'])
+                    % (json_data['ID'], json_data['W'], json_data['Color']['R'], json_data['Color']['G'], json_data['Color']['B'])
                 )
                 
             else: 
