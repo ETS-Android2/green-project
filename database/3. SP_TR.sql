@@ -118,6 +118,7 @@ DELIMITER ;
 call SP_insert_eviromentVariable('Test', 22.2, 78);
 
 
+
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
 ## 3.- Insert a new fruit. 
@@ -206,4 +207,7 @@ begin
     (productionLIne, _weight, r, g, b);
 end //
 DELIMITER ;
+
+call SP_insert_fruitReading
+('Test',23.4,5,5,5);
 
