@@ -1,0 +1,51 @@
+@import url(../../../styles.css);
+
+
+
+.datetime-box, .enviroment-variable-box, .status-box {
+    width: 100%;
+    margin: auto;
+} 
+
+.datetime-box-date, .datetime-box-hour {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.datetime-box-hour {
+    color: var(--gray_800);
+    font-size: 20pt;
+
+    text-align: center;
+    border-bottom: 2px solid #DDD;
+}
+
+.datetime-box-date {
+    color: var(--gray_800);
+    font-size: 14pt;
+
+    text-align: center;
+} 
+
+
+.enviroment-variable-box-value {
+    color: var(--gray_800);
+    font-size: 22pt;
+
+    text-align: center;
+}
+
+.enviroment-variable-box-hint {
+    color: var(--gray_800);
+    font-size: 12pt;
+
+    text-align: center;
+}
+
+.status-box-value {
+    color: var(--gray_800);
+    font-size: 20pt;
+
+    text-align: center;
+}
+
