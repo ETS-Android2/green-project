@@ -100,6 +100,9 @@ drop view if exists VW_enviroment_variable;
 create view VW_enviroment_variable as
 select 
 	pl.prCode code,
+    pl.ipAddress IP,
+    pl.lastConnection lastConnection,
+	pl.status status,
     ev.temperature temperature,
     ev.humidity humidity,
     ev.date_time date
@@ -108,6 +111,7 @@ from
 	join productionLines pl on ev.fk_productionLine=pl.prCode
 where 
 	timestampdiff(minute, date_time, current_timestamp()) between 0 and 5;
+
 
 
 
