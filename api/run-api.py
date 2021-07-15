@@ -24,10 +24,36 @@ def actions():
   if 'action' in params:
     action = params['action']
     if action == 'get_readings':
-      return jsonify(connection.consult("select * from  VW_readings_last_hour;"))
-
+      data = connection.consult("select * from  VW_readings_last_hour;")
+      structureData = []
+      for row in data:
+        structureData.append(
+          {
+            'ip': row['IP'],
+            'code':row['code'],
+            'date': row['date'],
+            'fruit': row['fruit'],
+            'color': {
+               'R': row['R'],
+               'G': row['G'],
+               'B': row['B'],
+            },
+            'weight': {
+                'value': row['weight'],
+            },
+            'status':{
+              'value':row['status'],
+              'lastConnection': row['lastConnection'],
+            }
+          }
+        )
+      return jsonify(structureData)
+    
+   
     if action == 'get_fruits':
-      return jsonify(connection.consult("select * from VW_fruits;"))
+      return jsonify(connection.consult("select * from  VW_fruits;"))
+
+
 
     if action == 'get_fruits_result':
       return jsonify(connection.consult("select * from VW_fruits_result_today;"))
@@ -36,7 +62,25 @@ def actions():
       return jsonify(connection.consult("select * from VW_productionLines;"))
 
     if action == 'get_enviromentVariables':
-      return jsonify(connection.consult("select * from  VW_enviroment_variable;"))
+      data = connection.consult("select * from  VW_enviroment_variable;")
+      productionLineData = []
+      for row in data:
+        productionLineData.append(
+        {
+          'ip': row['IP'],
+          'code':row['code'],
+          'date':row['date'],
+          'values':{
+              'temperature': row['temperature'],
+              'humidity': row['humidity'],
+           },
+           'status':{
+             'status': row['status'], 
+             'lastConnection': row['lastConnection']
+           }
+        }
+      )
+      return jsonify(productionLineData)
 
     if action == 'set_fruit':
       if 'fruit' and 'productionLine' in params:

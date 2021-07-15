@@ -3,6 +3,7 @@ package utt.student.greenfresh.classes;
 import android.graphics.drawable.Drawable;
 
 public class Sensor {
+
     //attributes
     private String name;
     private Drawable icon;
@@ -32,5 +33,4 @@ public class Sensor {
     }
 
 
-    
 }
