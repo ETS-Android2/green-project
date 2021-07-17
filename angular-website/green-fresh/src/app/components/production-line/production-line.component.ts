@@ -5,6 +5,8 @@ import '@fortawesome/free-solid-svg-icons';
 // Importing the highcharts stuff
 import * as Highcharts from 'highcharts'
 import { EnvironmentReadings } from 'src/app/interfaces/environment-readings';
+import { Fruit } from 'src/app/interfaces/fruit';
+import { FruitReadings } from 'src/app/interfaces/fruit-readings';
 
 // Declaring the requiriments for the Highcharts library
 
@@ -30,6 +32,8 @@ noData(Highcharts)
 
 export class ProductionLineComponent implements OnInit {
   // attributes
+  public fruits: Fruit[] = [];
+  public fruitReadings: FruitReadings[] = [];
   public productionLines: EnvironmentReadings[] = [];
   public options : any ={
     chart: {
@@ -63,17 +67,39 @@ export class ProductionLineComponent implements OnInit {
   constructor(public apiService: ApiService) { }
 
   ngOnInit(){
-    this.getValues();
+    this.getFruits();
+    this.getFruitReading();
+    this.getEnvironmentReadings();
     Highcharts.chart('chart-test', this.options)
   }
 
-  getValues(): void{
-    this.apiService.getEnvironmentReadings().subscribe(
+  getFruits(): void{
+    this.apiService.getFruits().subscribe(
       data => {
-        this.productionLines = data;
-        console.log(this.productionLines);
+        this.fruits = data;
       }, error => { console.log(error); }
     );
   }
+
+  getFruitReading(): void{
+    this.apiService.getFruitReadings().subscribe(
+      data => {
+        this.fruitReadings = data;
+      }, error => { console.log(error); }
+    );
+  }
+
+  getEnvironmentReadings(): void{
+    this.apiService.getEnvironmentReadings().subscribe(
+      data => {
+        this.productionLines = data;
+        // delete this later, is an example
+        console.log(this.productionLines);
+        console.log(this.productionLines[0].status.value);
+      }, error => { console.log(error); }
+    );
+  }
+
+  
 
 }

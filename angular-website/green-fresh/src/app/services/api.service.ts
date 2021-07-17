@@ -12,7 +12,8 @@ import { FruitReadings } from '../interfaces/fruit-readings';
 
 export class ApiService {
   // attributes
-  baseURL = "http://189.223.79.36:7000/api?action=";
+  // baseURL = "http://189.223.79.36:7000/api?action=";
+  baseURL = "http://127.0.0.1:5000//api?action=";
 
   // constructor
   constructor(private http: HttpClient) { 
