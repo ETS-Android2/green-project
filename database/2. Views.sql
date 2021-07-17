@@ -10,7 +10,7 @@ drop view if exists VW_productionLines;
 create view VW_productionLines as
 select 
 	pl.prCode as code,
-    pl.ipAddress as IP,
+    pl.ipAddress as ip,
     pl.description as description,
     pl.lastConnection as lastConnection,
     pl.status as status
@@ -22,7 +22,8 @@ create view VW_fruits as
 select 
 	f.fruitName name,
     f.fruitCode code, 
-    f.description description
+    f.description description,
+    f.urlImage as url
 from 
 	fruits f;
 
@@ -50,12 +51,13 @@ create view VW_readings_last_hour as
 select
 	f.fruitName fruit,
     r.date_time date,
+    pl.description as description,
     r.weight as weight,
 	r.R as R,
     r.G as G,
     r.B as B,
     pl.prCode as code,
-    pl.ipAddress as IP,
+    pl.ipAddress as ip,
     pl.lastConnection as lastConnection,
     pl.status as status
 from 
@@ -79,9 +81,10 @@ select
 	fr.acceptedFruits as accepted, 
     fr.rejectedFruits as rejected,
     pl.prCode as code,
-    pl.ipAddress as IP,
+    pl.ipAddress as ip,
     pl.lastConnection as lastConnection,
-    pl.status as status
+    pl.status as status,
+    pl.description as description
     
 from 
 	fruit_results fr 
@@ -100,9 +103,10 @@ drop view if exists VW_enviroment_variable;
 create view VW_enviroment_variable as
 select 
 	pl.prCode code,
-    pl.ipAddress IP,
+    pl.ipAddress ip,
     pl.lastConnection lastConnection,
 	pl.status status,
+    pl.description,
     ev.temperature temperature,
     ev.humidity humidity,
     ev.date_time date
