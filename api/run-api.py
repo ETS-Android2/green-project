@@ -17,7 +17,6 @@ def home():
   return "This will be an HTML with the api's body..."
 
 
-
 @app.route('/api', methods=['GET'])
 def actions():
   params = request.args
@@ -27,61 +26,51 @@ def actions():
     action = params['action']
     if action == 'get_readings':
       data = connection.consult("select * from  VW_readings_last_hour;")
-      structureData = []
+      fruitReadingData = []
       for row in data:
-        structureData.append(
-          {
-            'ip': row['IP'],
-            'code':row['code'],
-            'date': row['date'],
-            'fruit': row['fruit'],
-            'color': {
-               'R': row['R'],
-               'G': row['G'],
-               'B': row['B'],
-            },
-            'weight': {
-                'value': row['weight'],
-            },
-            'status':{
-              'value':row['status'],
-              'lastConnection': row['lastConnection'],
-            }
-          }
-        )
-      return jsonify(structureData)
-    
-   
+        fr = ProductionLineStructure(row)
+        fr['reading'] = {
+        'date':row['date'],
+        'fruit': row['fruit'],
+        'weight': {
+          'value': row['weight'],
+          },
+        'color': {
+          'R': row['R'],
+          'G': row['G'],
+          'B': row['B'],
+         }
+        }
+        fruitReadingData.append(fr)
+      return jsonify(fruitReadingData)
+
     if action == 'get_fruits':
-      return jsonify(connection.consult("select * from  VW_fruits;"))
-
-
+      data = connection.consult("select * from VW_fruits;")
+      fruits = []
+      for row in data:
+        fruits.append(FruitStructure(row))
+      return jsonify(fruits)
 
     if action == 'get_fruits_result':
       return jsonify(connection.consult("select * from VW_fruits_result_today;"))
 
     if action == 'get_productionLines':
-      return jsonify(connection.consult("select * from VW_productionLines;"))
+      data = connection.consult("select * from VW_productionLines;")
+      productionLines = []
+      for row in data :
+        productionLines.append(ProductionLineStructure(row))
+      return jsonify(productionLines)
 
     if action == 'get_enviromentVariables':
       data = connection.consult("select * from  VW_enviroment_variable;")
       productionLineData = []
       for row in data:
-        productionLineData.append(
-        {
-          'ip': row['IP'],
-          'code':row['code'],
-          'date':row['date'],
-          'values':{
-              'temperature': row['temperature'],
-              'humidity': row['humidity'],
-           },
-           'status':{
-             'status': row['status'], 
-             'lastConnection': row['lastConnection']
-           }
+        pl = ProductionLineStructure(row)
+        pl['values'] = {
+        'temperature': row['temperature'],
+        'humidity': row['humidity']
         }
-      )
+        productionLineData.append(pl)
       return jsonify(productionLineData)
 
     if action == 'set_fruit':
@@ -118,8 +107,6 @@ def testImage():
       filename = 'imagenes\\pingu.svg'
       return send_file(filename)
 
-
-
 @app.route('/saveImage', methods=['POST'])
 def saveImage():
   if request.method == "POST":
@@ -131,6 +118,29 @@ def saveImage():
          except FileNotFoundError:
            return 'Error, no hay imagen'
   return "Everything right"
+
+
+#Function to get the ProductionLine Structure
+def ProductionLineStructure(row):
+  return {
+    'code':row['code'],
+    'ip': row['ip'],
+    'description':row['description'],
+      'status':{
+        'lastConnection': row['lastConnection'],
+        'value': row['status'], 
+     }}
+
+#Function to get the Fruit 
+def FruitStructure(row):
+  return {
+     'code':row['code'],
+     'name':row['name'], 
+     'description': row['description']
+  }
+
+
+
 
 def responseJsonHandler(res, status = False): 
   return {'res' : res, 'status': status}
