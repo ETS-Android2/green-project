@@ -11,7 +11,8 @@ drop table if exists fruits;
 CREATE TABLE fruits (
     fruitCode CHAR(3) PRIMARY KEY,
     fruitName VARCHAR(15) not null,
-    description VARCHAR(250)
+    description VARCHAR(250),
+    urlImage varchar(250)
 );
 
 drop table if exists productionLines;
