@@ -1,15 +1,13 @@
-export interface Environment {
-
+export interface EnvironmentReadings {
     code: string;
-    date: string;
     ip: string;
+    description: string;
     status: {
         lastConnection: string;
-        status: string;
+        value: string;
     }
     values: {
+        temperarure: number;
         humidity: number;
-        temperature: number;
     }
-
 }

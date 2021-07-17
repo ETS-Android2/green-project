@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     /*  Basic theme  */
-    --green_500: #77E03A;
+    --green_500: #b4caa6;
     --yellow_200: #E5EFAC;
     --orange_200: #F88F55;
     --red_600: #F8002F;
@@ -90,4 +90,33 @@ body{
     background-size: 100%;
     background-repeat: no-repeat;
     vertical-align: middle;
+}
+
+/* --- RESPONSIVE --- */
+
+/* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+    .container { width: 100%; }
+    .container-padding { width: 90%; margin: 0 auto;}
+    .box-large { width: calc(100% - 22px); }
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+    .box-normal { width: calc(100% - 22px); }
+    .box-small { width: calc(50% - 22px); }
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+  .container-flex { flex-direction: column; }
+  header { text-align: center; }
+  nav li { margin: 0 1rem 0 1rem; font-weight:500; font-size: 16px;}
+}
+/* smartphone */
+@media only screen and (max-width:480px) { 
 }
