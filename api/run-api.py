@@ -1,7 +1,9 @@
 from flask import Flask, json, render_template, request, jsonify
 from flask_cors import CORS
-
+from flask import send_file
 from sys import path
+from werkzeug.utils import secure_filename
+import os
 path.append("./mysql")
 from mysql_connection import mysqlConnection
 
@@ -110,7 +112,25 @@ def actions():
   else :
     return jsonify(responseJsonHandler("The required param 'action' was not specified"))
 
-  
+#prueba de imagen
+@app.route("/testImage", methods=['GET'])
+def testImage():
+      filename = 'imagenes\\pingu.svg'
+      return send_file(filename)
+
+
+
+@app.route('/saveImage', methods=['POST'])
+def saveImage():
+  if request.method == "POST":
+     files = request.files.getlist('files')
+     for file in files:
+         try:
+           filename = secure_filename(file.filename)
+           file.save(os.getcwd() + "/imagenes/" + filename)
+         except FileNotFoundError:
+           return 'Error, no hay imagen'
+  return "Everything right"
 
 def responseJsonHandler(res, status = False): 
   return {'res' : res, 'status': status}
