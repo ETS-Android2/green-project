@@ -3,7 +3,6 @@ import datetime
 from json.decoder import JSONDecodeError
 import time
 import paho.mqtt.client as mqtt
-
 from sys import path
 
 path.append("./mysql")
