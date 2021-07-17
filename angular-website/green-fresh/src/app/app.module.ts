@@ -6,18 +6,21 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ProductionLineComponent } from './components/production-line/production-line.component';
+import { HomeComponent } from './components/home/home.component';
 import { FontAwesomeModule , FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 // We are extracting the solid icons and the regular icons
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductionLineComponent
+    ProductionLineComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
