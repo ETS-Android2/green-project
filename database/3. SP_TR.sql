@@ -128,18 +128,19 @@ DELIMITER //
 create procedure SP_insert_fruit (
 	in code varchar (3),
     in name varchar (15),
-    in _description varchar (200)
+    in _description varchar (200),
+    in urlImage varchar(250)
 )
 begin 
 	insert into fruits 
-    (fruitCode, fruitName, description)
+    (fruitCode, fruitName, description, urlImage)
     values 
-    (code, name, _description);
+    (code, name, _description, urlImage);
 end //
 DELIMITER ;
 
-call SP_insert_fruit('BAN', 'Banana', 'es una banana');
-call SP_insert_fruit('APP', 'Apple', 'es una manzana');
+call SP_insert_fruit('BAN', 'Banana', 'es una banana','banana.jpg');
+call SP_insert_fruit('APP', 'Apple', 'es una manzana','manzana.jpg');
 
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
