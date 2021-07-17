@@ -4,7 +4,7 @@ import '@fortawesome/free-solid-svg-icons';
 
 // Importing the highcharts stuff
 import * as Highcharts from 'highcharts'
-import { Environment } from 'src/app/interfaces/environment';
+import { EnvironmentReadings } from 'src/app/interfaces/environment-readings';
 
 // Declaring the requiriments for the Highcharts library
 
@@ -30,6 +30,7 @@ noData(Highcharts)
 
 export class ProductionLineComponent implements OnInit {
   // attributes
+  public productionLines: EnvironmentReadings[] = [];
   public options : any ={
     chart: {
         renderTo: 'container',
@@ -61,28 +62,18 @@ export class ProductionLineComponent implements OnInit {
 
   constructor(public apiService: ApiService) { }
 
-  ngOnInit(): void {
-    this.apiService.getFruitsReadings().subscribe(data =>{
-      var arrayEnviroment = new Array;
-      for(var x = 0; x < data.length; x++){
-        var environment : Environment = {
-          code: data[x].code,
-          date: data[x].date,
-          ip: data[x].ip,
-          status: {
-              lastConnection: data[x].status.lastConnection,
-              status: data[x].status.status
-          },
-          values: {
-              humidity: data[x].values.humidity,
-              temperature: data[x].values.temperature
-          }
-        }
-        arrayEnviroment.push(environment);
-      }
-      console.log(arrayEnviroment);
-    });
+  ngOnInit(){
+    this.getValues();
     Highcharts.chart('chart-test', this.options)
+  }
+
+  getValues(): void{
+    this.apiService.getEnvironmentReadings().subscribe(
+      data => {
+        this.productionLines = data;
+        console.log(this.productionLines);
+      }, error => { console.log(error); }
+    );
   }
 
 }
