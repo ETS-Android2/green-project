@@ -1,0 +1,42 @@
+@import url(../../../styles.css);
+
+.fruit-box-insert {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+
+}
+
+.fruit-box-insert h1 {
+    font-size: 22pt;
+}
+
+.fruit-box-insert button {
+    float: right;
+
+    width: 120px;
+    height: 35px;
+    margin:20px ;
+    background-color: var(--green_500);
+    border-radius: 30px ;
+    border: 1px var(--gray_400) solid;
+    font-size: 10pt;
+    color: var(--white);
+    font-weight: bold;
+    
+}
+
+.input-box {
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+    grid-row-gap: 10px;
+}
+
+.input-box label {
+    color: var(--gray_700);
+    font-weight: bold;    
+}
+
+.input-box input {
+    outline-color:  var(--gray_400);
+}

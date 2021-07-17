@@ -1,0 +1,65 @@
+
+
+<div class="container">
+    
+    <div class="box box-normal box-tall ">
+        <form [formGroup]="uploadForm" class="fruit-box-insert" (ngSubmit)="submit()">
+        
+            <h1>  Insert a Fruit </h1>
+    
+            <div class="input-box">
+    
+                <label for="new-code"> Code: </label>
+                <input formControlName="code" id="new-code"  #fruitCode/>
+        
+                
+        
+                <label for="new-fruit"> Name: </label>
+                <input formControlName="name" id="new-fruit" #fruitName/>
+                
+                
+        
+                <label for="new-description"> Description: </label>
+                <input formControlName="description" id="new-description" #fruitDescription/>
+                
+                
+        
+                <label for="new-image"> Image: </label>
+                <input id="new-image" type='file' accept="image/*" (change)="showPreview($event)" #fruitImage/>
+                   
+                <!-- <label for="the-image"> * </label>
+        
+                <div class="image-preview" *ngIf="imageURL !== ''" id = "the-image">
+                    <img [src]="imageURL" [alt]="uploadForm.value.name">
+                </div> -->
+            </div>
+           
+    
+            <button type="submit">Submit</button>
+    
+        </form>
+    </div>
+
+    
+
+    <div class="box box-normal box-tall">
+        <form  class="fruit-box-insert" >
+        
+            <h1>  Insert a Fruit </h1>
+    
+            <div class="input-box">
+    
+                <label for="new-code"> Code: </label>
+                <input  id="new-code"  #fruitCode/>
+                
+                
+                
+            </div>
+           
+    
+            <button type="submit">Submit</button>
+    
+        </form>
+    </div>
+
+</div>

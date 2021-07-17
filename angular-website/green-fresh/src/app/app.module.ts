@@ -9,11 +9,13 @@ import { ProductionLineComponent } from './components/production-line/production
 import { HomeComponent } from './components/home/home.component';
 import { FontAwesomeModule , FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { ApiService } from './services/api.service';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 // We are extracting the solid icons and the regular icons
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 
 @NgModule({
@@ -22,13 +24,16 @@ import { far } from '@fortawesome/free-regular-svg-icons';
     HeaderComponent,
     FooterComponent,
     ProductionLineComponent,
-    HomeComponent
+    HomeComponent,
+    DashboardComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]
