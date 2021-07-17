@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule} from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -8,6 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductionLineComponent } from './components/production-line/production-line.component';
 import { HomeComponent } from './components/home/home.component';
 import { FontAwesomeModule , FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { ApiService } from './services/api.service';
+
 
 // We are extracting the solid icons and the regular icons
 import { fas } from '@fortawesome/free-solid-svg-icons';
@@ -25,9 +27,10 @@ import { far } from '@fortawesome/free-regular-svg-icons';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 
