@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     /*  Basic theme  */
-    --green_500: #b4caa6;
+    --green_500: #77E03A;
     --yellow_200: #E5EFAC;
     --orange_200: #F88F55;
     --red_600: #F8002F;
@@ -118,5 +118,5 @@ body{
   nav li { margin: 0 1rem 0 1rem; font-weight:500; font-size: 16px;}
 }
 /* smartphone */
-@media only screen and (max-width:480px) { 
+@media only screen and (max-width:480px) {
 }

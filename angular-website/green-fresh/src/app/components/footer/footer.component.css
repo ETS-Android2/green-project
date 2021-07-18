@@ -1,4 +1,5 @@
 footer{
+    margin-top: 30px;
     position: relative;
     float: left;
     background: var(--yellow_200);
