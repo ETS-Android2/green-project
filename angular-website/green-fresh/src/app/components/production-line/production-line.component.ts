@@ -99,7 +99,4 @@ export class ProductionLineComponent implements OnInit {
       }, error => { console.log(error); }
     );
   }
-
-  
-
 }

@@ -1,5 +1,21 @@
 <div class="container">
+    <div class="box box-full list-title"><p>Fruit's List</p></div>
+    <div *ngFor="let fruit of fruits">
+        <div class="box box-short box-small fruit-container">
+            <img src="../../../assets/img/manzana.png" class="fruit-container-fruit"/>
+            <section class="fruit-container-data">
+                <h3>{{ fruit.name }}</h3>
+                <p><strong>Description: </strong>{{ fruit.description }}</p>
+                <p>
+                    <strong>R:</strong> 190
+                    <strong>G:</strong> 190
+                    <strong>B:</strong> 190 
+                </p>
+            </section>
+        </div>
+    </div>
 
+    <div class="box box-full list-title"><p>Production Line</p></div>
     <div class="box box-small box-short">
         <div class="datetime-box">
             <div class="datetime-box-hour">
@@ -63,14 +79,11 @@
 
         
     </div>
-</div>
 
-<div class="container">
     <div id='chart-test' class="box box-large box-tall">
-        
     </div>
 
-    <div class="box box-small box-tall">
+    <div class="box box-small box-tall production-line-container">
 
         <div>
             <div class="info-box">
@@ -97,23 +110,9 @@
                 <div class="status-box-icon">
                     
                 </div>
-
-                
-
             </div>
 
         </div>
     </div>
-    
-</div>
 
-<div class="container">
-    <div class="box box-normal box-tall">
-        chart-3?
-    </div>
-
-    <div class="box box-normal box-tall">
-        chart-4?
-    </div>
-    
 </div>
