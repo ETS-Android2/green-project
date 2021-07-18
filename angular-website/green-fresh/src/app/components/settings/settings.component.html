@@ -10,28 +10,26 @@
             <div class="input-box">
     
                 <label for="new-code"> Code: </label>
-                <input formControlName="code" id="new-code"  #fruitCode/>
+                <input formControlName="code" id="new-code" type="text" minlength="3" maxlength="3" #fruitCode/>
         
-                
         
                 <label for="new-fruit"> Name: </label>
-                <input formControlName="name" id="new-fruit" #fruitName/>
+                <input formControlName="name" id="new-fruit" type="text" minlength="3" maxlength="15" #fruitName/>
                 
                 
         
                 <label for="new-description"> Description: </label>
-                <input formControlName="description" id="new-description" #fruitDescription/>
+                <input formControlName="description" id="new-description" type="text" minlength="3" maxlength="250" #fruitDescription/>
                 
                 
         
                 <label for="new-image"> Image: </label>
                 <input id="new-image" type='file' accept="image/*" (change)="showPreview($event)" #fruitImage/>
                    
-                <!-- <label for="the-image"> * </label>
-        
-                <div class="image-preview" *ngIf="imageURL !== ''" id = "the-image">
-                    <img [src]="imageURL" [alt]="uploadForm.value.name">
-                </div> -->
+                <!-- <label for="the-image"> * </label> -->
+                
+                <img [src]="imageURL" [alt]="uploadForm.value.name"/>
+                
             </div>
            
     
