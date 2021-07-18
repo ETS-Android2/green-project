@@ -12,8 +12,8 @@ import { FruitReadings } from '../interfaces/fruit-readings';
 
 export class ApiService {
   // attributes
-  // baseURL = "http://189.223.79.36:7000/api?action=";
-  baseURL = "http://127.0.0.1:5000//api?action=";
+  baseURL = "http://189.223.79.36:7000/";
+  // baseURL = "http://127.0.0.1:5000//";
 
   // constructor
   constructor(private http: HttpClient) { 
@@ -22,22 +22,25 @@ export class ApiService {
   // ------------- Methods -------------
   // get data
   getFruits(): Observable<Fruit[]>{
-    return this.http.get<Fruit[]>(this.baseURL + 'get_fruits');
+    return this.http.get<Fruit[]>(this.baseURL + 'api?action=get_fruits');
   }
 
   getProductionLine(): Observable<ProductionLine[]>{
-    return this.http.get<ProductionLine[]>(this.baseURL + 'get_productionLines');
+    return this.http.get<ProductionLine[]>(this.baseURL + 'api?action=get_productionLines');
   }
 
   getFruitReadings(): Observable<FruitReadings[]>{
-    return this.http.get<FruitReadings[]>(this.baseURL + 'get_readings');
+    return this.http.get<FruitReadings[]>(this.baseURL + 'api?action=get_readings');
   }
 
   getEnvironmentReadings(): Observable<EnvironmentReadings[]>{
-    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'get_enviromentVariables');
+    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'api?action=get_enviromentVariables');
   }
 
   // set data
+  setFruit(fruit: Fruit){
+    return this.http.post(this.baseURL + 'insertFruit', fruit);
+  }
 
   // update data
 

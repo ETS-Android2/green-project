@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Fruit } from 'src/app/interfaces/fruit';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,7 +12,7 @@ export class SettingsComponent implements OnInit {
 
   uploadForm : FormGroup;
   imageURL : string;
-  constructor(  private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, private api: ApiService) { 
 
     this.imageURL = "";
 
@@ -56,7 +58,18 @@ export class SettingsComponent implements OnInit {
   }
 
   submit() : void {
-    console.log(this.uploadForm.value)
+    var fruit: Fruit = {
+      code: this.uploadForm.value.code,
+      name: this.uploadForm.value.name,
+      description: this.uploadForm.value.description,
+      image: this.uploadForm.value.image
+    }
+    this.api.setFruit(fruit).subscribe(
+      fruit => {
+        console.log(fruit);
+      }
+    );
+    console.log(fruit);
   }
 
 }

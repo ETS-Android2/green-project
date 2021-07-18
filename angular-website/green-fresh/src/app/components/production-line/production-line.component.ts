@@ -64,7 +64,7 @@ export class ProductionLineComponent implements OnInit {
     }]
   };
 
-  constructor(public apiService: ApiService) { }
+  constructor(public api: ApiService) { }
 
   ngOnInit(){
     this.getFruits();
@@ -74,7 +74,7 @@ export class ProductionLineComponent implements OnInit {
   }
 
   getFruits(): void{
-    this.apiService.getFruits().subscribe(
+    this.api.getFruits().subscribe(
       data => {
         this.fruits = data;
       }, error => { console.log(error); }
@@ -82,7 +82,7 @@ export class ProductionLineComponent implements OnInit {
   }
 
   getFruitReading(): void{
-    this.apiService.getFruitReadings().subscribe(
+    this.api.getFruitReadings().subscribe(
       data => {
         this.fruitReadings = data;
       }, error => { console.log(error); }
@@ -90,7 +90,7 @@ export class ProductionLineComponent implements OnInit {
   }
 
   getEnvironmentReadings(): void{
-    this.apiService.getEnvironmentReadings().subscribe(
+    this.api.getEnvironmentReadings().subscribe(
       data => {
         this.productionLines = data;
         // delete this later, is an example
