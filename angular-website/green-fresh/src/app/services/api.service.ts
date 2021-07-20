@@ -12,8 +12,8 @@ import { FruitReadings } from '../interfaces/fruit-readings';
 
 export class ApiService {
   // attributes
-  baseURL = "http://189.223.79.36:7000/";
-  // baseURL = "http://127.0.0.1:5000//";
+  // baseURL = "http://189.223.79.36:7000/";
+  baseURL = "http://127.0.0.1:5000/";
 
   // constructor
   constructor(private http: HttpClient) { 
@@ -38,7 +38,7 @@ export class ApiService {
   }
 
   // set data
-  setFruit(fruit: Fruit){
+  setFruit(fruit: FormData){
     return this.http.post(this.baseURL + 'insertFruit', fruit);
   }
 

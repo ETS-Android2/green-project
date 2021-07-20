@@ -129,28 +129,31 @@ def actions():
 @app.route("/insertFruit", methods=['POST'])
 def insertFruit():
 
-  params = request.json
+  params = request.form
 
   conn = mysqlConnection()
 
-  
-
   if request.method == 'POST':
     
-    if 'name' and 'code' and 'description' and 'image' in params :
+    if 'name' and 'code' and 'description' in params and 'image' in request.files:
       
-      file = params['image']
+      # file = params['image']
+      # print(file)
+      files = request.files.getlist('image')
 
-      try:
+      filename = "noImage.png"
 
-        filename = secure_filename(file.filename)
-        file.save(os.getcwd() + "/img/" + filename)
+      for file in files:
 
-      except FileNotFoundError as e:
+        try:
 
-        print(" ** LOG ERROR: No Image was presented: ", e)
+          filename = secure_filename(file.filename)
+          file.save(os.getcwd() + "/img/" + filename)
 
-   
+        except FileNotFoundError as e:
+
+          print(" ** LOG ERROR: No Image was presented: ", e)
+
           
       conn.insert("call SP_insert_fruit('%s', '%s', '%s','%s');" 
       % ( params['code'],params['name'], params['description'], filename))
