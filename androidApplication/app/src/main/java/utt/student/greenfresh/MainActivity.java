@@ -5,120 +5,185 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
-import java.util.Date;
+import androidx.appcompat.app.AppCompatActivity;
 
-import utt.student.greenfresh.classes.InspectionResult;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import utt.student.greenfresh.classes.AreaReadings;
+import utt.student.greenfresh.classes.Fruit;
+import utt.student.greenfresh.classes.FruitReadings;
 import utt.student.greenfresh.classes.ProductionLine;
-import utt.student.greenfresh.classes.Sensor;
 import utt.student.greenfresh.classes.Status;
 
 public class MainActivity extends AppCompatActivity {
+    // variables
+    private RequestQueue queue;
+    private static String baseURL = "http://189.223.79.36:7000/";
+    // array List
+    private ArrayList<Fruit> fruits = new ArrayList<>();
+    private ArrayList<FruitReadings> fruitReadings = new ArrayList<>();
+    private ArrayList<ProductionLine> productionLines = new ArrayList<>();
+    private ArrayList<AreaReadings> areaReadings = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        // Status Objects
+        // request queue
+        queue = Volley.newRequestQueue(this);
+        getFruit();
+        getFruitReadings();
+        getProductionLines();
+        getAreaReadings();
 
-        Status online = new Status("Online", getResources().getDrawable(R.drawable.online));
-        Status offline = new Status("Offline", getResources().getDrawable(R.drawable.offline));
+    }
 
-        // ArrayList InspectionResults
+    private void getFruit(){
+        // request URL
+        String url = baseURL + "api?action=get_fruits";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject fruit = response.getJSONObject(i);
+                    // adding a fruit to the array list
+                    fruits.add(new Fruit(
+                            fruit.getString("code"),
+                            fruit.getString("name"),
+                            fruit.getString("description")
+                    ));
+                    // Log.d("Request", fruit.getString("description"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
 
-        ArrayList<InspectionResult> inspectionResults = new ArrayList<InspectionResult>();
+    }
 
-        InspectionResult appleResults = new InspectionResult(
-            1, "Apple", getResources().getDrawable(R.drawable.apple), 13, 15
-        );
+    private void getFruitReadings(){
+        // request URL
+        String url = baseURL + "api?action=get_readings";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // get reading object from data
+                    JSONObject reading = data.getJSONObject("reading");
+                    // get color object from reading
+                    JSONObject color = reading.getJSONObject("color");
+                    // get weight object from reading
+                    JSONObject weight = reading.getJSONObject("weight");
+                    // adding a fruit to the array list
+                    fruitReadings.add(new FruitReadings(
+                            new ProductionLine( data.getString("code"),
+                                                data.getString("ip"),
+                                                data.getString("description"),
+                                                new Status( status.getString("lastConnection"),
+                                                            status.getString("value"))),
+                            reading.getString("date"),
+                            new Fruit(reading.getString("fruit")),
+                            weight.getDouble("value"),
+                            color.getInt("R"),
+                            color.getInt("G"),
+                            color.getInt("B")
+                    ));
+                    // Log.d("Date", reading.getString("date"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
+    }
 
-        InspectionResult bananaResults = new InspectionResult(
-            2, "Banana", getResources().getDrawable(R.drawable.bananas), 7, 21
-        );
+    private void getProductionLines(){
+        // request URL
+        String url = baseURL + "api?action=get_productionLines";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // adding a production line to the array list
+                    productionLines.add(new ProductionLine(
+                            data.getString("code"),
+                            data.getString("ip"),
+                            data.getString("description"),
+                            new Status( status.getString("lastConnection"),
+                                        status.getString("value"))
+                    ));
+                    Log.d("Request", data.getString("code"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
+    }
 
-        InspectionResult orangeResults = new InspectionResult(
-            3, "Orange", getResources().getDrawable(R.drawable.orange), 3, 11
-        );
-
-        inspectionResults.add(appleResults);
-        inspectionResults.add(bananaResults);
-        inspectionResults.add(orangeResults);
-
-
-        // ArrayList Sensors
-
-        ArrayList<Sensor> sensors = new ArrayList<Sensor>();
-
-        Sensor humidity = new Sensor(
-            "Humidity", getResources().getDrawable(R.drawable.humidity), "33%"
-        );
-
-        Sensor temperature = new Sensor(
-            "Temperature", getResources().getDrawable(R.drawable.temperature), "27°C"
-        );
-
-        sensors.add(humidity);
-        sensors.add(temperature);
-
-        // ArrayList ProductionLine
-        ArrayList<ProductionLine> productionLines = new ArrayList<ProductionLine>();
-
-        productionLines.add(
-            new ProductionLine(
-                "1",
-                "Production Line #1",
-                "192.168.1.5",
-                new Date(),
-                sensors,
-                inspectionResults,
-                online
-            )
-        );
-
-        productionLines.add(
-            new ProductionLine(
-                "2",
-                "Production Line #2",
-                "192.168.1.3",
-                new Date(),
-                sensors,
-                inspectionResults,
-                offline
-            )
-        );
-
-        productionLines.add(
-            new ProductionLine(
-                    "3",
-                    "Production Line #3",
-                    "192.168.1.7",
-                    new Date(),
-                    sensors,
-                    inspectionResults,
-                    online
-            )
-        );
-
-        // ExpandableListAdapters
-
-        ExpandableListView elvLineProductions = (ExpandableListView)findViewById(R.id.elvLineProductions);
-
-
-        ProductionLine_InspectionResultAdapter adapter = new ProductionLine_InspectionResultAdapter(
-                this, productionLines
-        );
-
-        /*ProductionLine_SensorAdapter adapter = new ProductionLine_SensorAdapter(
-            this, productionLines
-        );
-
-        */
-
-        /*elvLineProductions.setAdapter(adapter);*/
-
-
+    private void getAreaReadings(){
+        // request URL
+        String url = baseURL + "api?action=get_enviromentVariables";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // get values object from data
+                    JSONObject values = data.getJSONObject("values");
+                    // adding area readings to the array list
+                    areaReadings.add(new AreaReadings(
+                            new ProductionLine( data.getString("code"),
+                                                data.getString("ip"),
+                                                data.getString("description"),
+                                                new Status( status.getString("lastConnection"),
+                                                            status.getString("value"))),
+                            values.getDouble("temperature"),
+                            values.getInt("humidity")
+                    ));
+                    Log.d("Temperature", values.getString("temperature"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
     }
 
 }

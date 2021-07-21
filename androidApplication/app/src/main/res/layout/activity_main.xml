@@ -8,11 +8,13 @@
     android:paddingBottom="20dp"
     tools:context=".MainActivity">
 
+    <!--
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/elvLineProductions"
         android:divider="@color/gray_100"
         android:groupIndicator="@color/gray_100" />
+        -->
 
 </RelativeLayout>
