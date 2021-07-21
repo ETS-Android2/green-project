@@ -1,0 +1,13 @@
+
+2021-07-20 21:41:25,937 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
+2021-07-20 21:41:25,956 werkzeug - INFO -  * Restarting with stat
+2021-07-20 21:41:26,240 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
+2021-07-20 21:41:26,248 werkzeug - WARNING -  * Debugger is active!
+2021-07-20 21:41:26,253 werkzeug - INFO -  * Debugger PIN: 278-615-854
+2021-07-20 21:41:27,137 werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-07-20 21:43:06,276 werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\green-project\\api\\mysql\\mysql_connection.py', reloading
+2021-07-20 21:43:06,297 werkzeug - INFO -  * Restarting with stat
+2021-07-20 21:43:06,591 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
+2021-07-20 21:43:06,600 werkzeug - WARNING -  * Debugger is active!
+2021-07-20 21:43:06,610 werkzeug - INFO -  * Debugger PIN: 278-615-854
+2021-07-20 21:43:07,482 werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)

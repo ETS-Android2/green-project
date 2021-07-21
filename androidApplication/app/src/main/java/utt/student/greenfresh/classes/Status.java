@@ -6,24 +6,25 @@ import java.util.ArrayList;
 
 public class Status {
     //attributes
-    private String name;
-    private Drawable icon;
+    private String lastConnection;
+    private String value;
+
 
     //getters and setters
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public Drawable getIcon() { return icon; }
-    public void setIcon(Drawable icon) { this.icon = icon; }
+    public String getLastConnection() {return lastConnection; }
+    public void setLastConnection(String lastConnection) { this.lastConnection = lastConnection; }
+    public String getValue() { return value; }
+    public void setValue(String value) { this.value = value; }
 
-    //constructors
 
+    //constructor
     public Status() {
-        this.name = "";
-        this.icon = null;
+        this.lastConnection = "";
+        this.value = "";
     }
 
-    public Status(String name, Drawable icon) {
-        this.name = name;
-        this.icon = icon;
+    public Status(String lastConnection, String value) {
+        this.lastConnection = lastConnection;
+        this.value = value;
     }
 }
