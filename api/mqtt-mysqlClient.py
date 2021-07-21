@@ -4,6 +4,8 @@ from json.decoder import JSONDecodeError
 import time
 import paho.mqtt.client as mqtt
 from sys import path
+import logging
+
 
 path.append("./mysql")
 from mysql_connection import mysqlConnection
@@ -50,6 +52,7 @@ def on_message(client, userdata, msg):
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
+
             print(" ** LOG ERROR: The message received: ",json_data,". has not the required params. ")
 
     if intopic == topicInsertEV:
