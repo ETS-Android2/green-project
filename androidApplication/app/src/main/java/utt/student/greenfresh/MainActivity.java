@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*
         // Status Objects
 
         Status online = new Status("Online", getResources().getDrawable(R.drawable.online));
@@ -111,9 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
         /*ProductionLine_SensorAdapter adapter = new ProductionLine_SensorAdapter(
             this, productionLines
-        ); */
+        );
 
-        elvLineProductions.setAdapter(adapter);
+        */
+
+        /*elvLineProductions.setAdapter(adapter);*/
+
 
     }
 

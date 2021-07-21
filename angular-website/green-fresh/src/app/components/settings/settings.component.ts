@@ -58,18 +58,26 @@ export class SettingsComponent implements OnInit {
   }
 
   submit() : void {
+
+    var data : FormData = new FormData();
+
     var fruit: Fruit = {
       code: this.uploadForm.value.code,
       name: this.uploadForm.value.name,
       description: this.uploadForm.value.description,
       image: this.uploadForm.value.image
     }
-    this.api.setFruit(fruit).subscribe(
-      fruit => {
-        console.log(fruit);
+
+    Object.entries(this.uploadForm.value).forEach(([key, value] : any[]) => {
+      data.set(key,value)
+    });
+
+    this.api.setFruit(data).subscribe(
+      res => {
+        console.log(res);
       }
     );
-    console.log(fruit);
+
   }
 
 }

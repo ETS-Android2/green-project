@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask import send_file
 from sys import path
 from werkzeug.utils import secure_filename
+import base64
+
 import os
 path.append("./mysql")
 from mysql_connection import mysqlConnection
@@ -131,12 +133,15 @@ def insertFruit():
 
   conn = mysqlConnection()
 
-
   if request.method == 'POST':
-
+    
     if 'name' and 'code' and 'description' in params and 'image' in request.files:
       
+      # file = params['image']
+      # print(file)
       files = request.files.getlist('image')
+
+      filename = "noImage.png"
 
       for file in files:
 
@@ -148,6 +153,7 @@ def insertFruit():
         except FileNotFoundError as e:
 
           print(" ** LOG ERROR: No Image was presented: ", e)
+
           
       conn.insert("call SP_insert_fruit('%s', '%s', '%s','%s');" 
       % ( params['code'],params['name'], params['description'], filename))
@@ -164,7 +170,7 @@ def insertFruit():
 #prueba de imagen
 @app.route("/testImage", methods=['GET'])
 def testImage():
-      filename = 'imagenes\\pingu.svg'
+      filename = 'img/asciifull.gif'
       return send_file(filename)
 
 @app.route('/saveImage', methods=['POST'])
@@ -177,8 +183,9 @@ def saveImage():
 
       try:
 
+
         filename = secure_filename(file.filename)
-        file.save(os.getcwd() + "/imagenes/" + filename)
+        file.save(os.getcwd() + "/img/" + filename)
 
       except FileNotFoundError:
 
