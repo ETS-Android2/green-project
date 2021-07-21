@@ -15,7 +15,7 @@ import utt.student.greenfresh.classes.InspectionResult;
 import utt.student.greenfresh.classes.ProductionLine;
 import utt.student.greenfresh.classes.Sensor;
 
-
+/*
 public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAdapter {
 
     private Context context;
@@ -69,11 +69,13 @@ public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAd
 
         SimpleDateFormat fs = new SimpleDateFormat("E 'at' hh:mm a");
 
+
         tvProductionLineName.setText(pl.getName());
         tvIpAddress.setText(pl.getIpAddress());
         tvLastUpdate.setText(fs.format(pl.getLastConnection()));
         tvStatus.setText(pl.getStatus().getName());
         ivStatusIcon.setImageDrawable(pl.getStatus().getIcon());
+
 
         return v;
     }
@@ -91,12 +93,15 @@ public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAd
         TextView tvAccepted = (TextView)v.findViewById(R.id.tvAcceptedFruitsValue);
         TextView tvName = (TextView)v.findViewById(R.id.tvFruitName);
 
+
         InspectionResult ir = this.productionLines.get(groupPosition).getInspectionResults().get(childPosition);
 
         ivIcon.setImageDrawable(ir.getImage());
         tvAccepted.setText(String.valueOf(ir.getAcceptedResults()));
         tvRejected.setText(String.valueOf(ir.getRejectedResults()));
         tvName.setText(ir.getName());
+
+
 
         return v;
     }
@@ -106,3 +111,5 @@ public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAd
         return false;
     }
 }
+
+ */
