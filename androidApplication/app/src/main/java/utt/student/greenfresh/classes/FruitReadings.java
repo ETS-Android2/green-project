@@ -5,7 +5,7 @@ public class FruitReadings {
     private ProductionLine productionLine;
     private String date;
     private Fruit fruit;
-    private Float weight;
+    private double weight;
     private int r;
     private int g;
     private int b;
@@ -17,8 +17,8 @@ public class FruitReadings {
     public void setDate(String date) { this.date = date; }
     public Fruit getFruit() { return fruit; }
     public void setFruit(Fruit fruit) { this.fruit = fruit; }
-    public Float getWeight() { return weight; }
-    public void setWeight(Float weight) { this.weight = weight; }
+    public double getWeight() { return weight; }
+    public void setWeight(double weight) { this.weight = weight; }
     public int getR() { return r; }
     public void setR(int r) { this.r = r; }
     public int getG() { return g; }
@@ -27,7 +27,7 @@ public class FruitReadings {
     public void setB(int b) { this.b = b; }
 
     // constructors
-    public FruitReadings(ProductionLine productionLine, String date, Fruit fruit, Float weight, int r, int g, int b) {
+    public FruitReadings(ProductionLine productionLine, String date, Fruit fruit, double weight, int r, int g, int b) {
         this.productionLine = productionLine;
         this.date = date;
         this.fruit = fruit;

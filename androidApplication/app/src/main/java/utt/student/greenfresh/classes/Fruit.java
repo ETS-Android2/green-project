@@ -1,4 +1,4 @@
-package utt.student.greenfresh;
+package utt.student.greenfresh.classes;
 
 public class Fruit {
     //attributes
@@ -26,6 +26,19 @@ public class Fruit {
         this.image = "";
     }
 
+    public Fruit(String name) {
+        this.code = "";
+        this.name = name;
+        this.description = "";
+        this.image = "";
+    }
+
+    public Fruit(String code, String name, String description) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.image = "";
+    }
 
     public Fruit(String code, String name, String description, String image) {
         this.code = code;
