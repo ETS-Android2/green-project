@@ -3,6 +3,8 @@
 from json.decoder import JSONDecodeError
 import pymysql
 import json
+import logging
+from logs.errorLogs import ErrorLogs
 
 # from sys import path
 
@@ -41,7 +43,7 @@ class mysqlConnection:
                     self.db = db                    
                     print(" ** Connected to MySQl... ")
                 except pymysql.Error as e:
-                    print(" ** LOG ERROR: The MySQL connection has failed: ", e)
+                    ErrorLogs()
 
                 self.cursor = db.cursor()
 

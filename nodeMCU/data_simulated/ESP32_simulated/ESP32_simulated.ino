@@ -13,13 +13,13 @@ DHT dht(DHTPIN, DHTTYPE);         // Initialize DHT
 
 // --------------------------------
 // Network credentials
-const char *ssid = "INFINITUM67F2_2.4";
-const char *password = "Ma2F3YqgAb"; 
-String clientId = "";
+const char *ssid = "ARRIS-00F2";
+const char *password = "Guarneros0512"; 
+String clientId = "ESP3212";
 // --------------------------------
 
-// const char *mqtt_broker = "189.223.79.36";
-const char *mqtt_broker = "broker.hivemq.com";   // For testing
+ const char *mqtt_broker = "189.223.79.36";
+//const char *mqtt_broker = "broker.hivemq.com";   // For testing
 String ipAddress;
 int ipSent = 0;
 
@@ -217,8 +217,8 @@ void setup() {
   Serial.begin(74880);                                // Initializing on 748800
   dht.begin();                                        // Initialize dht
   setup_wifi();                                       // Connecting to the network
-  client.setServer(mqtt_broker, 1883);                // Initializing connection with the broker
-  // client.setServer(mqtt_broker, 6000);                // Initializing connection with the broker
+  //client.setServer(mqtt_broker, 1883);                // Initializing connection with the broker
+   client.setServer(mqtt_broker, 6000);                // Initializing connection with the broker
   client.setCallback(callback);                       // Callback based on the function with the same name
   
 }
