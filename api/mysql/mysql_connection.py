@@ -44,20 +44,21 @@ class mysqlConnection:
                     self.db = db                    
                     print(" ** Connected to MySQl... ")
                 except pymysql.Error as e:
-                    ErrorLogs()
+                    ErrorLogs(" ** LOG ERROR: The credentials are wrong: " + str(e))
 
                 self.cursor = db.cursor()
 
             else:
-                raise Exception("The parameters required were not presented. [user, password]")
-            
+                raise Exception ("The parameters required were not presented. [user, password]")
+
+
 
         except JSONDecodeError as e:
-            print(" ** LOG ERROR: The credentials.json file is wrong: ", e)
+            ErrorLogs(" ** LOG ERROR: The credentials in the file are wrong: " + str(e))
         except FileNotFoundError as e:
-            print(" ** LOG ERROR: The credentials.json was not found: ", e)
+            ErrorLogs(" ** LOG ERROR: The credentials was not found: " + str(e))
         except Exception as e:
-            print(" ** LOG ERROR: Weird exception: ", e)
+            ErrorLogs(" ** LOG ERROR: Weird exception: " + str(e))
 
         return self.cursor
 
@@ -69,7 +70,7 @@ class mysqlConnection:
             self.db.commit()
 
         except pymysql.Error as e:
-            print(" ** LOG ERROR: The MySQL INSERTION has failed: ", e)
+            ErrorLogs(" ** LOG ERROR: The MySQL INSERTION has failed: " + str(e))
     
 
     def consult(self, SQL_string):

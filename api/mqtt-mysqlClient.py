@@ -5,7 +5,7 @@ import time
 import paho.mqtt.client as mqtt
 from sys import path
 import logging
-
+from logs.errorLogs import ErrorLogs
 
 path.append("./mysql")
 from mysql_connection import mysqlConnection
@@ -53,7 +53,7 @@ def on_message(client, userdata, msg):
             ## We should try to make callback function in
             ## case we recived the wrong params. 
 
-            print(" ** LOG ERROR: The message received: ",json_data,". has not the required params. ")
+            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
 
     if intopic == topicInsertEV:
         if 'ToC' and 'RH' and 'ID' in json_data:
@@ -66,7 +66,7 @@ def on_message(client, userdata, msg):
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            print(" ** LOG ERROR: The message received: ",json_data,". has not the required params. ")
+            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
 
     if intopic == topicInsertFR:
         if 'Color' and 'W' and 'ID' in json_data:
@@ -79,12 +79,12 @@ def on_message(client, userdata, msg):
                 )
                 
             else: 
-                print(" ** LOG ERROR: The message received: ",json_data['Colors'],". has not the required params. ")    
+                ErrorLogs(" ** LOG ERROR: The message received: ",json_data['Colors'],". has not the required params: " + str(e))    
 
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            print(" ** LOG ERROR: The message received: ",json_data,". has not the required params. ")
+            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
 
     conn.closeConnection()
 
@@ -99,7 +99,7 @@ client.on_message = on_message
 try: 
     client.connect(broker, port)
 except Exception as e:
-    print(" ** LOG ERROR: The MQTT connection has failed: ", e)
+    ErrorLogs(" ** LOG ERROR: The MQTT connection has failed: " + str(e))
 
 
 client.subscribe(topicInsertEV)
@@ -111,7 +111,7 @@ def parseJSON(json_msg):
     try :
         return json.loads(json_msg)
     except JSONDecodeError as e:
-        print(" ** LOG ERROR: The message received was not a JSON obsejct: ", e)
+        ErrorLogs(" ** LOG ERROR: The message received was not a JSON obsejct: " + str(e))
 
 # def publishMessages(): 
 #     client.publish(pub_topic, mystr)
