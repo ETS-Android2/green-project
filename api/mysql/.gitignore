@@ -1,1 +1,3 @@
 *.json
+mysql_credentials.json
+__pychache__/
