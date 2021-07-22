@@ -1,13 +1,10 @@
 
-2021-07-20 21:41:25,937 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
-2021-07-20 21:41:25,956 werkzeug - INFO -  * Restarting with stat
-2021-07-20 21:41:26,240 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
-2021-07-20 21:41:26,248 werkzeug - WARNING -  * Debugger is active!
-2021-07-20 21:41:26,253 werkzeug - INFO -  * Debugger PIN: 278-615-854
-2021-07-20 21:41:27,137 werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
-2021-07-20 21:43:06,276 werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\green-project\\api\\mysql\\mysql_connection.py', reloading
-2021-07-20 21:43:06,297 werkzeug - INFO -  * Restarting with stat
-2021-07-20 21:43:06,591 root - ERROR - ** LOG ERROR: The MySQL connection has failed:
-2021-07-20 21:43:06,600 werkzeug - WARNING -  * Debugger is active!
-2021-07-20 21:43:06,610 werkzeug - INFO -  * Debugger PIN: 278-615-854
-2021-07-20 21:43:07,482 werkzeug - INFO -  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+2021-07-21 14:00:19,250 root - ERROR -  ** LOG ERROR: The credentials are wrong: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+2021-07-21 14:00:19,267 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:19] "[35m[1mGET /api?action=get_fruits HTTP/1.1[0m" 500 -
+2021-07-21 14:00:19,762 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:19] "[37mGET /api?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2021-07-21 14:00:19,996 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:19] "[37mGET /api?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2021-07-21 14:00:20,050 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:20] "[37mGET /api?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2021-07-21 14:00:20,388 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:20] "[37mGET /api?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2021-07-21 14:00:20,388 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:20] "[37mGET /api?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2021-07-21 14:00:20,653 werkzeug - INFO - 127.0.0.1 - - [21/Jul/2021 14:00:20] "[37mGET /api?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2021-07-21 14:01:40,747 werkzeug - INFO -  * Detected change in 'C:\\Users\\user\\green-project\\api\\mysql\\mysql_connection.py', reloading
