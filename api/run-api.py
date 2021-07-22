@@ -18,7 +18,7 @@ CORS(app)
 
 @app.route('/')
 def home():
-  return "This will be an HTML with the api's body..."
+  return render_template('index.html')
 
 
 @app.route('/api', methods=['GET'])
