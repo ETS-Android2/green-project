@@ -139,8 +139,8 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_fruit('BAN', 'Banana', 'es una banana','banana.jpg');
-call SP_insert_fruit('APP', 'Apple', 'es una manzana','manzana.jpg');
+call SP_insert_fruit('BAN', 'Banana', 'es una banana','banana.jpeg');
+call SP_insert_fruit('APP', 'Apple', 'es una manzana','manzana.jpeg');
 
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_

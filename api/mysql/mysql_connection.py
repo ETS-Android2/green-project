@@ -4,6 +4,7 @@ from json.decoder import JSONDecodeError
 import pymysql
 import json
 import logging
+import cryptography
 from logs.errorLogs import ErrorLogs
 
 # from sys import path

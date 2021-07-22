@@ -16,6 +16,7 @@ import utt.student.greenfresh.classes.ProductionLine;
 import utt.student.greenfresh.classes.Sensor;
 
 /*
+
 public class ProductionLine_InspectionResultAdapter extends BaseExpandableListAdapter {
 
     private Context context;

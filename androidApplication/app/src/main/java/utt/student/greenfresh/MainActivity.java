@@ -3,21 +3,19 @@ package utt.student.greenfresh;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ExpandableListView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.android.volley.toolbox.Volley;
 
-import android.os.Bundle;
+
 import android.util.Log;
 import android.widget.ListView;
 
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +30,7 @@ import utt.student.greenfresh.classes.Status;
 public class MainActivity extends AppCompatActivity {
     // variables
     private RequestQueue queue;
-    private static String baseURL = "http://189.223.79.36:7000/";
+    private static String baseURL = "http://192.168.1.65:5000/";
     // array List
     private ArrayList<Fruit> fruits = new ArrayList<>();
     private ArrayList<FruitReadings> fruitReadings = new ArrayList<>();
@@ -51,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         getProductionLines();
         getAreaReadings();
 
+        ListView lvList = (ListView)findViewById(R.id.lvList);
+
+        FruitListAdapter adapter = new FruitListAdapter(this.fruits, this);
+
+        lvList.setAdapter(adapter);
+
     }
 
     private void getFruit(){
@@ -66,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     fruits.add(new Fruit(
                             fruit.getString("code"),
                             fruit.getString("name"),
-                            fruit.getString("description")
+                            fruit.getString("description"),
+                            baseURL+"image/" + fruit.getString("image")
                     ));
                     // Log.d("Request", fruit.getString("description"));
                 }
