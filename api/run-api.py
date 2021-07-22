@@ -4,7 +4,9 @@ from flask import send_file
 from sys import path
 from werkzeug.utils import secure_filename
 import base64
-
+import io
+from base64 import encodebytes
+from PIL import Image
 import os
 path.append("./mysql")
 from mysql_connection import mysqlConnection
@@ -137,8 +139,6 @@ def insertFruit():
     
     if 'name' and 'code' and 'description' in params and 'image' in request.files:
       
-      # file = params['image']
-      # print(file)
       files = request.files.getlist('image')
 
       filename = "noImage.png"
@@ -167,31 +167,17 @@ def insertFruit():
     return jsonify(responseJsonHandler("The presented method request was wrong. "))
 
 
-#prueba de imagen
-@app.route("/testImage", methods=['GET'])
-def testImage():
-      filename = 'img/asciifull.gif'
-      return send_file(filename)
+@app.route("/image/<string:image>",)
+def getImage(image):
+  filename = 'img/'+image
 
-@app.route('/saveImage', methods=['POST'])
-def saveImage():
-
-  if request.method == "POST":
-    files = request.files.getlist('files')
-
-    for file in files:
-
-      try:
-
-
-        filename = secure_filename(file.filename)
-        file.save(os.getcwd() + "/img/" + filename)
-
-      except FileNotFoundError:
-
-        return 'Error, no hay imagen'
-
-  return "Everything right"
+  if os.path.isfile(filename) :
+    return send_file(filename)
+  else :
+    return "No image was found"
+  
+  
+  
 
 
 #Function to get the ProductionLine Structure
@@ -209,11 +195,17 @@ def ProductionLineStructure(row):
 
 #Function to get the Fruit structure 
 def FruitStructure(row):
+
+  filename = False
+
+  if os.path.isfile('img/'+row['url']) :
+    filename = row['url']
+  
   return {
     'code': row['code'],
     'name': row['name'], 
     'description': row['description'],
-    'url' : row['url']
+    'image' : filename
   }
 
 

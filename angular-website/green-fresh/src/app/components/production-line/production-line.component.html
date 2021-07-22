@@ -2,7 +2,18 @@
     <div class="box box-full list-title"><p>Fruit's List</p></div>
     <div *ngFor="let fruit of fruits">
         <div class="box box-short box-small fruit-container">
-            <img src="../../../assets/img/manzana.png" class="fruit-container-fruit"/>
+
+
+            <div *ngIf="fruit.image != false; else elseBlock">
+                <img  [src]="fruit.image" class="fruit-container-fruit"/>
+            </div>
+            
+            <ng-template #elseBlock >
+                <img src="../../../assets/img/manzana.png" class="fruit-container-fruit"/>
+            </ng-template>
+            
+            
+
             <section class="fruit-container-data">
                 <h3>{{ fruit.name }}</h3>
                 <p><strong>Description: </strong>{{ fruit.description }}</p>

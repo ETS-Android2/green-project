@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import '@fortawesome/free-solid-svg-icons';
+import { DomSanitizer } from '@angular/platform-browser';
 
 // Importing the highcharts stuff
 import * as Highcharts from 'highcharts'
@@ -31,10 +32,12 @@ noData(Highcharts)
 })
 
 export class ProductionLineComponent implements OnInit {
+
   // attributes
   public fruits: Fruit[] = [];
   public fruitReadings: FruitReadings[] = [];
   public productionLines: EnvironmentReadings[] = [];
+
   public options : any ={
     chart: {
         renderTo: 'container',
@@ -64,7 +67,7 @@ export class ProductionLineComponent implements OnInit {
     }]
   };
 
-  constructor(public api: ApiService) { }
+  constructor(public api: ApiService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(){
     this.getFruits();
@@ -76,8 +79,13 @@ export class ProductionLineComponent implements OnInit {
   getFruits(): void{
     this.api.getFruits().subscribe(
       data => {
-        this.fruits = data;
-      }, error => { console.log(error); }
+        
+        this.fruits = data.map((fruit: Fruit) => {
+          fruit.image = (fruit.image != false) ? this.api.baseURL+ "image/" + fruit.image : (fruit.image)
+
+          return fruit
+        })
+      }
     );
   }
 
