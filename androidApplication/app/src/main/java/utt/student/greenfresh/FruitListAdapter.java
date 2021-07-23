@@ -8,18 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.anychart.anychart.AnyChart;
-import com.anychart.anychart.AnyChartView;
-import com.anychart.anychart.DataEntry;
-import com.anychart.anychart.Pie;
-import com.anychart.anychart.ValueDataEntry;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 import utt.student.greenfresh.classes.Fruit;
 
+/*
 public class FruitListAdapter extends BaseAdapter {
 
 
@@ -91,3 +84,6 @@ public class FruitListAdapter extends BaseAdapter {
 
     }
 }
+
+
+ */

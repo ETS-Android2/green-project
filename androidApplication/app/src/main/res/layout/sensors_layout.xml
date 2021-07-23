@@ -5,6 +5,7 @@
     android:layout_height="105dp"
     android:background="@color/gray_100">
 
+    <!--
     <RelativeLayout
         style="@style/sensors_layout"
         android:id="@+id/rlProductionLines"
@@ -27,5 +28,6 @@
             android:text="72.3" />
 
     </RelativeLayout>
+    -->
 
 </RelativeLayout>
