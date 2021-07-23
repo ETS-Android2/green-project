@@ -46,12 +46,10 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         getAreaReadings();
 
-
-        /*
         ListView lvList = (ListView)findViewById(R.id.lvList);
-        FruitListAdapter adapter = new FruitListAdapter(this.fruits, this);
+        AreaReadingsAdapter adapter = new AreaReadingsAdapter(this.areaReadings, this);
         lvList.setAdapter(adapter);
-        */
+
 
     }
 

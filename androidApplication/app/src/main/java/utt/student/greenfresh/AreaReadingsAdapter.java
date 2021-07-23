@@ -10,12 +10,14 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.anychart.anychart.AnyChartView;
+
 import java.util.ArrayList;
 
 import utt.student.greenfresh.classes.AreaReadings;
 import utt.student.greenfresh.classes.ProductionLine;
 
-public class ProductionLineAdapter extends BaseAdapter {
+public class AreaReadingsAdapter extends BaseAdapter {
 
 
     // attributes
@@ -24,7 +26,7 @@ public class ProductionLineAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
     // constructor
-    public ProductionLineAdapter(ArrayList<AreaReadings> areaReadings, Activity activity) {
+    public AreaReadingsAdapter(ArrayList<AreaReadings> areaReadings, Activity activity) {
         this.areaReadings = areaReadings;
         this.activity = activity;
         this.inflater = (LayoutInflater)this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,17 +54,29 @@ public class ProductionLineAdapter extends BaseAdapter {
         View v = convertView;
 
         // inflater stuff
-        if (v == null) inflater.inflate(R.layout.production_line_panel, null);
+        if (v == null) inflater.inflate(R.layout.production_line_panel_layout, null);
 
         // binding the element views
 
+        TextView tvName = (TextView)v.findViewById(R.id.tvProductionLine);
         TextView tvIp = (TextView)v.findViewById(R.id.tvIpAddress);
-        TextView tvDate = (TextView)v.findViewById(R.id.tvLastUpdate);
+        TextView tvLastUpdate = (TextView)v.findViewById(R.id.tvLastUpdate);
         TextView tvStatus = (TextView)v.findViewById(R.id.tvStatus);
 
         ImageView ivStatus = (ImageView)v.findViewById(R.id.ivStatusIcon);
+        AnyChartView chTemperature ;
 
-        // 
+        AreaReadings ar = this.areaReadings.get(position);
+
+        tvName.setText(ar.getProductionLine().getDescription());
+        tvIp.setText(ar.getProductionLine().getIp());
+        tvLastUpdate.setText(ar.getProductionLine().getStatus().getLastConnection());
+        tvStatus.setText(ar.getProductionLine().getStatus().getValue());
+
+
+
+        if (ar.getProductionLine().getStatus().getValue() != "Online") ivStatus.getResources().getDrawable(R.drawable.offline);
+
 
         return v;
     }

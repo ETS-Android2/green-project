@@ -68,6 +68,18 @@
         android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <com.anychart.anychart.AnyChartView
+            android:id="@+id/chTemperature"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     </RelativeLayout>
 
     <RelativeLayout
