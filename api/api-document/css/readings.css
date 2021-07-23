@@ -1,0 +1,28 @@
+:root {
+    /*  Basic theme  */
+    --green_500: #77E03A;
+    --yellow_200: #E5EFAC;
+    --orange_200: #F88F55;
+    --red_600: #F8002F;
+    --white: #FFFFFF;
+
+    /*  gray theme  */
+    --gray_800: #252D34;    /* Strong title preferably */
+    --gray_700: #616161;    /* Typography preferably */
+    --gray_500: #9E9E9E;    /* Subtitle preferably */
+    --gray_400: #BDBDBD;    /* Icon preferably */
+    --gray_100: #F5F5F5;    /* Sections preferably */
+}
+
+* { 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.doc h1{
+    font-size: 30pt;
+    padding-left:20px ;
+    color: var(--red_600);
+}
+.doc{
+    text-align: center;
+}
