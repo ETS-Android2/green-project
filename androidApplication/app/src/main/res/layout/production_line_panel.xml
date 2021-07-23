@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        style="@style/rlProductionLine"
+        android:id="@+id/rlProductionLineStatus"
+        android:background="@drawable/rect_white_shadow"
+        android:elevation="5dp">
+
+        <ImageView
+            style="@style/ivProductionLinePanelIcons"
+            android:id="@+id/ivIpAddressIcon"
+            android:src="@drawable/ip_address" />
+
+        <TextView
+            style="@style/tvProductionLinePanelText"
+            android:id="@+id/tvIpAddress"
+            android:layout_toRightOf="@id/ivIpAddressIcon"
+            android:text="192.168.1.2" />
+
+        <ImageView
+            style="@style/ivProductionLinePanelIcons"
+            android:id="@+id/ivLastUpdateIcon"
+            android:layout_below="@id/ivIpAddressIcon"
+            android:src="@drawable/last_update" />
+
+        <TextView
+            style="@style/tvProductionLinePanelText"
+            android:id="@+id/tvLastUpdate"
+            android:layout_below="@id/tvIpAddress"
+            android:layout_toRightOf="@id/ivLastUpdateIcon"
+            android:text="07-07-2021 10:14" />
+
+        <ImageView
+            style="@style/ivProductionLinePanelIcons"
+            android:id="@+id/ivStatusIcon"
+            android:layout_below="@id/ivLastUpdateIcon"
+            android:src="@drawable/online" />
+
+        <TextView
+            style="@style/tvProductionLinePanelText"
+            android:id="@+id/tvStatus"
+            android:layout_below="@id/tvLastUpdate"
+            android:layout_toRightOf="@id/ivStatusIcon"
+            android:text="Online" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlTemperature"
+        android:layout_below="@+id/rlProductionLineStatus"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlHumidity"
+        android:layout_below="@+id/rlTemperature"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </RelativeLayout>
+
+</RelativeLayout>

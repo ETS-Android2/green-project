@@ -1,105 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="production_line_layout">
+    <style name="ivProdLineIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_margin">12dp</item>
+    </style>
+
+    <style name="tvProductionLineTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="rlProductionLine">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">150dp</item>
-        <item name="android:elevation">10dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_height">106dp</item>
+        <item name="android:paddingTop">12dp</item>
         <item name="android:layout_marginTop">20dp</item>
-        <item name="android:padding">15dp</item>
-    </style>
-
-    <style name="production_line_icon">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
-    </style>
-
-    <style name="production_line_title">
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">32dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:textColor">@color/green_700</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
-    </style>
-
-    <style name="production_line_fields_icons">
-        <item name="android:layout_width">24dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-    </style>
-
-    <style name="production_line_fields">
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginLeft">14dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:textColor">@color/gray_500</item>
-        <item name="android:textSize">15dp</item>
-    </style>
-
-    <style name="sensors_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:elevation">10dp</item>
-        <item name="android:layout_margin">20dp</item>
-        <item name="android:padding">15dp</item>
-    </style>
-
-    <style name="sensor_value">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginRight">4dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_alignParentRight">true</item>
-        <item name="android:textAlignment">textEnd</item>
-        <item name="android:textColor">@color/gray_500</item>
-        <item name="android:textSize">15dp</item>
-    </style>
-
-    <style name="inspection_results_layout">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">88dp</item>
-        <item name="android:elevation">10dp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginRight">20dp</item>
-        <item name="android:layout_marginBottom">2px</item>
-        <item name="android:padding">15dp</item>
     </style>
 
-    <style name="fruit_icons">
+    <style name="ivProductionLinePanelIcons">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
     </style>
 
-    <style name="fruit_title">
-        <item name="android:layout_width">200dp</item>
+    <style name="tvProductionLinePanelText">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:textColor">@color/gray_500</item>
-        <item name="android:textSize">15dp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">12dp</item>
+        <item name="android:layout_marginRight">12dp</item>
     </style>
-
-    <style name="fruit_inspection_left">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textColor">@color/gray_500</item>
-        <item name="android:textSize">15dp</item>
-    </style>
-
-    <style name="fruit_inspection_right">
-        <item name="android:layout_width">80dp</item>
-        <item name="android:layout_height">24dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:textColor">@color/gray_500</item>
-        <item name="android:textSize">15dp</item>
-    </style>
-
 </resources>
