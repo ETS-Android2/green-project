@@ -28,52 +28,23 @@ public class ProductionLineAdapter extends BaseExpandableListAdapter {
 
     // methods
     @Override
-    public int getGroupCount() {
-        return 0;
-    }
-
+    public int getGroupCount() { return this.productionLines.size(); }
     @Override
-    public int getChildrenCount(int groupPosition) {
-        return 0;
-    }
-
+    public int getChildrenCount(int groupPosition) { return 0; }
     @Override
-    public Object getGroup(int groupPosition) {
-        return null;
-    }
-
+    public Object getGroup(int groupPosition) { return null; }
     @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return null;
-    }
-
+    public Object getChild(int groupPosition, int childPosition) { return null; }
     @Override
-    public long getGroupId(int groupPosition) {
-        return 0;
-    }
-
+    public long getGroupId(int groupPosition) { return 0; }
     @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        return 0;
-    }
-
+    public long getChildId(int groupPosition, int childPosition) { return 0; }
     @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
+    public boolean hasStableIds() { return false; }
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        return null;
-    }
-
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) { return null; }
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        return null;
-    }
-
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) { return null; }
     @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return false;
-    }
+    public boolean isChildSelectable(int groupPosition, int childPosition) { return false; }
 }
