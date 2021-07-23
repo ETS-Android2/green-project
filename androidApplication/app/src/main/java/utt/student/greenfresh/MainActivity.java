@@ -30,7 +30,7 @@ import utt.student.greenfresh.classes.Status;
 public class MainActivity extends AppCompatActivity {
     // variables
     private RequestQueue queue;
-    private static String baseURL = "http://192.168.1.65:5000/";
+    private static String baseURL = "http://189.223.79.36:7000/";
     // array List
     private ArrayList<Fruit> fruits = new ArrayList<>();
     private ArrayList<FruitReadings> fruitReadings = new ArrayList<>();
@@ -44,16 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
         // request queue
         queue = Volley.newRequestQueue(this);
-        getFruit();
-        getFruitReadings();
-        getProductionLines();
         getAreaReadings();
 
+
+        /*
         ListView lvList = (ListView)findViewById(R.id.lvList);
-
         FruitListAdapter adapter = new FruitListAdapter(this.fruits, this);
-
         lvList.setAdapter(adapter);
+        */
 
     }
 

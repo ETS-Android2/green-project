@@ -1,65 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_100">
+    android:layout_height="48dp">
 
-    <RelativeLayout
-        style="@style/production_line_layout"
-        android:id="@+id/rlProductionLines"
-        android:background="@drawable/rect_white_shadow">
+    <ImageView
+        style="@style/ivProdLineIcon"
+        android:id="@+id/ivProdLineIcon"
+        android:src="@drawable/production_line" />
 
-        <ImageView
-            style="@style/production_line_icon"
-            android:id="@+id/ivProdLineIcon"
-            android:src="@drawable/production_line" />
-
-        <TextView
-            style="@style/production_line_title"
-            android:id="@+id/tvProductionLine"
-            android:layout_toRightOf="@id/ivProdLineIcon"
-            android:text="Production Line 1" />
-
-        <ImageView
-            style="@style/production_line_fields_icons"
-            android:id="@+id/ivIpAddressIcon"
-            android:layout_below="@id/ivProdLineIcon"
-            android:src="@drawable/ip_address" />
-
-        <TextView
-            style="@style/production_line_fields"
-            android:id="@+id/tvIpAddress"
-            android:layout_below="@id/tvProductionLine"
-            android:layout_toRightOf="@id/ivIpAddressIcon"
-            android:text="192.168.1.2" />
-
-        <ImageView
-            style="@style/production_line_fields_icons"
-            android:id="@+id/ivLastUpdateIcon"
-            android:layout_below="@id/ivIpAddressIcon"
-            android:src="@drawable/last_update" />
-
-        <TextView
-            style="@style/production_line_fields"
-            android:id="@+id/tvLastUpdate"
-            android:layout_below="@id/tvIpAddress"
-            android:layout_toRightOf="@id/ivLastUpdateIcon"
-            android:text="07-07-2021 10:14" />
-
-        <ImageView
-            style="@style/production_line_fields_icons"
-            android:id="@+id/ivStatusIcon"
-            android:layout_below="@id/ivLastUpdateIcon"
-            android:src="@drawable/online" />
-
-        <TextView
-            style="@style/production_line_fields"
-            android:id="@+id/tvStatus"
-            android:layout_below="@id/tvLastUpdate"
-            android:layout_toRightOf="@id/ivStatusIcon"
-            android:text="Online" />
-
-    </RelativeLayout>
+    <TextView
+        style="@style/tvProductionLineTitle"
+        android:id="@+id/tvProductionLine"
+        android:layout_toRightOf="@id/ivProdLineIcon"
+        android:text="Production Line 1" />
 
 </RelativeLayout>
