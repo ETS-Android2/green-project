@@ -51,6 +51,7 @@ android:background="@color/gray_100">
             android:layout_toRightOf="@+id/tvAcceptedFruitsLabel"
             android:text="50 pz" />
 
+
         <com.anychart.anychart.AnyChartView
             android:layout_margin="10dp"
             android:layout_below="@id/tvRejectedFruitsLabel"
@@ -58,6 +59,23 @@ android:background="@color/gray_100">
             android:layout_width="120dp"
             android:layout_height="100dp"/>
 
+
+
+        <com.anychart.anychart.AnyChartView
+            android:layout_marginHorizontal="200dp"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/chGauge"
+            android:layout_width="120dp"
+
+            android:layout_height="100dp"
+            android:layout_toRightOf="@+id/chRadial"
+            android:layout_below="@+id/tvAcceptedFruitsLabel"/>
+
+        <ProgressBar
+            android:layout_below="@+id/chGauge"
+            android:id="@+id/gaugeProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 </RelativeLayout>

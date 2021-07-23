@@ -43,19 +43,20 @@
     <div class="box box-normal box-tall">
         <form  class="fruit-box-insert" >
         
-            <h1>  Insert a Fruit </h1>
+            <h1>  Fruits Requirements </h1>
     
             <div class="input-box">
     
-                <label for="new-code"> Code: </label>
-                <input  id="new-code"  #fruitCode/>
-                
-                
+                <label for="new-code"> Fruit </label>
+                <select class="input-selector" (change)="selectFruit($event)" >
+                    <option value="" selected>Select a Fruit</option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOption === fruit.code "> {{fruit.name}} </option>
+                </select>                                
                 
             </div>
            
     
-            <button type="submit">Submit</button>
+            <button type="submit">Start</button>
     
         </form>
     </div>

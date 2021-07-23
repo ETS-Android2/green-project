@@ -12,6 +12,10 @@ export class SettingsComponent implements OnInit {
 
   uploadForm : FormGroup;
   imageURL : string;
+  fruits : Fruit[] = [];
+
+  selectedOption : string = "";
+
   constructor(private fb: FormBuilder, private api: ApiService) { 
 
     this.imageURL = "";
@@ -27,8 +31,19 @@ export class SettingsComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
+    this.api.getFruits().subscribe(
+
+      data => {
+        this.fruits = data.map((fruit: Fruit) => {
+          fruit.image = (fruit.image != false) ? this.api.baseURL+ "image/" + fruit.image : (fruit.image)
+
+          return fruit
+        })
+      }
+
+    )
   }
 
 
@@ -55,6 +70,12 @@ export class SettingsComponent implements OnInit {
       reader.readAsDataURL(file)
 
     }
+  }
+
+
+  selectFruit( event : Event) {
+    this.selectedOption = (event.target as HTMLSelectElement).value;
+    console.log(this.selectedOption)
   }
 
   submit() : void {

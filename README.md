@@ -6,11 +6,11 @@ This project is about meassuring fruits, we are taking the color and weight to d
 
 ## The files: 
 
-* ./androidApplication ->
-* ./angular-website -> 
-* ./api ->
-* ./database ->
-* ./nodeMCU ->
+* ./androidApplication -> This is the main source for the android application
+* ./angular-website ->  In here we can found the angular website
+* ./api -> Our API built with python Flask
+* ./database -> The data base files, all our structure is in there
+* ./nodeMCU -> The scripts used in the nodeMCU boards.
 
 ## The team members
 

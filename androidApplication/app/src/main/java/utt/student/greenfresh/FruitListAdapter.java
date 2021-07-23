@@ -64,6 +64,13 @@ public class FruitListAdapter extends BaseAdapter {
         TextView tvName = (TextView)v.findViewById(R.id.tvFruitName);
         AnyChartView chart = v.findViewById(R.id.chRadial);
 
+        AnyChartView gaugeChart = v.findViewById(R.id.chGauge);
+
+        // GAUGE
+
+
+        // PIE!!!!
+
         Fruit f = this.data.get(position);
 
         // any charts stuff

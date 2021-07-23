@@ -94,7 +94,7 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_productionLine('Test', '0.0.0.0.', 'Testing the Procedure', 'Online');
+call SP_insert_productionLine('Test', '0.0.0.0.', 'Production Line Testing', 'Online');
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
