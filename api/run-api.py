@@ -3,10 +3,8 @@ from flask_cors import CORS
 from flask import send_file
 from sys import path
 from werkzeug.utils import secure_filename
-import base64
-import io
-from base64 import encodebytes
-from PIL import Image
+
+
 import os
 path.append("./mysql")
 from mysql_connection import mysqlConnection
