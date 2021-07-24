@@ -49,7 +49,10 @@ timestampdiff(minute, '2021-07-09 08:45:20', current_timestamp()) between 1 and 
 drop view if exists VW_readings_last_hour;
 create view VW_readings_last_hour as
 select
-	f.fruitName fruit,
+-- 	f.fruitName fruitName,
+    f.fruitCode fruitCode,
+    -- f.description fruitDescription,
+--     f.urlImage url,
     r.date_time date,
     pl.description as description,
     r.weight as weight,

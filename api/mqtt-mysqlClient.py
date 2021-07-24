@@ -42,11 +42,11 @@ def on_message(client, userdata, msg):
     conn = mysqlConnection()
 
     if intopic == topicInsertPL:
-        if 'IP' and 'ID' in json_data:
+        if 'IP' and 'ID' and 'description' in json_data:
             
             conn.insert(
-                "call SP_insert_productionLine('%s', '%s', 'Not description by now', 'Online')" 
-                % (json_data['ID'],json_data['IP'])
+                "call SP_insert_productionLine('%s', '%s', '%s', 'Online')" 
+                % (json_data['ID'],json_data['IP'], json_data['description'])
             )
 
         else: 

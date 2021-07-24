@@ -5,5 +5,6 @@ export interface ProductionLine {
     status: {
         lastConnection: string;
         value: string;
+        res: boolean;
     }
 }

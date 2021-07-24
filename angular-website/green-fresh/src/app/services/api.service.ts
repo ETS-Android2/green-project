@@ -22,23 +22,23 @@ export class ApiService {
   // ------------- Methods -------------
   // get data
   getFruits(): Observable<Fruit[]>{
-    return this.http.get<Fruit[]>(this.baseURL + 'api?action=get_fruits');
+    return this.http.get<Fruit[]>(this.baseURL + 'get-fruits');
   }
 
   getProductionLine(): Observable<ProductionLine[]>{
-    return this.http.get<ProductionLine[]>(this.baseURL + 'api?action=get_productionLines');
+    return this.http.get<ProductionLine[]>(this.baseURL + 'get-productionLines');
   }
 
   getFruitReadings(): Observable<FruitReadings[]>{
-    return this.http.get<FruitReadings[]>(this.baseURL + 'api?action=get_readings');
+    return this.http.get<FruitReadings[]>(this.baseURL + 'get-readings');
   }
 
   getEnvironmentReadings(): Observable<EnvironmentReadings[]>{
-    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'api?action=get_enviromentVariables');
+    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'get-enviromentVariables');
   }
 
   // set data
-  setFruit(fruit: FormData){
+  insertFruit(fruit: FormData){
     return this.http.post(this.baseURL + 'insertFruit', fruit);
   }
 

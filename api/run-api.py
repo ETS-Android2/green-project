@@ -18,114 +18,163 @@ CORS(app)
 def home():
   return render_template('index.html')
 
+## Getting the fruit readings 
+@app.route("/get-readings", methods=['GET'])
+def getReadings():
 
-@app.route('/api', methods=['GET'])
-def actions():
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, we expect the GET method. "))
+
   params = request.args
-  connection = mysqlConnection()
+  conn = mysqlConnection()
 
-  if 'action' in params:
+  data = conn.consult("select * from VW_productionLines;")
+  fruitReadingData = []
 
-    action = params['action']
+  for row in data:
+    fr = { 'productionLine' : ProductionLineStructure(row)}
+    fr['readings'] = []
+    
+    for r in conn.consult("select * from  VW_readings_last_hour where code = '%s';" % row['code']):
+      fr['readings'].append(
+        {
 
-    if action == 'get_readings':
-
-      data = connection.consult("select * from  VW_readings_last_hour;")
-      fruitReadingData = []
-
-      for row in data:
-        fr = ProductionLineStructure(row)
-        fr['reading'] = {
-
-          'date':row['date'],
-          'fruit': row['fruit'],
+          'date':r['date'],
+          'fruit': FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % r['fruitCode'])[0]),
 
           'weight': {
-            'value': row['weight'],
+            'value': r['weight'],
           },
 
           'color': {
-            'R': row['R'],
-            'G': row['G'],
-            'B': row['B'],
+            'R': r['R'],
+            'G': r['G'],
+            'B': r['B'],
           }
         }
+      )
+    
+    if fr['readings'] != []: fruitReadingData.append(fr)
 
-        fruitReadingData.append(fr)
-      return jsonify(fruitReadingData)
+    
+  
+  conn.closeConnection()
 
-    if action == 'get_fruits':
+  return jsonify(fruitReadingData)
 
-      data = connection.consult("select * from VW_fruits;")
-      fruits = []
+## Getting the fruits
+@app.route("/get-fruits", methods=['GET'])
+def getFruits():
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, GET method expected. "))
 
-      for row in data:
+  params = request.args
+  conn = mysqlConnection()
 
-        fruits.append(FruitStructure(row))
+  data = conn.consult("select * from VW_fruits;")
+  fruits = []
 
-      return jsonify(fruits)
+  for row in data:
 
-    if action == 'get_fruits_result':
-      return jsonify(connection.consult("select * from VW_fruits_result_today;"))
+    fruits.append(FruitStructure(row))
 
-    if action == 'get_productionLines':
+  conn.closeConnection()
 
-      data = connection.consult("select * from VW_productionLines;")
-      productionLines = []
+  return jsonify(fruits)
 
-      for row in data :
+## Getting the production lines
+@app.route("/get-productionLines", methods=['GET'])
+def getProductionLines():
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, GET method expected. "))
 
-        productionLines.append(ProductionLineStructure(row))
+  params = request.args
+  conn = mysqlConnection()
 
-      return jsonify(productionLines)
+  data = conn.consult("select * from VW_productionLines;")
+  productionLines = []
 
-    if action == 'get_enviromentVariables':
+  for row in data :
 
-      data = connection.consult("select * from  VW_enviroment_variable;")
-      productionLineData = []
+    productionLines.append(ProductionLineStructure(row))
 
-      for row in data:
+  conn.closeConnection()
 
-        pl = ProductionLineStructure(row)
+  return jsonify(productionLines)
 
-        pl['values'] = {
-          'temperature': row['temperature'],
-          'humidity': row['humidity']
+## Getting the area readings 
+@app.route("/get-enviromentVariables", methods=['GET'])
+def getAreaReadings():
+
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, GET method expected. "))
+
+  params = request.args
+  conn = mysqlConnection()
+
+  ##data = conn.consult("select * from  VW_enviroment_variable;")
+  data = conn.consult("select * from VW_productionLines;")
+  
+  productionLineData = []
+
+  for row in data:
+
+    pl = { 'productionLine' : ProductionLineStructure(row)}
+
+    pl['values'] = []
+
+    for r in conn.consult("select * from  VW_enviroment_variable where code = '%s';" % row['code']):
+      pl['values'].append(
+        { 
+          'temperature': r['temperature'],
+          'humidity': r['humidity']
         }
+      )
 
-        productionLineData.append(pl)
+    productionLineData.append(pl)
 
-      return jsonify(productionLineData)
+  conn.closeConnection()
 
-    if action == 'set_fruit':
-      if 'fruit' and 'productionLine' in params:
-        
-        ## NOTES: pls = productionLines
+  return jsonify(productionLineData)
 
-        fruits = connection.consult("select * from VW_fruits where code = '%s';" % params['fruit'])
-        pls = connection.consult("select * from VW_productionLines where code = '%s';" % params['productionLine'])
+## Setting a fruit to scan into a production line
+@app.route("/setFruit", methods=['POST'])
+def setFruit():
 
-        if fruits != () and pls != ():
-          connection.insert(
-            "call SP_fruit_productionLine_relation('%s','%s');" 
-            % (params['productionLine'], params['fruit'] )
-          )
+  if request.method != 'POST':
+    return jsonify(responseJsonHandler("The presented method request was wrong. Expected POST. "))
+    
+  params = request.args
+  conn = mysqlConnection()
 
-          return jsonify(responseJsonHandler("Success!", True))
+  if 'fruit' and 'productionLine' in params:
+      
+    ## NOTES: pls = productionLines
 
-        else :
-          return jsonify(responseJsonHandler("The required params 'fruit' and 'productionLines' are wrong. "))
+    fruits = conn.consult("select * from VW_fruits where code = '%s';" % params['fruit'])
+    pls = conn.consult("select * from VW_productionLines where code = '%s';" % params['productionLine'])
 
-      else :
-        return jsonify(responseJsonHandler("The required params 'fruit' and 'productionLines' are not included in the request. "))
+    if fruits != () and pls != ():
+      conn.insert(
+        "call SP_fruit_productionLine_relation('%s','%s');" 
+        % (params['productionLine'], params['fruit'] )
+      )
 
-    else:
-      return jsonify(responseJsonHandler("The param 'action' has a wrong value"))
+      conn.closeConnection()
+
+      return jsonify(responseJsonHandler("Success!", True))
+
+    else :
+      return jsonify(responseJsonHandler("The required params 'fruit' and 'productionLines' are wrong. "))
 
   else :
-    return jsonify(responseJsonHandler("The required param 'action' was not specified"))
+    return jsonify(responseJsonHandler("The required params 'fruit' and 'productionLines' are not included in the request. "))
 
 
+# if action == 'get_fruits_result':
+#   return jsonify(connection.consult("select * from VW_fruits_result_today;"))
+
+## Insert a new fruit
 @app.route("/insertFruit", methods=['POST'])
 def insertFruit():
 
@@ -133,38 +182,39 @@ def insertFruit():
 
   conn = mysqlConnection()
 
-  if request.method == 'POST':
+  if request.method != 'POST':
+    return jsonify(responseJsonHandler("The presented method request was wrong. Expected POST "))
     
-    if 'name' and 'code' and 'description' in params and 'image' in request.files:
-      
-      files = request.files.getlist('image')
+  if 'name' and 'code' and 'description' in params and 'image' in request.files:
+    
+    files = request.files.getlist('image')
 
-      filename = "noImage.png"
+    filename = "noImage.png"
 
-      for file in files:
+    for file in files:
 
-        try:
+      try:
 
-          filename = secure_filename(file.filename)
-          file.save(os.getcwd() + "/img/" + filename)
+        filename = secure_filename(file.filename)
+        file.save(os.getcwd() + "/img/" + filename)
 
-        except FileNotFoundError as e:
+      except FileNotFoundError as e:
 
-          print(" ** LOG ERROR: No Image was presented: ", e)
+        print(" ** LOG ERROR: No Image was presented: ", e)
 
-          
-      conn.insert("call SP_insert_fruit('%s', '%s', '%s','%s');" 
-      % ( params['code'],params['name'], params['description'], filename))
+        
+    conn.insert("call SP_insert_fruit('%s', '%s', '%s','%s');" 
+    % ( params['code'],params['name'], params['description'], filename))
 
-      return jsonify(responseJsonHandler("Success!", status=True))
+    conn.closeConnection()
 
-    else : 
-      return jsonify(responseJsonHandler("The given params are wrong. "))
+    return jsonify(responseJsonHandler("Success!", status=True))
 
   else : 
-    return jsonify(responseJsonHandler("The presented method request was wrong. "))
+    return jsonify(responseJsonHandler("The given params are wrong. "))
 
 
+## Searching an image 
 @app.route("/image/<string:image>",)
 def getImage(image):
   filename = 'img/'+image
@@ -172,14 +222,17 @@ def getImage(image):
   if os.path.isfile(filename) :
     return send_file(filename)
   else :
-    return "No image was found"
-  
-  
-  
 
+    ## Send a proper response!!
+    return "No image was found"
+
+## Structure Functions
 
 #Function to get the ProductionLine Structure
 def ProductionLineStructure(row):
+
+  res = True if row['status'] == 'Online' else False
+
   return {
     'code':row['code'],
     'ip': row['ip'],
@@ -188,6 +241,7 @@ def ProductionLineStructure(row):
     'status':{
       'lastConnection': row['lastConnection'],
       'value': row['status'], 
+      'res': res
     }
   }
 
@@ -207,8 +261,7 @@ def FruitStructure(row):
   }
 
 
-def responseJsonHandler(res, status = False): 
-  return {'res' : res, 'status': status}
+def responseJsonHandler(res, status = False): return {'res' : res, 'status': status}
 
 
 app.run(host="0.0.0.0", port=5000)

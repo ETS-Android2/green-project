@@ -67,7 +67,7 @@ export class ProductionLineComponent implements OnInit {
     }]
   };
 
-  constructor(public api: ApiService, private sanitizer: DomSanitizer) { }
+  constructor(public api: ApiService) { }
 
   ngOnInit(){
     this.getFruits();
@@ -103,7 +103,7 @@ export class ProductionLineComponent implements OnInit {
         this.productionLines = data;
         // delete this later, is an example
         console.log(this.productionLines);
-        console.log(this.productionLines[0].status.value);
+        console.log(this.productionLines[0].productionLine.status.value);
       }, error => { console.log(error); }
     );
   }

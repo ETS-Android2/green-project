@@ -32,6 +32,21 @@
     grid-row-gap: 10px;
 }
 
+.input-box button {
+
+
+    width: 120px;
+    height: 35px;
+    margin:20px ;
+    background-color: var(--green_500);
+    border-radius: 30px ;
+    border: 1px var(--gray_400) solid;
+    font-size: 10pt;
+    color: var(--white);
+    font-weight: bold;
+    
+}
+
 .input-box label {
     color: var(--gray_700);
     font-weight: bold;    
