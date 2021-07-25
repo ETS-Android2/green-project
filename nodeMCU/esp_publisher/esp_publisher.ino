@@ -17,9 +17,10 @@ DHT dht(DHTPIN, DHTTYPE);         // Initialize DHT
 #define ECHO_PIN 33                               // D33
 
 // HX711 circuit wiring
-#define LOADCELL_DOUT_PIN 18          // D18
-#define LOADCELL_SCK_PIN 19           // D19
-#define CALIBRATION_FACTOR -2317.0    // Obtained by HX711 full example
+#define LOADCELL_DOUT_PIN 18                    // D18
+#define LOADCELL_SCK_PIN 19                     // D19
+#define CALIBRATION_FACTOR 23.34860681114551    // Obtained by HX711 full example
+const int errorRange = 20;                      // The sensor has an error range of 20 grams
 HX711 scale;
 
 // Define TCS3200
@@ -33,11 +34,17 @@ HX711 scale;
 // Network credentials
 const char *ssid = "INFINITUM67F2_2.4";
 const char *password = "Ma2F3YqgAb"; 
-const char *mqtt_broker = "201.171.7.12";
-// const char *mqtt_broker = "broker.hivemq.com";   // For testing
+
+// Variables for MQTT connection
+// const char *mqtt_broker = "189.223.79.36";
+// const int port = 6000;
+const char *mqtt_broker = "broker.hivemq.com";   // For testing
+const int port = 1883;
+const String clientId = "NMCU-ARX";
+const String description = "Production Line 1";
+
 String ipAddress;
 int ipSent = 0;
-String clientId = "NMCU-ARX";
 
 
 WiFiClient espClient;
@@ -124,6 +131,7 @@ void sendProductionLine(){
   String JSON_msg;         
   StaticJsonDocument<300> doc; 
   doc["ID"] = clientId;
+  doc["Description"] = description; 
   doc["IP"] = ipAddress; 
 
   // Serialize values into JSON_msg
@@ -150,7 +158,11 @@ void sendProductionLine(){
 }
 
 void sendFruitResults(){
-  float weight = scale.get_units();       // This part is not calibrated yet
+  int weight = scale.get_units(20);       // This part is not calibrated yet
+
+  if(weight <= errorRange){
+      weight = 0;
+  }
 
   // assign variables for the color
   // setting red filtered photodiodes to be read
@@ -253,7 +265,7 @@ void setup() {
   dht.begin();                                        // Initialize dht
   scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);   // Initialize HX711
   scale.set_scale(CALIBRATION_FACTOR);                // Set the scale on based the calibration factor
-  scale.tare();                                       // Assuming there is no weight on the scale at start up, reset the scale to 0
+  scale.tare(20);                                     // Assuming there is no weight on the scale at start up, reset the scale to 0
   
   pinMode(S0, OUTPUT);                                // 
   pinMode(S1, OUTPUT);                                //
@@ -268,8 +280,7 @@ void setup() {
   pinMode(ECHO_PIN, INPUT);                           // Initialize Ultrasonic Sensor Pins
   
   setup_wifi();                                       // Connecting to the network
-  //client.setServer(mqtt_broker, 1883);                // Initializing connection with the broker
-  client.setServer(mqtt_broker, 6000);                // Initializing connection with the broker
+  client.setServer(mqtt_broker, port);                // Initializing connection with the broker
   client.setCallback(callback);                       // Callback based on the function with the same name
   
 }
