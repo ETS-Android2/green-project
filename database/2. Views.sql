@@ -6,6 +6,7 @@ use greenProject;
 
 ## Basic views, you know, small views
 
+## 2.
 drop view if exists VW_productionLines;
 create view VW_productionLines as
 select 
@@ -17,6 +18,7 @@ select
 from 
 	productionLines pl;
 
+## 2.
 drop view if exists VW_fruits;
 create view VW_fruits as
 select 
@@ -27,6 +29,18 @@ select
 from 
 	fruits f;
 
+## 3. 
+drop view if exists VW_fruit_readings;
+create view VW_fruit_readings as
+select 
+	date_time date,
+    weight as weight,
+	R as R,
+    G as G,
+    B as B,
+    fk_productionLine productionLineCode
+from 
+	readings order by readNum desc limit 1;
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
@@ -53,8 +67,8 @@ select
     f.fruitCode fruitCode,
     -- f.description fruitDescription,
 --     f.urlImage url,
+	pl.description as description,
     r.date_time date,
-    pl.description as description,
     r.weight as weight,
 	r.R as R,
     r.G as G,

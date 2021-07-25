@@ -22,11 +22,18 @@ def home():
 @app.route("/get-readings", methods=['GET'])
 def getReadings():
 
+  params = request.args
+  conn = mysqlConnection()
+
   if request.method != 'GET':
     return jsonify(responseJsonHandler("The request method is wrong, we expect the GET method. "))
 
-  params = request.args
-  conn = mysqlConnection()
+
+  if 'productionLine' in params:
+    r = conn.consult("select * from VW_fruit_readings where productionLineCode='%s';" % params['productionLine'])
+
+    return  jsonify(fruitReadingStructure(r[0]) if r != () else [])
+
 
   data = conn.consult("select * from VW_productionLines;")
   fruitReadingData = []
@@ -36,23 +43,11 @@ def getReadings():
     fr['readings'] = []
     
     for r in conn.consult("select * from  VW_readings_last_hour where code = '%s';" % row['code']):
-      fr['readings'].append(
-        {
+      reading = fruitReadingStructure(r)
 
-          'date':r['date'],
-          'fruit': FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % r['fruitCode'])[0]),
+      reading['fruit'] = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % r['fruitCode'])[0])
 
-          'weight': {
-            'value': r['weight'],
-          },
-
-          'color': {
-            'R': r['R'],
-            'G': r['G'],
-            'B': r['B'],
-          }
-        }
-      )
+      fr['readings'].append(reading)
     
     if fr['readings'] != []: fruitReadingData.append(fr)
 
@@ -112,7 +107,6 @@ def getAreaReadings():
   params = request.args
   conn = mysqlConnection()
 
-  ##data = conn.consult("select * from  VW_enviroment_variable;")
   data = conn.consult("select * from VW_productionLines;")
   
   productionLineData = []
@@ -144,7 +138,7 @@ def setFruit():
   if request.method != 'POST':
     return jsonify(responseJsonHandler("The presented method request was wrong. Expected POST. "))
     
-  params = request.args
+  params = request.form
   conn = mysqlConnection()
 
   if 'fruit' and 'productionLine' in params:
@@ -260,6 +254,22 @@ def FruitStructure(row):
     'image' : filename
   }
 
+
+## Fruit readings structure
+def fruitReadingStructure(row):
+  return {
+    'date':row['date'],      
+
+    'weight': {
+      'value': row['weight'],
+    },
+
+    'color': {
+      'R': row['R'],
+      'G': row['G'],
+      'B': row['B'],
+    }
+  }
 
 def responseJsonHandler(res, status = False): return {'res' : res, 'status': status}
 

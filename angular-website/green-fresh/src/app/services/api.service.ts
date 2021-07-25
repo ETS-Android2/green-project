@@ -5,6 +5,7 @@ import { ProductionLine } from '../interfaces/production-line';
 import { Fruit } from '../interfaces/fruit';
 import { EnvironmentReadings } from '../interfaces/environment-readings';
 import { FruitReadings } from '../interfaces/fruit-readings';
+import { Reading } from '../interfaces/reading';
 
 @Injectable({
   providedIn: 'root'
@@ -22,24 +23,29 @@ export class ApiService {
   // ------------- Methods -------------
   // get data
   getFruits(): Observable<Fruit[]>{
-    return this.http.get<Fruit[]>(this.baseURL + 'get-fruits');
+    return this.http.get<Fruit[]>(this.baseURL + 'get-fruits?');
   }
 
   getProductionLine(): Observable<ProductionLine[]>{
-    return this.http.get<ProductionLine[]>(this.baseURL + 'get-productionLines');
+    return this.http.get<ProductionLine[]>(this.baseURL + 'get-productionLines?');
   }
 
-  getFruitReadings(): Observable<FruitReadings[]>{
-    return this.http.get<FruitReadings[]>(this.baseURL + 'get-readings');
+  getFruitReadings(productionLine=""): Observable<FruitReadings[] | Reading>{
+    return this.http.get<FruitReadings[] | Reading>(this.baseURL + 'get-readings?'+productionLine);
   }
 
   getEnvironmentReadings(): Observable<EnvironmentReadings[]>{
-    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'get-enviromentVariables');
+    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'get-enviromentVariables?');
   }
 
   // set data
   insertFruit(fruit: FormData){
     return this.http.post(this.baseURL + 'insertFruit', fruit);
+  }
+  
+  // stablish the realtion between the production line and the fruit to be scanned.
+  setFruit_productionLine(fruit_productionLine: FormData){
+    return this.http.post(this.baseURL+ "setFruit", fruit_productionLine);
   }
 
   // update data

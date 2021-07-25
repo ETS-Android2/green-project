@@ -92,7 +92,9 @@ export class ProductionLineComponent implements OnInit {
   getFruitReading(): void{
     this.api.getFruitReadings().subscribe(
       data => {
-        this.fruitReadings = data;
+        if ('productionLine' in data){ // expecting an array reading
+          this.fruitReadings = data;
+        }
       }, error => { console.log(error); }
     );
   }

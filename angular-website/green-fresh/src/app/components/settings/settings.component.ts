@@ -1,6 +1,12 @@
+import { not } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Form } from '@angular/forms';
+import '@fortawesome/free-solid-svg-icons';
+import { interval, Observable } from 'rxjs';
 import { Fruit } from 'src/app/interfaces/fruit';
+import { FruitReadings } from 'src/app/interfaces/fruit-readings';
+import { ProductionLine } from 'src/app/interfaces/production-line';
+import { Reading } from 'src/app/interfaces/reading';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -13,13 +19,16 @@ export class SettingsComponent implements OnInit {
   // The form group is the one that allow us to manage angular forms
   uploadForm : FormGroup;
   imageURL : string;
+
   fruits : Fruit[] = [];
+  productionLines : ProductionLine[] = [];
+
+
+  readings : Reading[] = [];
 
   // When we select a fruit to be scanned, we change this value.
-  selectedOption : string = "";
-
-  // Once the fruit value is stablish, we show the division.
-  examinationStatus : Boolean = false;
+  selectedOptionFruit : string = "";
+  selectedOptionPl : string = "";
 
   constructor(private fb: FormBuilder, private api: ApiService) { 
     // Form Builder is a class that allow us to managae 
@@ -39,7 +48,6 @@ export class SettingsComponent implements OnInit {
   }
 
 
-
   // When the component start we call to the api service to get back all the fruits. 
 
   ngOnInit(): void {
@@ -53,7 +61,30 @@ export class SettingsComponent implements OnInit {
           return fruit
         })
       }
+    );
+    
+    this.api.getProductionLine().subscribe(
+      data => {
+        this.productionLines = data;
+      }
 
+    );
+
+  }
+
+  getReadings() : void {
+    interval(500).subscribe(
+      () => {
+        this.api.getFruitReadings("productionLine="+this.selectedOptionPl).
+        subscribe( (data) => {
+          if ('date' in data) { // expecting just a simple reading
+            this.readings.push(data)
+            
+            console.log(data)
+          }
+          
+        });
+      }
     )
   }
 
@@ -82,18 +113,45 @@ export class SettingsComponent implements OnInit {
       
       reader.readAsDataURL(file)
 
-      // SHowing the preview image.
+      // Showing the preview image.
     }
   }
 
   // This function is called when the selector in the html file finds a change
   selectFruit( event : Event) {
-    this.selectedOption = (event.target as HTMLSelectElement).value;
+    this.selectedOptionFruit = (event.target as HTMLSelectElement).value;
 
-    console.log(this.selectedOption)
+    console.log(this.selectedOptionFruit)
+    
   }
 
-  // Whe send the data to the api 
+  // When the production line select
+
+  selectProductionLine(event : Event) : void {
+    this.selectedOptionPl = (event.target as HTMLSelectElement).value;
+
+    let data : FormData = new FormData();
+
+    console.log(this.selectedOptionPl)
+
+    data.append("fruit", this.selectedOptionFruit);
+    data.append("productionLine", this.selectedOptionPl);
+
+    this.api.setFruit_productionLine(data).subscribe(
+      (res : any) => { 
+        console.log(res);
+
+        if (res.status) { 
+          this.getReadings() 
+        }
+      }
+    )   
+
+  }
+
+
+
+  // We send the data to the api 
   submit() : void {
 
     var data : FormData = new FormData();
@@ -111,9 +169,7 @@ export class SettingsComponent implements OnInit {
     });
     
     this.api.insertFruit(data).subscribe(
-      (res : any) => {
-        console.log(res);
-      }
+      (res : any) => {console.log(res); }
     );
 
   }

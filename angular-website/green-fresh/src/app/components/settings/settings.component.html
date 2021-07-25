@@ -50,17 +50,33 @@
                 <label for="new-code"> Fruit </label>
                 <select class="input-selector" (change)="selectFruit($event)" >
                     <option value="" selected>Select a Fruit</option>
-                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOption === fruit.code "> {{fruit.name}} </option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
                 </select>                                
                 
             </div>
            
-            <div *ngIf="" class="view-requirements-box">
+            <div *ngIf="selectedOptionFruit != ''" class="input-box">
+                <label for="Production Line"> Prod. Line: </label>
 
+                <select class="input-selector" (change)="selectProductionLine($event)" >
+                    <option value="" selected>Production Line</option>
+                    <option *ngFor="let pl of productionLines" [value]="pl.code" [selected]="selectedOptionPl === pl.code "> {{pl.description}} </option>
+                </select> 
+
+               
             </div>
-    
-            <button type="submit">Start</button>
-    
+            
+            <div *ngIf="selectedOptionPl != '' && selectedOptionFruit != '' && readings != []" class="examination-box">
+                <div class="examination-box-row" *ngFor="let r of readings">
+                    <div class="examination-box-label">RGB: </div> <fa-icon icon="square" ng-style="'color': 'rgb(r.R, r.G, r.B)';" style="font-size: 12pt;text-align: center;"></fa-icon>
+                    <div class="examination-box-label">Weight: </div> 
+                    
+                    <!-- color: rgb(r.R, r.G, r.B); -->
+                </div>
+            </div>
+
+            <button *ngIf="selectedOptionPl != '' && selectedOptionFruit != ''" type="submit">Start</button>
+
         </form>
     </div>
 
