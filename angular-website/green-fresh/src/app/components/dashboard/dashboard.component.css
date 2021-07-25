@@ -1,0 +1,124 @@
+@import url(../../../styles.css);
+
+/* title section */
+.subtitle-section{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    border-color: #FFF;
+    height: 30px;
+}
+
+.subtitle-section p{
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    color: var(--gray_500);
+}
+
+/* Production Line Menu */
+.production-line-menu{
+    margin-top: 30px;
+    margin-bottom: 0px;
+    border-color: #FFF;
+}
+
+.production-line-menu p{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--gray_500);
+    cursor: pointer;
+}
+
+.production-line-menu p:hover{
+    color: var(--orange_200);
+}
+
+/* Production Line Panel */
+.datetime-box, .enviroment-variable-box, .fruit-box, .info-box {
+    width: 100%;
+} 
+
+.datetime-box-hour {
+    color: var(--gray_700);
+    font-size: 20pt;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.datetime-box-date {
+    color: var(--gray_700);
+    font-size: 14pt;
+    text-align: center;
+} 
+
+.enviroment-variable-box-value {
+    color: var(--gray_700);
+    font-size: 20pt;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.enviroment-variable-box-hint {
+    color: var(--gray_700);
+    font-size: 12pt;
+    text-align: center;
+}
+
+.fruit-box-target {
+    color: var(--gray_500);
+    font-size: 10pt;
+    text-align: center;
+}
+
+.fruit-box-icon{
+    text-align: center;
+    width: 100%;
+    margin: 6px auto;
+}
+
+.fruit-box-icon img{
+    text-align: center;
+    width: 40px;
+    margin: 0 auto;
+}
+
+.fruit-box-value {
+    color: var(--gray_700);
+    font-size: 12pt;
+    text-align: center;
+}
+
+.production-line-container{
+    flex-direction: column;
+}
+
+.production-line-container p{
+    text-align: left;
+    color: var(--gray_700);
+    width: calc(100% - 30px);
+    margin: 5px 15px;
+    font-size: 12pt;
+}
+
+/* --- RESPONSIVE --- */
+
+/* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+    .production-line-container{ width: calc(50% - 22px); height: calc(180px - 22px);}
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+    .production-line-container{ width: calc(100% - 22px);}
+}
+/* smartphone */
+@media only screen and (max-width:480px) {
+}
