@@ -50,7 +50,7 @@ begin
 	THEN
 	BEGIN
     
-		if (not EXISTS(Select * from fruit_results where fk_fruit=fruit and day_date = current_date()))
+		if (not EXISTS(Select * from fruit_results where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine ))
 		then
 		begin
 			insert into fruit_results 
@@ -63,12 +63,12 @@ begin
         THEN
 		BEGIN
 			
-            update fruit_results set rejectedFruits = (rejectedFruits+1) where fk_fruit=fruit and day_date = current_date();
+            update fruit_results set rejectedFruits = (rejectedFruits+1) where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine;
             
 		END;
         else 
         begin 
-			update fruit_results set acceptedFruits = (acceptedFruits+1) where fk_fruit=fruit and day_date = current_date();
+			update fruit_results set acceptedFruits = (acceptedFruits+1) where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine ;
         end;
 		END IF;
 	END;
@@ -300,5 +300,5 @@ end //
 DELIMITER ;
 
 call SP_insert_fruitReading
-('Test',17.4,250,29,11);
+('Test',17.4,250,28,11);
 

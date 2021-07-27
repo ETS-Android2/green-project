@@ -29,7 +29,15 @@ select
 from 
 	fruits f;
 
-
+## 3
+drop view VW_fruit_productionLine_relation;
+create view VW_fruit_productionLine_relation as
+select 
+	fk_fruit fruitCode,
+    fk_productionLine productionLineCode
+from 
+	fruit_productionLine;
+    
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
 # 1- A view that returns the readings in the last hour.
@@ -82,6 +90,7 @@ drop view if exists VW_fruits_result_today;
 create view VW_fruits_result_today as
 select 
 	f.fruitName fruit,
+    f.fruitCode fruitCode,
 	fr.day_date as date, 
 	fr.acceptedFruits as accepted, 
     fr.rejectedFruits as rejected,
@@ -141,5 +150,19 @@ where
 	timestampdiff(second, date_time, current_timestamp()) between 1 and 5 
 order by readNum desc limit 1;
 
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+
+# 5- Area readings at the last second
+
+drop view if exists VW_enviroment_variable_last_second;
+create view VW_enviroment_variable_last_second as
+select 
+	ev.readNum id,
+    ev.temperature temperature,
+    ev.humidity humidity,
+    ev.date_time date
+from 
+	enviromentVariables ev 
+order by id desc limit 1;
 
             

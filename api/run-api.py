@@ -209,6 +209,14 @@ def insertFruit():
     return jsonify(responseJsonHandler("The given params are wrong. "))
 
 
+@app.route("/inspectionResults", methods=['GET'])
+def getInspectionResults():
+
+  conn = mysqlConnection()
+  params = request.args
+  
+  conn.consult("")
+
 ## Insert a fruit requirements, just the colors.
 @app.route("/insertFruitRequirements", methods = ['POST'])
 def insertFruitRequirements():
@@ -294,7 +302,212 @@ def insertFruitRequirements():
   else :
     return jsonify(responseJsonHandler("The required params are not included in the request. 'fruit', 'color'"))
 
+
+@app.route("/get-all", methods = ['GET'])
+def getAll():
+  print("Get all works!")
+
+  conn = mysqlConnection()
+  params = request.args
+
+  data = { 'productionLines' : []}
   
+  
+  for p in conn.consult("select * from VW_productionLines;"):
+
+    p = ProductionLineStructure(p)
+
+    currentFruit = conn.consult("select * from VW_fruit_productionLine_relation;")[0]['fruitCode']
+
+    currentFruit = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % currentFruit)[0])
+
+    p['currentFruit'] = currentFruit
+
+    areaReadings = conn.consult("select * from VW_enviroment_variable_last_second;")[0]
+
+    areaReadings = [
+      {
+        'id': areaReadings['id'],
+        'current' : areaReadings['temperature'],
+        'type': {
+          "id": "TMP",
+					"name": "Temperature",
+					"icon": "temperature.png",
+					"unitOfMeasurement": {
+						"symbol": "°C",
+						"name": "Celsius"
+					}
+        },
+        "ranges": [
+          {
+            "id": "LW",
+            "name": "Low",
+            "values": {
+              "minimum": 0,
+              "maximum": 9
+            },
+            "color": "#03A9F4",
+            "icon": "temperature_low.png"
+          },
+          {
+            "id": "NR",
+            "name": "Normal",
+            "values": {
+              "minimum": 10,
+              "maximum": 22
+            },
+            "color": "#03A9F4",
+            "icon": "temperature_normal.png"
+          },
+          {
+            "id": "HG",
+            "name": "High",
+            "values": {
+              "minimum": 23,
+              "maximum": 100
+            },
+            "color": "#03A9F4",
+            "icon": "temperature_high.png"
+          }
+        ]
+      },
+      {
+        'id': areaReadings['id'],
+        'current' : areaReadings['humidity'],
+        "type": {
+          "id": "HMD",
+          "name": "Humidity",
+          "icon": "humidity.png",
+          "unitOfMeasurement": {
+            "symbol": "%",
+            "name": "Percentage"
+          }
+        },
+        "ranges": [
+          {
+            "id": "LW",
+            "name": "Low",
+            "values": {
+              "minimum": 0,
+              "maximum": 74
+            },
+            "color": "#03A9F4",
+            "icon": "humidity_low.png"
+          },
+          {
+            "id": "NR",
+            "name": "Normal",
+            "values": {
+              "minimum": 75,
+              "maximum": 90
+            },
+            "color": "#03A9F4",
+            "icon": "humidity_normal.png"
+          },
+          {
+            "id": "HG",
+            "name": "High",
+            "values": {
+              "minimum": 91,
+              "maximum": 100
+            },
+            "color": "#03A9F4",
+            "icon": "humidity_high.png"
+          }
+        ],
+      }
+    ]
+
+    p['areaReadings'] = areaReadings
+
+    fruitReadings = []
+    
+    
+    readings = conn.consult("select * from VW_readings_last_hour where code = '%s';" % ( p['code']))
+
+
+    if readings != ():
+      for r in readings:
+
+        r = {
+          'date' : r['date'],
+          'fruit' : FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % r['fruitCode'])[0]),
+          'results' : [
+            {
+              "type": {
+								"id": "WGT",
+								"name": "Weight",
+								"icon": "weight.png",
+								"unitOfMeasurement": {
+									"symbol": "g",
+									"name": "Grams"
+								}
+							},
+							"current": r['weight']
+            },
+            {
+              "type": {
+								"id": "RRR",
+								"name": "Red",
+								"icon": "Red.png",
+								"unitOfMeasurement": {
+									"symbol": "R",
+									"name": "Red color"
+								}
+							},
+              'current' : r['R']
+            },
+            {
+              "type": {
+								"id": "GGG",
+								"name": "Green",
+								"icon": "Green.png",
+								"unitOfMeasurement": {
+									"symbol": "G",
+									"name": "Green color"
+								}
+							},
+							"current": r['G']
+            },
+            {
+              "type": {
+								"id": "BBB",
+								"name": "Blue",
+								"icon": "Blue.png",
+								"unitOfMeasurement": {
+									"symbol": "B",
+									"name": "Blue color"
+								}
+							},
+							"current": r['B']
+            }
+          ]
+        }
+
+        fruitReadings.append(r)
+
+    p['fruitReadings'] = fruitReadings
+
+    inspectionResults = []
+
+    for ir in conn.consult("select * from VW_fruits_result_today where code = '%s';" % p['code']):
+      ir = {
+        'date': ir['date'],
+        'fruit' : FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % ir['fruitCode'])[0]) ,
+        'results' : {
+          'accepted'  : ir['accepted'],
+          'rejected' : ir['rejected']
+        }
+      }
+
+      inspectionResults.append(ir)
+
+    p['inspectionResults'] = inspectionResults
+
+    
+    data["productionLines"].append(p)
+    
+  return jsonify(data)
 
 ## Searching an image 
 @app.route("/image/<string:image>",)

@@ -97,7 +97,7 @@ CREATE TABLE fruit_results (
     day_date DATE default (current_date) not null,
     acceptedFruits INT not null,
     rejectedFruits INT not null,
-    constraint primary key(fk_fruit, day_date),
+    constraint primary key(fk_fruit, day_date, fk_productionLine),
     CONSTRAINT FK_fruitResult FOREIGN KEY (fk_fruit)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_productionLine_results FOREIGN KEY (fk_productionLine)
