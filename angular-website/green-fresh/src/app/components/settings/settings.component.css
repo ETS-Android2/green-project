@@ -64,7 +64,7 @@
 }
 
 .examination-box {
-    width: 80%;
+    width: 90%;
     background-color: var(--gray_100);
     border-radius: 30px var(--gray_400);
 }
@@ -75,15 +75,14 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    float: left;
-    flex-direction: column;
+
    
 }
 
 .examination-box-label {
     color: var(--gray_700);
     font-weight: bold;    
-    margin: 20px auto;
+    margin: 0 10px;
 
 }   
 

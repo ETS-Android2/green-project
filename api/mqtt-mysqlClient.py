@@ -53,7 +53,7 @@ def on_message(client, userdata, msg):
             ## We should try to make callback function in
             ## case we recived the wrong params. 
 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. ")
 
     if intopic == topicInsertEV:
         if 'ToC' and 'RH' and 'ID' in json_data:
@@ -66,7 +66,7 @@ def on_message(client, userdata, msg):
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. " )
 
     if intopic == topicInsertFR:
         if 'Color' and 'W' and 'ID' in json_data:
@@ -79,12 +79,12 @@ def on_message(client, userdata, msg):
                 )
                 
             else: 
-                ErrorLogs(" ** LOG ERROR: The message received: ",json_data['Colors'],". has not the required params: " + str(e))    
+                ErrorLogs(" ** LOG ERROR: The message received: "+json_data['Colors']+". has not the required params ")    
 
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. " )
 
     conn.closeConnection()
 

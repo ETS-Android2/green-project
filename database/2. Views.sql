@@ -29,18 +29,6 @@ select
 from 
 	fruits f;
 
-## 3. 
-drop view if exists VW_fruit_readings;
-create view VW_fruit_readings as
-select 
-	date_time date,
-    weight as weight,
-	R as R,
-    G as G,
-    B as B,
-    fk_productionLine productionLineCode
-from 
-	readings order by readNum desc limit 1;
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
@@ -131,9 +119,27 @@ from
 	enviromentVariables ev 
 	join productionLines pl on ev.fk_productionLine=pl.prCode
 where 
-	timestampdiff(minute, date_time, current_timestamp()) between 0 and 5;
+	timestampdiff(minute, date_time, current_timestamp()) between 1 and 3;
+
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+
+# 4- A view that returns the just one reading in the last five seconds
+
+drop view if exists VW_fruit_reading_seconds;
+create view VW_fruit_reading_seconds as
+select
+	fk_fruit code,
+	date_time date,
+    weight as weight,
+	R as R,
+    G as G,
+    B as B,
+    fk_productionLine productionLineCode
+from 
+	readings 
+where 
+	timestampdiff(second, date_time, current_timestamp()) between 1 and 5 
+order by readNum desc limit 1;
 
 
-
-
-
+            

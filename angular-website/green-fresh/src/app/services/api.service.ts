@@ -42,6 +42,12 @@ export class ApiService {
   insertFruit(fruit: FormData){
     return this.http.post(this.baseURL + 'insertFruit', fruit);
   }
+
+  // insert the requirements for the fruit 
+
+  insertFruitRequirements(readings : Object){
+    return this.http.post(this.baseURL+"insertFruitRequirements", readings)
+  }
   
   // stablish the realtion between the production line and the fruit to be scanned.
   setFruit_productionLine(fruit_productionLine: FormData){

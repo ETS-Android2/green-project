@@ -64,36 +64,46 @@ CREATE TABLE enviromentVariables (
 ## This table is really tricky,
 ## we can leave it as it is right now
 ## or we can use a margin error (This will applied later on)
+## The average and the variance, those are the ranges
 drop table if exists fruit_requirements;
 CREATE TABLE fruit_requirements (
     fk_fruitCode VARCHAR(3) PRIMARY KEY,
-    fk_minimum_requirements INT not null,
-    fk_maximum_requirements INT not null,
+    
+    r_avg float null,
+    g_avg float null,
+    b_avg float null,
+    
+	r_var float null,
+    g_var float null,
+    b_var float null,
+    
+     CONSTRAINT CK_avg_var CHECK (r_var BETWEEN 0 AND 255
+        AND g_var BETWEEN 0 AND 255
+        AND b_var BETWEEN 0 AND 255
+        AND r_avg BETWEEN 0 AND 255
+        AND g_avg BETWEEN 0 AND 255
+        AND b_avg BETWEEN 0 AND 255),
+     
     CONSTRAINT FK_fruit_requirement FOREIGN KEY (fk_fruitCode)
-        REFERENCES fruits (fruitCode),
-    CONSTRAINT FK_minReading FOREIGN KEY (fk_minimum_requirements)
-        REFERENCES readings (readNum),
-    CONSTRAINT FK_maxReading FOREIGN KEY (fk_maximum_requirements)
-        REFERENCES readings (readNum)
+        REFERENCES fruits (fruitCode)
 );
 
 ## This table stores the results regardin to a day.
 
 drop table if exists fruit_results;
 CREATE TABLE fruit_results (
-    numResult INT PRIMARY KEY,
     fk_fruit VARCHAR(3) not null,
     fk_productionLine CHAR(8) not null,
     day_date DATE default (current_date) not null,
     acceptedFruits INT not null,
     rejectedFruits INT not null,
+    constraint primary key(fk_fruit, day_date),
     CONSTRAINT FK_fruitResult FOREIGN KEY (fk_fruit)
         REFERENCES fruits (fruitCode),
     CONSTRAINT FK_productionLine_results FOREIGN KEY (fk_productionLine)
         REFERENCES productionLines (prCode),
-    CONSTRAINT CK_ CHECK (acceptedFruits > 0
-        AND rejectedFruits > 0),
-    CONSTRAINT UQ_date_unique_result UNIQUE (day_date , fk_productionLine)
+    CONSTRAINT CK_ CHECK (acceptedFruits >= 0
+        AND rejectedFruits >= 0)
 );
 
 ## This table stores the realtion between the production line

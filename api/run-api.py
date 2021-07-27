@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask import send_file
 from sys import path
 from werkzeug.utils import secure_filename
+import math
 
 
 import os
@@ -30,7 +31,7 @@ def getReadings():
 
 
   if 'productionLine' in params:
-    r = conn.consult("select * from VW_fruit_readings where productionLineCode='%s';" % params['productionLine'])
+    r = conn.consult("select * from VW_fruit_reading_seconds where productionLineCode='%s';" % params['productionLine'])
 
     return  jsonify(fruitReadingStructure(r[0]) if r != () else [])
 
@@ -207,6 +208,93 @@ def insertFruit():
   else : 
     return jsonify(responseJsonHandler("The given params are wrong. "))
 
+
+## Insert a fruit requirements, just the colors.
+@app.route("/insertFruitRequirements", methods = ['POST'])
+def insertFruitRequirements():
+
+  conn = mysqlConnection()
+
+  params = request.json
+
+  if request.method != 'POST':
+    return jsonify(responseJsonHandler("The presented method request was wrong. Expected POST "))
+
+  if 'fruit' and 'color' in params: 
+
+    if conn.consult("select * from VW_fruits where code = '%s';" % params['fruit']) == (): 
+      return jsonify(responseJsonHandler("The fruit asigned does not exists, please verify the code used: %s " % params['fruit']))
+
+    if  isinstance(params['color'], ()):
+      return jsonify(responseJsonHandler("The presented param color is not an array, please check your message."))
+
+    
+    colorsArray = params['color']
+
+    r_des = 0
+    g_des = 0
+    b_des = 0
+
+    r_med = 0
+    g_med = 0
+    b_med = 0
+
+    for color in colorsArray:
+      if 'R' and 'G' and 'B' in color:
+        r_med += color['R'] 
+        g_med += color['G'] 
+        b_med += color['B']
+      else :
+        return jsonify(responseJsonHandler("The required params are not included in the color value; 'R', 'G', 'B"))
+
+    r_med /= len(colorsArray)
+    g_med /= len(colorsArray)
+    b_med /= len(colorsArray)
+
+    ## cool stuff!
+
+    (r_des, g_des, b_des) = [math.pow((c['R'] - r_med), 2)  for c in colorsArray], [math.pow((c['G'] - g_med), 2)  for c in colorsArray], [math.pow((c['B'] - b_med), 2)  for c in colorsArray]
+
+    r_des = sum(r_des) / len(colorsArray)
+    g_des = sum(g_des) / len(colorsArray)
+    b_des = sum(b_des) / len(colorsArray)
+
+    r_medi = [c['R'] for c in colorsArray]
+    g_medi = [c['G'] for c in colorsArray]
+    b_medi = [c['B'] for c in colorsArray]
+
+    r_medi.sort()
+    g_medi.sort()
+    b_medi.sort()
+
+    print(r_medi)
+    print(g_medi)
+    print(b_medi)
+
+    middle = len(colorsArray)
+
+
+    r_medi = r_medi[int(middle/2-1)]  if middle%2 > 1 else (r_medi[int(middle/2-1)] + r_medi[int(middle/2)])/2
+    g_medi = g_medi[int(middle/2-1)]  if middle%2 > 1 else (g_medi[int(middle/2-1)] + g_medi[int(middle/2)])/2
+    b_medi = b_medi[int(middle/2-1)]  if middle%2 > 1 else (b_medi[int(middle/2-1)] + b_medi[int(middle/2)])/2
+
+    conn.insert("call SP_insert_fruitRequirements('%s',%d,%d,%d,%d,%d,%d);" % (params['fruit'], r_med, g_med, b_med, math.sqrt(r_des) , math.sqrt(g_des), math.sqrt(b_des) ))
+
+    # return jsonify({ 
+    #   "desviacion" : {"R": r_des, "G" : g_des, "B" : b_des} , 
+    #   "media" : { "R": r_med, "G" : g_med, "B" : b_med},
+    #   "mediana" : { "R": r_medi, "G" : g_medi, "B" : b_medi},
+    #   "varianza" : {"R": math.sqrt(r_des) , "G" : math.sqrt(g_des), "B" : math.sqrt(b_des)}
+          
+    #   }
+    # )
+
+    return jsonify(responseJsonHandler("Success!", status=True))
+
+  else :
+    return jsonify(responseJsonHandler("The required params are not included in the request. 'fruit', 'color'"))
+
+  
 
 ## Searching an image 
 @app.route("/image/<string:image>",)

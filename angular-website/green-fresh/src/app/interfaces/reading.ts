@@ -1,7 +1,9 @@
+import { Fruit } from "./fruit";
+
 export interface Reading {
       
     date: string;
-    fruit: string;
+    fruit: Fruit | string;
     weight: {
         value: string;
     }

@@ -23,12 +23,17 @@ export class SettingsComponent implements OnInit {
   fruits : Fruit[] = [];
   productionLines : ProductionLine[] = [];
 
-
-  readings : Reading[] = [];
+  currentReading? : Reading;
+  acceptedReadings : Reading[] = [];
 
   // When we select a fruit to be scanned, we change this value.
   selectedOptionFruit : string = "";
   selectedOptionPl : string = "";
+
+  color : string = "rgb(0,0,0)";
+
+  // The interval used for this component
+  timer : any;
 
   constructor(private fb: FormBuilder, private api: ApiService) { 
     // Form Builder is a class that allow us to managae 
@@ -73,18 +78,22 @@ export class SettingsComponent implements OnInit {
   }
 
   getReadings() : void {
-    interval(500).subscribe(
+    this.timer = setInterval( // setting the interval. 
       () => {
         this.api.getFruitReadings("productionLine="+this.selectedOptionPl).
         subscribe( (data) => {
           if ('date' in data) { // expecting just a simple reading
-            this.readings.push(data)
-            
-            console.log(data)
+
+            if (this.currentReading == undefined){
+              this.currentReading = data;
+              this.color = "rgb("+data.color.R+","+data.color.G+","+data.color.B+")";
+            } 
+
           }
-          
         });
-      }
+
+      }, 
+      3000
     )
   }
 
@@ -119,7 +128,14 @@ export class SettingsComponent implements OnInit {
 
   // This function is called when the selector in the html file finds a change
   selectFruit( event : Event) {
+
+    
+
     this.selectedOptionFruit = (event.target as HTMLSelectElement).value;
+
+    if (this.selectedOptionFruit == '') return;
+
+    clearInterval(this.timer)
 
     console.log(this.selectedOptionFruit)
     
@@ -128,27 +144,49 @@ export class SettingsComponent implements OnInit {
   // When the production line select
 
   selectProductionLine(event : Event) : void {
+
+    clearInterval(this.timer)
+
+    this.currentReading = undefined;
+    // cleaning the current reading
+
     this.selectedOptionPl = (event.target as HTMLSelectElement).value;
+    // Extrating the value from the selector
+
+    if (this.selectedOptionPl == '' )  return;
+    // If the selected value is empty we stop the interval
+    
 
     let data : FormData = new FormData();
+    // Preparing the form for the POST structure
 
     console.log(this.selectedOptionPl)
 
     data.append("fruit", this.selectedOptionFruit);
     data.append("productionLine", this.selectedOptionPl);
+    // Appending the data from the selected values
+
 
     this.api.setFruit_productionLine(data).subscribe(
+      // The resquest to the API
       (res : any) => { 
         console.log(res);
 
         if (res.status) { 
+          // If everything is good we can continue.
           this.getReadings() 
         }
       }
-    )   
+    )     
 
   }
 
+
+  acceptFruit(reading : Reading) { 
+    
+    this.acceptedReadings.push(reading)
+    this.currentReading = undefined;
+  }
 
 
   // We send the data to the api 
@@ -156,13 +194,6 @@ export class SettingsComponent implements OnInit {
 
     var data : FormData = new FormData();
     // THe form data is the one that give us the POST structure.
-
-    // var fruit: Fruit = {
-    //   code: this.uploadForm.value.code,
-    //   name: this.uploadForm.value.name,
-    //   description: this.uploadForm.value.description,
-    //   image: this.uploadForm.value.image
-    // }
 
     Object.entries(this.uploadForm.value).forEach(([key, value] : any[]) => {
       data.set(key,value)
@@ -172,6 +203,35 @@ export class SettingsComponent implements OnInit {
       (res : any) => {console.log(res); }
     );
 
+  }
+
+  sendRequirements() : void {
+    
+    let data = {
+      fruit: this.selectedOptionFruit,
+      color: this.acceptedReadings.map((r: Reading) => { // is an array []
+        return {
+          R: r.color.R,
+          G: r.color.G, 
+          B: r.color.B
+        } 
+      })
+    }
+
+    console.log(data)
+
+    this.api.insertFruitRequirements(data).subscribe(
+      (res : any) => {console.log(res); }
+    );
+    
+    this.selectedOptionPl = "";
+    this.selectedOptionFruit = "";
+
+    clearInterval(this.timer);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.timer);
   }
 
 }
