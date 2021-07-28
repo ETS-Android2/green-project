@@ -2,9 +2,33 @@
 
 <div class="container">
 
-    <div class="box box-full box-short "> 
+    <!-- <div class="box box-full box-short "> 
+        <form  class="fruit-box-insert" >
         
-    </div>
+            <h1>  Set a fruit  </h1>
+    
+            <div class="input-box">
+    
+                <label for="new-code"> Fruit </label>
+                <select class="input-selector" (change)="selectFruit($event)" >
+                    <option value="" selected>Select a Fruit</option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
+                </select>                                
+                
+            </div>
+           
+            <div *ngIf="selectedOptionFruit != ''" class="input-box">
+                <label for="Production Line"> Prod. Line: </label>
+
+                <select class="input-selector" (change)="selectProductionLine($event)" >
+                    <option value="" selected>Production Line</option>
+                    <option *ngFor="let pl of productionLines" [value]="pl.code" [selected]="selectedOptionPl === pl.code "> {{pl.description}} </option>
+                </select> 
+
+               
+            </div>
+        </form>
+    </div> -->
     
 
     <div class="box box-normal box-tall ">
