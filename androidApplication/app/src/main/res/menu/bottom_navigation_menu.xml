@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:enabled="true"
+        android:icon="@drawable/dashboard"
+        android:title="Dashboard"/>
+    <item
+        android:id="@+id/panel"
+        android:enabled="true"
+        android:icon="@drawable/panel"
+        android:title="Panel"/>
+    <item
+        android:id="@+id/fruits"
+        android:enabled="true"
+        android:icon="@drawable/apple"
+        android:title="Fruits"/>
+</menu>
