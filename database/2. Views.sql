@@ -6,7 +6,7 @@ use greenProject;
 
 ## Basic views, you know, small views
 
-## 2.
+## 1.
 drop view if exists VW_productionLines;
 create view VW_productionLines as
 select 
@@ -25,9 +25,12 @@ select
 	f.fruitName name,
     f.fruitCode code, 
     f.description description,
-    f.urlImage as url
+    f.urlImage as url,
+	fr.r_avg R,
+    fr.g_avg G,
+	fr.b_avg B
 from 
-	fruits f;
+	fruits f  join fruit_requirements fr on f.fruitCode = fk_fruitCode;
 
 ## 3
 drop view VW_fruit_productionLine_relation;
@@ -160,9 +163,70 @@ select
 	ev.readNum id,
     ev.temperature temperature,
     ev.humidity humidity,
-    ev.date_time date
+    ev.date_time date,
+    ev.fk_productionLine code
 from 
-	enviromentVariables ev 
-order by id desc limit 1;
+	enviromentVariables ev;
+    
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
-            
+# 6- A view that return all the accepted readings during the day, we are not going to use the 
+# inspection result table. We are going to recreate all the view in basis to the requirements.
+
+drop view if exists VW_fruits_results_group_by_hour_during_one_day;
+create view VW_fruits_results_group_by_hour_during_one_day as 
+select 
+	time_format(time(r.date_time), '%H:00')  time,
+--     r.fk_fruit fruitCode,
+    sum(	
+		(select 
+			if( (r.R > (fr.r_avg + fr.r_var) or r.R < (fr.r_avg - fr.r_var)) or (r.G > (fr.g_avg + fr.g_var) or r.G < (fr.g_avg - fr.g_var)) or (r.B > (fr.b_avg + fr.b_var) or r.B < (fr.b_avg - fr.b_var)),
+             -1, 1 )
+		from fruit_requirements fr
+        
+        where fr.fk_fruitCode = r.fk_fruit)
+        
+	) fruit_count
+from readings r 
+where date(r.date_time)=curdate()
+group by time;
+
+
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+# 7- The fruits requirements
+
+drop view if exists `VW_fruit_requirements`;
+create VIEW `VW_fruit_requirements` AS 
+select 
+	`f`.`fruitName` AS `name`,
+	`f`.`fruitCode` AS `code`,
+	`f`.`description` AS `description`,
+	`f`.`urlImage` AS `url`,
+	`fr`.`r_avg` AS `R`,
+	`fr`.`g_avg` AS `G`,
+	`fr`.`b_avg` AS `B` 
+from 
+	(`fruits` `f` join `fruit_requirements` `fr` on((`f`.`fruitCode` = `fr`.`fk_fruitCode`)));
+    
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+# 8- A view that returns the result for every production line between a week.
+
+drop view if exists VW_fruits_results_week;
+create VIEW VW_fruits_results_week AS 
+select 
+	-- fr.day_date as date, 
+	sum(fr.acceptedFruits) as accepted, 
+    sum(fr.rejectedFruits) as rejected,
+    (now()) as date,
+    pl.prCode as code,
+	pl.ipAddress as ip,
+	pl.lastConnection as lastConnection,
+	pl.status as status,
+	pl.description as description
+from 
+	fruit_results fr 
+	join productionLines pl on fr.fk_productionLine = pl.prCode 
+where week(fr.day_date) = week(curdate())
+group by code, ip, lastConnection, status, description, date;
+
+

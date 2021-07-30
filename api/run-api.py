@@ -36,14 +36,17 @@ def getReadings():
     return  jsonify(fruitReadingStructure(r[0]) if r != () else [])
 
 
-  data = conn.consult("select * from VW_productionLines;")
+  
+
+  data = conn.consult("select * from VW_productionLines;") if 'search' not in params else conn.consult("select * from VW_productionLines where code='%s';" % (params['search']))
+  
   fruitReadingData = []
 
   for row in data:
     fr = { 'productionLine' : ProductionLineStructure(row)}
     fr['readings'] = []
     
-    for r in conn.consult("select * from  VW_readings_last_hour where code = '%s';" % row['code']):
+    for r in conn.consult("select * from  VW_readings_last_hour where code = '%s' ;" % (row['code'])) if 'fruit' not in params else conn.consult("select * from  VW_readings_last_hour where code = '%s' and fruitCode = '%s';" % (row['code'], params['fruit'])):
       reading = fruitReadingStructure(r)
 
       reading['fruit'] = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % r['fruitCode'])[0])
@@ -67,12 +70,20 @@ def getFruits():
   params = request.args
   conn = mysqlConnection()
 
+
   data = conn.consult("select * from VW_fruits;")
   fruits = []
 
   for row in data:
+    
+    str = FruitStructure(row)
+    str['requirements'] = {
+      'R': row['R'],
+      'G': row['G'],
+      'B': row['B']
+    }
 
-    fruits.append(FruitStructure(row))
+    fruits.append(str)
 
   conn.closeConnection()
 
@@ -107,6 +118,14 @@ def getAreaReadings():
 
   params = request.args
   conn = mysqlConnection()
+
+  if 'productionLine' in params:
+    res = conn.consult("select * from VW_enviroment_variable_last_second where code = '%s' order by id desc limit 1;" % params['productionLine'])[0]
+
+    return jsonify(
+      responseJsonHandler("There are not area readings availables for: %s" % params['productionLine'])
+      if res == () else {'temperature':res['temperature'], 'humidity':res['humidity']}
+    )
 
   data = conn.consult("select * from VW_productionLines;")
   
@@ -166,9 +185,6 @@ def setFruit():
     return jsonify(responseJsonHandler("The required params 'fruit' and 'productionLines' are not included in the request. "))
 
 
-# if action == 'get_fruits_result':
-#   return jsonify(connection.consult("select * from VW_fruits_result_today;"))
-
 ## Insert a new fruit
 @app.route("/insertFruit", methods=['POST'])
 def insertFruit():
@@ -208,14 +224,99 @@ def insertFruit():
   else : 
     return jsonify(responseJsonHandler("The given params are wrong. "))
 
-
-@app.route("/inspectionResults", methods=['GET'])
+## get the inspection Results of today
+@app.route("/get-inspectionResults", methods=['GET'])
 def getInspectionResults():
+
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, GET method expected. "))
+
+
 
   conn = mysqlConnection()
   params = request.args
   
-  conn.consult("")
+  if 'period' in params: 
+
+    data = []
+
+    if params['period'] == 'day' :
+      data = conn.consult("select * from VW_fruits_results_group_by_hour_during_one_day;")
+
+      
+      data = {
+        'dates' : [ d['time'] for d in data ],
+        
+        'counts' : [int( d['fruit_count']) for d in data]
+      }
+
+      return jsonify(data)
+
+    elif params['period'] == 'week':
+      
+
+      for ir in  conn.consult("select * from VW_fruits_results_week;"):
+
+        row = InspectionResultStructure(ir)
+        row['productionLine'] = ProductionLineStructure(ir)
+        row['fruit'] = "undefined"
+
+        data.append(row)
+
+      return jsonify(data)
+
+    return jsonify(responseJsonHandler("The given period is wrong: %s. " % params['period']))
+    
+
+  conn.consult("select * from VW_fruits_result_today;")
+
+  data = []
+
+  for ir in conn.consult("select * from VW_fruits_result_today;") :
+
+    row = InspectionResultStructure(ir)
+    row['productionLine'] = ProductionLineStructure(ir)
+    row['fruit'] = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % ir['fruitCode'])[0])
+
+    data.append(row)
+
+  conn.closeConnection()
+  return jsonify(data)
+
+## Returning all the relations from the production lines and fruits
+@app.route("/get-relations", methods= ['GET'])
+def getRelations():
+
+  if request.method != 'GET':
+    return jsonify(responseJsonHandler("The request method is wrong, GET method expected. "))
+
+
+  conn = mysqlConnection()
+  params = request.args
+
+  if 'productionLine' in params: 
+    res = conn.consult("select * from VW_fruit_productionLine_relation where productionLineCode = '%s';" % params['productionLine'])[0]
+
+    return jsonify(
+      responseJsonHandler("This production line does not exists or does not have a relation asigned yet: %s ." % params['productionLine'])
+      if res == () else {
+        "fruit": FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % res['fruitCode'])[0]) ,
+        "productionLine": ProductionLineStructure(conn.consult("select * from VW_productionLines where code ='%s';" % res['productionLineCode'])[0]) 
+      }
+    )
+
+  data = []
+
+  for rel in conn.consult("select * from VW_fruit_productionLine_relation;"):
+    data.append({
+      "fruit": FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % rel['fruitCode'])[0]) ,
+      "productionLine": ProductionLineStructure(conn.consult("select * from VW_productionLines where code ='%s';" % rel['productionLineCode'])[0]) 
+    })
+
+  return jsonify(data)
+  
+
+  
 
 ## Insert a fruit requirements, just the colors.
 @app.route("/insertFruitRequirements", methods = ['POST'])
@@ -296,7 +397,7 @@ def insertFruitRequirements():
           
     #   }
     # )
-
+    conn.closeConnection()
     return jsonify(responseJsonHandler("Success!", status=True))
 
   else :
@@ -317,13 +418,13 @@ def getAll():
 
     p = ProductionLineStructure(p)
 
-    currentFruit = conn.consult("select * from VW_fruit_productionLine_relation;")[0]['fruitCode']
+    currentFruit = conn.consult("select * from VW_fruit_productionLine_relation where productionLineCode = '%s';" % p['code'])[0]['fruitCode']
 
     currentFruit = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % currentFruit)[0])
 
     p['currentFruit'] = currentFruit
-
-    areaReadings = conn.consult("select * from VW_enviroment_variable_last_second;")[0]
+    print(p["code"])
+    areaReadings = conn.consult("select * from VW_enviroment_variable_last_second where code = '%s' order by id desc limit 1;" % (p['code']))[0]
 
     areaReadings = [
       {
@@ -506,7 +607,9 @@ def getAll():
 
     
     data["productionLines"].append(p)
-    
+  
+  conn.closeConnection()
+
   return jsonify(data)
 
 ## Searching an image 
@@ -552,7 +655,12 @@ def FruitStructure(row):
     'code': row['code'],
     'name': row['name'], 
     'description': row['description'],
-    'image' : filename
+    'image' : filename,
+    'requirements' : {
+      'R': row['R'],
+      'G': row['G'],
+      'B': row['B']
+    }
   }
 
 
@@ -569,6 +677,15 @@ def fruitReadingStructure(row):
       'R': row['R'],
       'G': row['G'],
       'B': row['B'],
+    }
+  }
+
+def InspectionResultStructure(row):
+  return {
+    'date': row['date'],
+    'results' : {
+      'accepted'  : int(row['accepted']),
+      'rejected' : int(row['rejected'])
     }
   }
 
