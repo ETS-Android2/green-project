@@ -44,7 +44,9 @@ export class ProductionLineComponent implements OnInit {
   getFruitReading(): void{
     this.api.getFruitReadings().subscribe(
       data => {
-        if ('productionLine' in data){ // expecting an array reading
+        
+
+        if (Array.isArray(data)){ // expecting an array reading
           this.fruitReadings = data;
         }
       }, error => { console.log(error); }
@@ -54,10 +56,13 @@ export class ProductionLineComponent implements OnInit {
   getEnvironmentReadings(): void{
     this.api.getEnvironmentReadings().subscribe(
       data => {
-        this.productionLines = data;
+        if ('productionLine' in data) {
+          this.productionLines = data;
         // delete this later, is an example
-        console.log(this.productionLines);
-        console.log(this.productionLines[0].productionLine.status.value);
+          console.log(this.productionLines);
+          console.log(this.productionLines[0].productionLine.status.value);
+        }
+        
       }, error => { console.log(error); }
     );
   }

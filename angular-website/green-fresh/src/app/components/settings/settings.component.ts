@@ -136,8 +136,6 @@ export class SettingsComponent implements OnInit {
     if (this.selectedOptionFruit == '') return;
 
     clearInterval(this.timer)
-
-    console.log(this.selectedOptionFruit)
     
   }
 
@@ -160,8 +158,6 @@ export class SettingsComponent implements OnInit {
     let data : FormData = new FormData();
     // Preparing the form for the POST structure
 
-    console.log(this.selectedOptionPl)
-
     data.append("fruit", this.selectedOptionFruit);
     data.append("productionLine", this.selectedOptionPl);
     // Appending the data from the selected values
@@ -170,7 +166,6 @@ export class SettingsComponent implements OnInit {
     this.api.setFruit_productionLine(data).subscribe(
       // The resquest to the API
       (res : any) => { 
-        console.log(res);
 
         if (res.status) { 
           // If everything is good we can continue.
@@ -217,8 +212,6 @@ export class SettingsComponent implements OnInit {
         } 
       })
     }
-
-    console.log(data)
 
     this.api.insertFruitRequirements(data).subscribe(
       (res : any) => {console.log(res); }

@@ -6,6 +6,11 @@ import { Fruit } from '../interfaces/fruit';
 import { EnvironmentReadings } from '../interfaces/environment-readings';
 import { FruitReadings } from '../interfaces/fruit-readings';
 import { Reading } from '../interfaces/reading';
+import { AreaValue } from '../interfaces/area-value';
+import { Relation } from '../interfaces/relation';
+import { map } from 'highcharts';
+import { FruitResults } from '../interfaces/fruit-results';
+import { InspectionResults } from '../interfaces/inspection-results';
 
 @Injectable({
   providedIn: 'root'
@@ -30,12 +35,20 @@ export class ApiService {
     return this.http.get<ProductionLine[]>(this.baseURL + 'get-productionLines?');
   }
 
-  getFruitReadings(productionLine=""): Observable<FruitReadings[] | Reading>{
-    return this.http.get<FruitReadings[] | Reading>(this.baseURL + 'get-readings?'+productionLine);
+  getRelation(productionLine=""): Observable<Relation>{
+    return this.http.get<Relation>(this.baseURL + 'get-relations?'+productionLine);
   }
 
-  getEnvironmentReadings(): Observable<EnvironmentReadings[]>{
-    return this.http.get<EnvironmentReadings[]>(this.baseURL + 'get-enviromentVariables?');
+  getFruitReadings(params=""): Observable<FruitReadings[] | Reading>{
+    return this.http.get<FruitReadings[] | Reading>(this.baseURL + 'get-readings?'+params);
+  }
+
+  getEnvironmentReadings(productionLine=""): Observable<EnvironmentReadings[] | AreaValue >{
+    return this.http.get<EnvironmentReadings[] | AreaValue>(this.baseURL + 'get-enviromentVariables?'+ productionLine);
+  }
+
+  getInpectionResults(period=""): Observable<InspectionResults[] | FruitResults >{
+    return this.http.get<InspectionResults[] | FruitResults>(this.baseURL + 'get-inspectionResults?'+ period);
   }
 
   // set data
