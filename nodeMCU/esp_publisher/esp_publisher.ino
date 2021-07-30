@@ -28,6 +28,12 @@ const int errorRange = 20;                      // The sensor has an error range
 int weight;
 HX711 scale;
 
+// Control LEDs
+#define PASS_LED 14               // D14
+#define FAIL_LED 27               // D27
+#define CONTROL_LED 25            // D25
+#define ANALYSIS_LED 13           // D13
+
 // Define TCS3200
 #define S0 4
 #define S1 5
@@ -64,10 +70,10 @@ const char *ssid = "INFINITUM67F2_2.4";
 const char *password = "Ma2F3YqgAb"; 
 
 // Variables for MQTT connection
-// const char *mqtt_broker = "189.223.79.36";
-// const int port = 6000;
-const char *mqtt_broker = "broker.hivemq.com";   // For testing
-const int port = 1883;
+const char *mqtt_broker = "201.170.115.157";
+const int port = 6000;
+// const char *mqtt_broker = "broker.hivemq.com";   // For testing
+// const int port = 1883;
 const String clientId = "NMCU-ARX";
 const String description = "Production Line 1";
 
@@ -192,137 +198,175 @@ void sendProductionLine(){
 }
 
 void sendFruitResults(){
-  // Take five readings and get the average and median
-  for(int x = 0; x < 5; x++){
-    // Read weight
-    int w = scale.get_units(20);
-    if(w <= errorRange) w = 0;
-    weightSamples.add(w);
+  // Verify if there is an object on the weight scale
+  if(scale.get_units(20) > 0){
     
-    // Set sensor to read Red only
-    digitalWrite(S2,LOW);
-    digitalWrite(S3,LOW);
-    // Read Red value
-    redPW = pulseIn(sensorOut, LOW);
-    // Map to value from 0-255
-    int red = map(redPW, redMin,redMax,255,0);
-    // Validate range 0-255
-    if(red < 0 || red > 255){
-      if(red < 0){ red = 0; }
-      else { red = 255; }
+    // Take five readings and get the average and median
+    for(int x = 0; x < 5; x++){
+      // Turn on the analysis LED to notify the TCS3200 is analyzing
+      digitalWrite(ANALYSIS_LED, HIGH);
+      
+      // Read weight
+      int w = scale.get_units(20);
+      if(w <= errorRange) w = 0;
+      weightSamples.add(w);
+      
+      // Set sensor to read Red only
+      digitalWrite(S2,LOW);
+      digitalWrite(S3,LOW);
+      // Read Red value
+      redPW = pulseIn(sensorOut, LOW);
+      // Map to value from 0-255
+      int red = map(redPW, redMin,redMax,255,0);
+      // Validate range 0-255
+      if(red < 0 || red > 255){
+        if(red < 0){ red = 0; }
+        else { red = 255; }
+      }
+      // add sample
+      redSamples.add(red);
+      // Delay to stabilize sensor
+      delay(200);
+  
+      // Set sensor to read Green only
+      digitalWrite(S2,HIGH);
+      digitalWrite(S3,HIGH);
+      // Read Green value
+      greenPW = pulseIn(sensorOut, LOW);
+      // Map to value from 0-255
+      int green = map(greenPW, greenMin,greenMax,255,0);
+      // Validate range 0-255
+      if(green < 0 || green > 255){
+        if(green < 0){ green = 0; }
+        else { green = 255; }
+      }
+      // add sample
+      greenSamples.add(green);
+      // Delay to stabilize sensor
+      delay(200);
+  
+      // Set sensor to read Blue only
+      digitalWrite(S2,LOW);
+      digitalWrite(S3,HIGH);
+      // Read Blue value
+      bluePW = pulseIn(sensorOut, LOW);
+      // Map to value from 0-255
+      int blue = map(bluePW, blueMin,blueMax,255,0);
+      // Validate range 0-255
+      if(blue < 0 || blue > 255){
+        if(blue < 0){ blue = 0; }
+        else { blue = 255; }
+      }
+      // add sample
+      blueSamples.add(blue);
+      // Delay to stabilize sensor
+      delay(200);
+  
+      // Turn off the analysis LED to notify the TCS3200 ended to analyze
+      digitalWrite(ANALYSIS_LED, LOW);
+      
+      // Conditional for show a message
+      Serial.println("Reading number " + String(x+1) + " taken");
+      if(x < 4){
+        Serial.println("Change the position of the fruit");
+        
+        Serial.print("5-");
+        digitalWrite(CONTROL_LED, HIGH);    delay(500);
+        digitalWrite(CONTROL_LED, LOW);     delay(500);
+        
+        Serial.print("4-");      
+        digitalWrite(CONTROL_LED, HIGH);    delay(500);
+        digitalWrite(CONTROL_LED, LOW);     delay(500);
+        
+        Serial.print("3-");
+        digitalWrite(CONTROL_LED, HIGH);    delay(500);
+        digitalWrite(CONTROL_LED, LOW);     delay(500);
+        
+        Serial.print("2-");
+        digitalWrite(CONTROL_LED, HIGH);    delay(500);
+        digitalWrite(CONTROL_LED, LOW);     delay(500);
+        
+        Serial.println("1...");
+        digitalWrite(CONTROL_LED, HIGH);    delay(500);
+        digitalWrite(CONTROL_LED, LOW);     delay(500);
+  
+      }else {
+        getTone();
+        digitalWrite(CONTROL_LED, HIGH);
+        delay(500);
+        digitalWrite(CONTROL_LED, LOW);
+        Serial.println("Remove any objects on the weight scale"); 
+        Serial.println();
+      }
     }
-    // add sample
-    redSamples.add(red);
-    // Delay to stabilize sensor
-    delay(200);
-
-    // Set sensor to read Green only
-    digitalWrite(S2,HIGH);
-    digitalWrite(S3,HIGH);
-    // Read Green value
-    greenPW = pulseIn(sensorOut, LOW);
-    // Map to value from 0-255
-    int green = map(greenPW, greenMin,greenMax,255,0);
-    // Validate range 0-255
-    if(green < 0 || green > 255){
-      if(green < 0){ green = 0; }
-      else { green = 255; }
+    
+    // Define red as the average
+    redValue = redSamples.getAverage();
+    // Define green as the average
+    greenValue = greenSamples.getAverage();
+    // Define blue as the average
+    blueValue = blueSamples.getAverage();
+    // Define weight as the median
+    weight = weightSamples.getMedian();
+    
+    // JSON message values
+    String JSON_msg;         
+    StaticJsonDocument<300> values; 
+    values["ID"] = clientId; 
+    values["W"] = weight;
+  
+    // JSON object for the color inside "values"
+    JsonObject color = values.createNestedObject("Color");
+    color["R"] = redValue;
+    color["G"] = greenValue;
+    color["B"] = blueValue;
+  
+    // Serialize values into JSON_msg
+    serializeJson(values, JSON_msg);
+    
+    Serial.print(F("Publishing message: "));
+    Serial.println(JSON_msg);
+  
+    // Reconnect client before to publish
+    if(!client.connected()){
+      reconnect();  
     }
-    // add sample
-    greenSamples.add(green);
-    // Delay to stabilize sensor
-    delay(200);
-
-    // Set sensor to read Blue only
-    digitalWrite(S2,LOW);
-    digitalWrite(S3,HIGH);
-    // Read Blue value
-    bluePW = pulseIn(sensorOut, LOW);
-    // Map to value from 0-255
-    int blue = map(bluePW, blueMin,blueMax,255,0);
-    // Validate range 0-255
-    if(blue < 0 || blue > 255){
-      if(blue < 0){ blue = 0; }
-      else { blue = 255; }
-    }
-    // add sample
-    blueSamples.add(blue);
-    // Delay to stabilize sensor
-    delay(200);
-
-    // Conditional for show a message
-    Serial.println("Reading number " + String(x+1) + " taken");
-    if(x < 4){
-      Serial.println("Change the position of the fruit");
-      Serial.print("5-");        delay(1000);
-      Serial.print("4-");        delay(1000);
-      Serial.print("3-");        delay(1000);
-      Serial.print("2-");        delay(1000);
-      Serial.println("1...");    delay(1000);
-    }else {
-      getTone();
-      Serial.println("Remove any objects on the weight scale"); 
+    
+    // MQTT Publish to topic
+    char JSON_msg_array[100];
+    char JSON_msg_length = JSON_msg.length();
+    JSON_msg.toCharArray(JSON_msg_array, 100);
+    Serial.println(JSON_msg_array);
+    if(client.connected()){
+      client.publish(publishFruitTopic, JSON_msg_array);
+      Serial.print("Published to topic:");
+      Serial.println(publishFruitTopic);
+      Serial.println();
+    } else {
+      Serial.print("Not connected to broker... couldn't send MQTT message...");  
       Serial.println();
     }
-  }
   
-  // Define red as the average
-  redValue = redSamples.getAverage();
-  // Define green as the average
-  greenValue = greenSamples.getAverage();
-  // Define blue as the average
-  blueValue = blueSamples.getAverage();
-  // Define weight as the median
-  weight = weightSamples.getMedian();
-  
-  // JSON message values
-  String JSON_msg;         
-  StaticJsonDocument<300> values; 
-  values["ID"] = clientId; 
-  values["W"] = weight;
-
-  // JSON object for the color inside "values"
-  JsonObject color = values.createNestedObject("Color");
-  color["R"] = redValue;
-  color["G"] = greenValue;
-  color["B"] = blueValue;
-
-  // Serialize values into JSON_msg
-  serializeJson(values, JSON_msg);
-  
-  Serial.print(F("Publishing message: "));
-  Serial.println(JSON_msg);
-
-  // Reconnect client before to publish
-  if(!client.connected()){
-    reconnect();  
-  }
-  
-  // MQTT Publish to topic
-  char JSON_msg_array[100];
-  char JSON_msg_length = JSON_msg.length();
-  JSON_msg.toCharArray(JSON_msg_array, 100);
-  Serial.println(JSON_msg_array);
-  if(client.connected()){
-    client.publish(publishFruitTopic, JSON_msg_array);
-    Serial.print("Published to topic:");
-    Serial.println(publishFruitTopic);
-    Serial.println();
-  } else {
-    Serial.print("Not connected to broker... couldn't send MQTT message...");  
-    Serial.println();
-  }
-
-  // Verify that objects are removed from the weight scale
-  int w = scale.get_units(20);
-  while(w != 0){
-    getTone();
-    Serial.println("Remove any objects on the weight scale"); 
+    // Verify that objects are removed from the weight scale
+    int w = scale.get_units(20);
+    while(w != 0){
+      getTone();
+      digitalWrite(CONTROL_LED, HIGH);
+      delay(500);
+      digitalWrite(CONTROL_LED, LOW);
+      Serial.println("Remove any objects on the weight scale"); 
+      delay(1000);
+      w = scale.get_units(20);
+      if(w <= errorRange) w = 0;
+    }
+    
+  }else {
+    digitalWrite(FAIL_LED, HIGH);
+    Serial.println("Error: No object on the weight scale");
     delay(1000);
-    w = scale.get_units(20);
-    if(w <= errorRange) w = 0;
+    digitalWrite(FAIL_LED, LOW);
   }
-
+ 
   Serial.println();
 }
 
@@ -370,9 +414,8 @@ void setup() {
   client.setServer(mqtt_broker, port);                // Initializing connection with the broker
   client.setCallback(callback);                       // Callback based on the function with the same name
   
-  // Start message
-  Serial.println("Starting program...");
-  Serial.println("Initializing sensors ...");
+  Serial.println("Starting program...");              // Start message
+  Serial.println("Initializing sensors ...");         //
   Serial.println("Don't place any objects on the weight scale");
   
   pinMode(BUILTIN_LED, OUTPUT);                       // Initialize the BUILTIN_LED pin as an output
@@ -394,7 +437,15 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);                          //
   pinMode(ECHO_PIN, INPUT);                           // Initialize Ultrasonic Sensor Pins
 
-  Serial.println("Ready to use");
+  pinMode(PASS_LED, OUTPUT);                          //
+  pinMode(FAIL_LED, OUTPUT);                          // Initialize Control LEDs
+  pinMode(CONTROL_LED, OUTPUT);                       //
+  pinMode(ANALYSIS_LED, OUTPUT);                      //
+
+  Serial.println("Ready to use");                     // Ready to use
+  digitalWrite(CONTROL_LED, HIGH);                    // Turn on the control LED 
+  delay(1000);                                        // to notify it's ready to use
+  digitalWrite(CONTROL_LED, LOW);                     // Turn off the control LED
 }
 
 void loop() {
@@ -428,7 +479,9 @@ void loop() {
 
   if((distance <= scale && distance > 0) && (now - lastMsgF > samplingRateF)){
     Serial.println("\nFruit detected...");
+    digitalWrite(CONTROL_LED, HIGH); 
     delay(1000);
+    digitalWrite(CONTROL_LED, LOW); 
     sendFruitResults();
     lastMsgF = millis();
   }
