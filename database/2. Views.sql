@@ -33,7 +33,7 @@ from
 	fruits f  join fruit_requirements fr on f.fruitCode = fk_fruitCode;
 
 ## 3
-drop view VW_fruit_productionLine_relation;
+drop view if exists VW_fruit_productionLine_relation;
 create view VW_fruit_productionLine_relation as
 select 
 	fk_fruit fruitCode,

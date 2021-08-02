@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FruitsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context=".FruitsFragment"
+    android:background="@color/gray_100">
+    
+    <ListView
+        android:id="@+id/lvFruitsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Fruits" />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:divider="@color/white"/>
 
 </FrameLayout>
