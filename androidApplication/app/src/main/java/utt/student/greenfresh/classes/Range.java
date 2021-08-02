@@ -2,15 +2,12 @@ package utt.student.greenfresh.classes;
 
 public class Range {
     // attributes
-    private String id;
     private String name;
     private String color;
     private int maximum;
     private int minimum;
 
     // getters and setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public String getColor() { return color; }
@@ -21,8 +18,7 @@ public class Range {
     public void setMinimum(int minimum) { this.minimum = minimum; }
 
     // constructors
-    public Range(String id, String name, String color, int maximum, int minimum) {
-        this.id = id;
+    public Range(String name, String color, int maximum, int minimum) {
         this.name = name;
         this.color = color;
         this.maximum = maximum;
@@ -30,7 +26,6 @@ public class Range {
     }
 
     public Range() {
-        this.id = "";
         this.name = "";
         this.color = "";
         this.maximum = 0;

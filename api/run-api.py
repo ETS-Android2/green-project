@@ -433,7 +433,7 @@ def getAll():
         'type': {
           "id": "TMP",
 					"name": "Temperature",
-					"icon": "temperature.png",
+					"icon": "temperature",
 					"unitOfMeasurement": {
 						"symbol": "°C",
 						"name": "Celsius"
@@ -441,34 +441,28 @@ def getAll():
         },
         "ranges": [
           {
-            "id": "LW",
             "name": "Low",
             "values": {
               "minimum": 0,
-              "maximum": 9
+              "maximum": 10
             },
-            "color": "#03A9F4",
-            "icon": "temperature_low.png"
+            "color": "#03A9F4"
           },
           {
-            "id": "NR",
             "name": "Normal",
             "values": {
               "minimum": 10,
               "maximum": 22
             },
-            "color": "#03A9F4",
-            "icon": "temperature_normal.png"
+            "color": "#77E03A"
           },
           {
-            "id": "HG",
             "name": "High",
             "values": {
-              "minimum": 23,
-              "maximum": 100
+              "minimum": 22,
+              "maximum": 50
             },
-            "color": "#03A9F4",
-            "icon": "temperature_high.png"
+            "color": "#F8002F"
           }
         ]
       },
@@ -476,9 +470,8 @@ def getAll():
         'id': areaReadings['id'],
         'current' : areaReadings['humidity'],
         "type": {
-          "id": "HMD",
           "name": "Humidity",
-          "icon": "humidity.png",
+          "icon": "humidity",
           "unitOfMeasurement": {
             "symbol": "%",
             "name": "Percentage"
@@ -486,34 +479,28 @@ def getAll():
         },
         "ranges": [
           {
-            "id": "LW",
             "name": "Low",
             "values": {
               "minimum": 0,
-              "maximum": 74
+              "maximum": 75
             },
-            "color": "#03A9F4",
-            "icon": "humidity_low.png"
+            "color": "#FDD835"
           },
           {
-            "id": "NR",
             "name": "Normal",
             "values": {
               "minimum": 75,
               "maximum": 90
             },
-            "color": "#03A9F4",
-            "icon": "humidity_normal.png"
+            "color": "#77E03A"
           },
           {
-            "id": "HG",
             "name": "High",
             "values": {
-              "minimum": 91,
+              "minimum": 90,
               "maximum": 100
             },
-            "color": "#03A9F4",
-            "icon": "humidity_high.png"
+            "color": "#F88F55"
           }
         ],
       }
