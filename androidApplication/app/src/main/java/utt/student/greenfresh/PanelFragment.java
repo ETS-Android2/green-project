@@ -67,15 +67,11 @@ public class PanelFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         queue = Volley.newRequestQueue(getActivity());      // queue request
-        getData();      // get data to the API
-
-        // bind production lines to list view
-        ListView lvProductionLines = (ListView)view.findViewById(R.id.lvProductionLinePanel);
-        ListAdapter adapter = new ProductionLinePanelListAdapter(getActivity(), productionLines);
-        lvProductionLines.setAdapter(adapter);
+        productionLines.clear();    // clear array list
+        getData(view);      // get data from the API
     }
 
-    public void getData(){
+    public void getData(View view){
         // request URL
         String url = baseURL + "get-all";
         // JSON request
@@ -132,6 +128,11 @@ public class PanelFragment extends Fragment {
                     productionLines.add(productionLine);
                 }
                 Log.d("Request", "Successful");
+
+                // bind production lines to list view
+                ListView lvProductionLines = (ListView)view.findViewById(R.id.lvProductionLinePanel);
+                ProductionLinePanelListAdapter adapter = new ProductionLinePanelListAdapter(getActivity(), productionLines);
+                lvProductionLines.setAdapter(adapter);
 
             } catch (JSONException e){
                 e.printStackTrace();
