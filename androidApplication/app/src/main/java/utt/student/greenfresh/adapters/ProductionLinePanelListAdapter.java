@@ -1,6 +1,7 @@
 package utt.student.greenfresh.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.media.RatingCompat;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class ProductionLinePanelListAdapter extends BaseAdapter {
     public ProductionLinePanelListAdapter(Activity activity, ArrayList<ProductionLine> productionLines) {
         this.activity = activity;
         this.productionLines = productionLines;
+        inflater = (LayoutInflater)this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     // methods
@@ -45,7 +47,7 @@ public class ProductionLinePanelListAdapter extends BaseAdapter {
         View v = convertView;
 
         // assign adapter layout
-        if(v == null) v = activity.getLayoutInflater().inflate(R.layout.production_line_panel_layout, parent, false);
+        if(v == null) v = inflater.inflate(R.layout.production_line_panel_layout, parent, false);
 
         // reference layout controls
         TextView tvProductionLine = (TextView)v.findViewById(R.id.tvProductionLineName);

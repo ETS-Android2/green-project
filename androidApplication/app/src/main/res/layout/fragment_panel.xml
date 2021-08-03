@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PanelFragment"
-    android:background="@color/gray_100">
+    tools:context=".PanelFragment">
 
     <ListView
         android:id="@+id/lvProductionLinePanel"
