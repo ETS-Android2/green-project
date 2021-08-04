@@ -15,12 +15,16 @@
         sino toda la producción sindistinción de frutas -->
     </div>
 
-    <div class="box box-normal box-tall">
-        Perdidas y ganancias totales del mes
-        de todas las lineas de producción
+    <div class="box box-normal box-tall" >
+        
+        <fa-icon icon="chevron-left" style="font-size: 18pt; cursor: pointer;" (click)="changePieChartItem(-1)"></fa-icon>
+        
+        <div style="width: 80%; height: 80%;" id="chart-results-pie">
 
-        <br>Nota: sin tomar en cuenta frutas individuales
-        sino toda la producción sindistinción de frutas
+        </div>
+
+        <fa-icon icon="chevron-right" style="font-size: 18pt;cursor: pointer; " (click)="changePieChartItem(1)"></fa-icon>
+
     </div>
 
     <!-- Production Line Menu -->
@@ -111,5 +115,18 @@
         </p>
 
         
+    </div>
+
+    <div class="box box-full subtitle-section"><p>Set Fruit</p></div>
+
+    <div class=" box box-full box-short" *ngIf="currentPl != undefined">
+        <label for="fruit-selector"> Select a fruit for {{currentPl.description}}: </label> 
+
+        <select id="fruit-selector" (change)="selectFruit($event)">
+            <option value=""> Select a Fruit </option>
+            <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
+        </select>
+
+        <button *ngIf="selectedOptionFruit != ''" (click)="setFruit()"> Set Fruit</button>
     </div>
 </div>

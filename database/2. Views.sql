@@ -229,4 +229,34 @@ from
 where week(fr.day_date) = week(curdate())
 group by code, ip, lastConnection, status, description, date;
 
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+# 9- Fruit Results invividual for each fruit during the day
 
+drop view if exists VW_fruits_results_all_day;
+create VIEW VW_fruits_results_all_day AS 
+select 
+	time_format(time(r.date_time), '%H:00')  date,
+    r.fk_fruit fruitCode,
+	sum(	
+		(select 
+			if( (r.R > (fr.r_avg + fr.r_var) or r.R < (fr.r_avg - fr.r_var)) or (r.G > (fr.g_avg + fr.g_var) or r.G < (fr.g_avg - fr.g_var)) or (r.B > (fr.b_avg + fr.b_var) or r.B < (fr.b_avg - fr.b_var)),
+             0, 1 )
+		from fruit_requirements fr
+        
+        where fr.fk_fruitCode = r.fk_fruit)
+        
+	) as accepted, 
+    
+    sum(	
+		(select 
+			if( (r.R > (fr.r_avg + fr.r_var) or r.R < (fr.r_avg - fr.r_var)) or (r.G > (fr.g_avg + fr.g_var) or r.G < (fr.g_avg - fr.g_var)) or (r.B > (fr.b_avg + fr.b_var) or r.B < (fr.b_avg - fr.b_var)),
+             1, 0 )
+		from fruit_requirements fr
+        
+        where fr.fk_fruitCode = r.fk_fruit)
+        
+	) as rejected
+    
+from readings r join fruits f on r.fk_fruit = f.fruitCode
+where date(r.date_time)=curdate()
+group by date, fruitCode;

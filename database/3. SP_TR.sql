@@ -300,4 +300,4 @@ end //
 DELIMITER ;
 
 call SP_insert_fruitReading
-('Test',17.4,190,80,18);
+('Test',17.4,230,20,12);

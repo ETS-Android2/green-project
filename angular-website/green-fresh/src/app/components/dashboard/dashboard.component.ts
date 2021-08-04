@@ -6,13 +6,19 @@ import { ProductionLine } from 'src/app/interfaces/production-line';
 import { AreaValue } from 'src/app/interfaces/area-value';
 import { Fruit } from 'src/app/interfaces/fruit';
 
-// Importing the highcharts stuff
-import * as Highcharts from 'highcharts'
+import { FormBuilder, FormGroup, FormControl, Form } from '@angular/forms';
+
 import { FruitReadings } from 'src/app/interfaces/fruit-readings';
 import { Reading } from 'src/app/interfaces/reading';
 import { FruitResults } from 'src/app/interfaces/fruit-results';
 import { Observable } from 'rxjs';
 import { InspectionResults } from 'src/app/interfaces/inspection-results';
+import { formatDate } from '@angular/common';
+
+
+// Importing the highcharts stuff
+import * as Highcharts from 'highcharts'
+
 
 // Declaring the requiriments for the Highcharts library
 declare var require : any;
@@ -33,6 +39,7 @@ noData(Highcharts)
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
 
   productionLines : ProductionLine[] = [];
@@ -47,8 +54,13 @@ export class DashboardComponent implements OnInit {
 
   now?: Date;
 
-  // resultsDay : FruitResults = { counts: [], dates: []};
-  // resultsWeek : FruitResults= { counts: [], dates: []};
+  fruits : Fruit[] = [];
+
+  selectedOptionFruit : string = "";
+
+  currentSeriePieChart? :  { name: string,    data: any[]} = {name: "production Line", data:[]};
+  
+  seriesListPieChart : any[] = [];
 
   months : string[] = 
   ["January", "February", "March", 
@@ -127,19 +139,53 @@ export class DashboardComponent implements OnInit {
     series: []
   }
 
+  pieChart : any = {
+    chart: {
+      type: 'pie'
+    },
+    title: {
+      text: 'Production Line - Fruit Status'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.y}pc</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.y}pc'
+        }
+      }
+    },
+  
+   series: [this.currentSeriePieChart]
+  }
+
   constructor(private api : ApiService) { 
 
   }
 
   ngOnInit(): void {
 
-
-    this.getProductionLines();
-    
     setInterval(() => {
       this.now = new Date();
     }, 1);
 
+    this.getProductionLines();
+
+    this.api.getFruits().subscribe(
+
+      data => {
+        this.fruits = data.map((fruit: Fruit) => {
+
+          fruit.image = (fruit.image != false) ? this.api.baseURL+ "image/" + fruit.image : (fruit.image)
+          // We are setting the image url as the api tells. 
+          return fruit
+        })
+      }
+    );
 
     this.getFruitResults("period=day").then( (data) => {
     
@@ -178,23 +224,52 @@ export class DashboardComponent implements OnInit {
 
           if ('productionLine' in inspectionResults[0]) {
             
+            this.seriesListPieChart = [];
+
             inspectionResults.forEach((ir : InspectionResults) => {
-              this.plResultChart.series.push( {
-                name: ir.productionLine.description,
-                data: [ir.results.accepted, ir.results.rejected]
-              })
+
+              if (ir.productionLine != undefined) {
+                this.plResultChart.series.push( {
+                  name: ir.productionLine.description,
+                  data: [ir.results.accepted, ir.results.rejected]
+                });
+                
+                this.currentSeriePieChart = { 
+                  name: ir.productionLine.description,
+                  data: [{
+                    name:"Accepted",
+                    y: ir.results.accepted,
+                    color: "#77E03A"
+                  },{
+                    name:"Rejected",
+                    y: ir.results.rejected,
+                    color: "#F8002F"
+                  }]
+                }
+  
+                this.seriesListPieChart.push(this.currentSeriePieChart)
+              }
+
+              
+
             })
             
-             
+            if (this.seriesListPieChart.length > 0) {
+              this.currentSeriePieChart = this.seriesListPieChart[0];
+              
+              this.pieChart.title.text = this.currentSeriePieChart?.name + " - Fruit Selection"
+              this.pieChart.series = [this.currentSeriePieChart]
+
+            }
 
           }
         }
 
         Highcharts.chart('chart-results-week', this.plResultChart)
+        Highcharts.chart('chart-results-pie', this.pieChart)
       }
     });
     
-
   }
 
   getProductionLines() {
@@ -214,8 +289,6 @@ export class DashboardComponent implements OnInit {
         resolve(data);
       })
     })
-    
-  
   }
 
   getFruitReadings() :void{
@@ -351,6 +424,57 @@ export class DashboardComponent implements OnInit {
       )
 
     })
+  }
+
+  selectFruit( event : Event) {
+
+    this.selectedOptionFruit = (event.target as HTMLSelectElement).value;
+
+    if (this.selectedOptionFruit == '') return;
+    
+  }
+
+  setFruit() {
+    let formData : FormData = new FormData();
+
+    if (this.currentPl != undefined) {
+      formData.append("fruit", this.selectedOptionFruit);
+      formData.append("productionLine", this.currentPl?.code);
+
+      this.api.setFruit_productionLine(formData).subscribe(
+        // The resquest to the API
+        (res : any) => { 
+          console.log(res)
+          this.getProductionLines()
+        }
+      )   
+    }
+
+    
+  }
+  
+  changePieChartItem( index : number) {
+
+    let position = this.seriesListPieChart.indexOf(this.currentSeriePieChart) + (index);
+
+    if ( position > this.seriesListPieChart.length -1) {
+      
+      position = 0;
+    }
+
+
+    if (position < 0 ) {
+      
+      position = this.seriesListPieChart.length -1 ;
+    }
+
+    this.currentSeriePieChart = this.seriesListPieChart[position];
+
+    this.pieChart.title.text = this.currentSeriePieChart?.name + " - Fruit Selection"
+    this.pieChart.series = [this.currentSeriePieChart]
+    Highcharts.chart('chart-results-pie', this.pieChart)
+    console.log(this.currentSeriePieChart)
+
   }
 
   ngOnDestroy() {
