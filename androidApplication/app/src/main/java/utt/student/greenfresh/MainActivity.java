@@ -108,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
                             reading.getString("date"),
                             new Fruit(reading.getString("fruit")),
                             weight.getDouble("value"),
-                            color.getInt("R"),
-                            color.getInt("G"),
-                            color.getInt("B")
+                            color.getInt("r"),
+                            color.getInt("g"),
+                            color.getInt("b")
                     ));
                     // Log.d("Date", reading.getString("date"));
                 }
