@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rect_white_shadow"
+        android:elevation="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rlProductionLineCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow_200"
+            android:radius="6dp">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="20dp"
+                android:id="@+id/ivProdLineIcon"
+                android:src="@drawable/production_line_gray_500" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginTop="23dp"
+                android:textColor="@color/gray_700"
+                android:id="@+id/tvProductionLineName"
+                android:layout_toRightOf="@id/ivProdLineIcon"
+                android:text="Production Line 1" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlProductionLineCard">
+
+            <TextView
+                android:id="@+id/tvCurrentFruitTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_500"
+                android:textSize="16dp"
+                android:layout_margin="10dp"
+                android:text="Current Fruit"/>
+
+            <ImageView
+                android:id="@+id/ivCurrentFruitImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/tvCurrentFruitTitle"
+                android:src="@drawable/fruit"/>
+
+            <TextView
+                android:id="@+id/tvCurrentFruitName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCurrentFruitTitle"
+                android:layout_toRightOf="@+id/ivCurrentFruitImage"
+                android:text="Strawberry"
+                android:textSize="14dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/gray_700"/>
+
+            <ImageView
+                android:id="@+id/ivFruitColor"
+                android:src="@drawable/color_square"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@color/red_600"
+                android:layout_below="@+id/tvCurrentFruitName"
+                android:layout_toRightOf="@+id/ivCurrentFruitImage"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:id="@+id/tvRGBLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ivFruitColor"
+                android:layout_below="@id/tvCurrentFruitName"
+                android:text="RGB:"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_700"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:id="@+id/tvRGBValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tvRGBLabel"
+                android:layout_below="@id/tvCurrentFruitName"
+                android:text="250, 108, 255"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/gray_700"
+                android:layout_marginBottom="10dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -36,15 +36,15 @@ import utt.student.greenfresh.classes.Fruit;
 
 public class MainActivity extends AppCompatActivity {
     // variables
-    private RequestQueue queue;
-    private static String baseURL = "http://192.168.1.65:5000/";
+    // private RequestQueue queue;
+    // private static String baseURL = "http://192.168.1.65:5000/";
     private BottomNavigationView bottomNavigationView;
     // fragments
     private Fragment dashboardFragment = new DashboardFragment();
     private Fragment panelFragment = new PanelFragment();
     private Fragment fruitsFragment = new FruitsFragment();
     // array List
-    private ArrayList<Fruit> fruits = new ArrayList<>();
+    // private ArrayList<Fruit> fruits = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
     private void getFruit(){
         // request URL
         String url = baseURL + "api?action=get_fruits";
@@ -113,6 +114,6 @@ public class MainActivity extends AppCompatActivity {
         // add to request queue
         queue.add(request);
 
-    }
+    }*/
 
 }

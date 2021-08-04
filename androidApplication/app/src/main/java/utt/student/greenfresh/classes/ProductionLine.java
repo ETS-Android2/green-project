@@ -48,12 +48,12 @@ public class ProductionLine {
         this.inspectionResults = inspectionResults;
     }
 
-    public ProductionLine(String code, String name, String ip, Status status, Fruit currentFruit) {
+    public ProductionLine(String code, String name, String ip, Status status) {
         this.code = code;
         this.name = name;
         this.ip = ip;
         this.status = status;
-        this.currentFruit = currentFruit;
+        this.currentFruit = new Fruit();
         this.areaSensors = new ArrayList<>();
         this.fruitReadings = new ArrayList<>();
         this.inspectionResults = new ArrayList<>();
