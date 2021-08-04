@@ -300,9 +300,12 @@ export class ProductionLineComponent implements OnInit {
 
             console.log(series)
 
-            Highcharts.chart('inspection-result-day', this.fruitsResults)
-          }
+            
+          }          
         }
+
+        Highcharts.chart('inspection-result-day', this.fruitsResults)
+
       }
     })
     
