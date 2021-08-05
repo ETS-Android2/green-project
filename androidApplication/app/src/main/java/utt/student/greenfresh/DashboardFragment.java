@@ -1,17 +1,13 @@
 package utt.student.greenfresh;
 
-import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -26,17 +22,13 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import utt.student.greenfresh.adapters.FruitsListAdapter;
 import utt.student.greenfresh.adapters.ProductionLineInspectionListAdapter;
-import utt.student.greenfresh.adapters.ProductionLinePanelListAdapter;
-import utt.student.greenfresh.classes.AreaSensor;
 import utt.student.greenfresh.classes.Color;
 import utt.student.greenfresh.classes.Fruit;
 import utt.student.greenfresh.classes.Inspection;
 import utt.student.greenfresh.classes.ProductionLine;
-import utt.student.greenfresh.classes.Range;
 import utt.student.greenfresh.classes.Status;
-import utt.student.greenfresh.classes.Type;
-import utt.student.greenfresh.classes.UnitOfMeasurement;
 
 
 public class DashboardFragment extends Fragment {
@@ -137,9 +129,9 @@ public class DashboardFragment extends Fragment {
                 Log.d("Request", "Successful");
 
                 // bind production lines to list view
-                ExpandableListView lvProductionLines = (ExpandableListView)view.findViewById(R.id.lvFruitsList);
-                ProductionLineInspectionListAdapter adapter = new ProductionLineInspectionListAdapter(productionLines, getContext());
-                lvProductionLines.setAdapter(adapter);
+                ListView lvProductionLine = (ListView)view.findViewById(R.id.lvProductionLineInspection);
+                ListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
+                lvProductionLine.setAdapter(adapter);
 
             } catch (JSONException e){
                 e.printStackTrace();
