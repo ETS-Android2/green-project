@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".DashboardFragment">
 
-    <ExpandableListView
-        android:id="@+id/lvFruitsList"
+    <ListView
+        android:id="@+id/lvProductionLineInspection"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tvListTitle"
         android:paddingTop="10dp"
         android:paddingBottom="20dp"
         android:divider="@color/white"

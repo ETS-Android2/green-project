@@ -4,11 +4,7 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/rect_white_shadow"
-        android:elevation="5dp">
+        style="@style/plPanel">
 
         <RelativeLayout
             android:id="@+id/rlProductionLineCard"
@@ -16,27 +12,18 @@ android:layout_height="wrap_content">
             android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_margin="20dp"
+                style="@style/plPanelIcon"
                 android:id="@+id/ivProdLineIcon"
                 android:src="@drawable/production_line" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="23dp"
-                android:textColor="@color/gray_700"
+                style="@style/plPanelTitle"
                 android:id="@+id/tvProductionLineName"
                 android:layout_toRightOf="@id/ivProdLineIcon"
                 android:text="Production Line 1" />
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_margin="20dp"
-                android:layout_alignParentEnd="true"
+                style="@style/plPanelMoreLessIcon"
                 android:id="@+id/ivArrowIcon"
                 android:src="@drawable/arrow_down" />
         </RelativeLayout>
@@ -48,65 +35,41 @@ android:layout_height="wrap_content">
             <!-- android:visibility="gone" -->
 
             <RelativeLayout
-                android:id="@+id/rlProductionLineDetails"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/gray_top_border"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="5dp">
+                style="@style/plPanelMoreDetails"
+                android:id="@+id/rlProductionLineDetails">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="5dp"
+                    style="@style/plPanelMoreDetailsIcon"
                     android:id="@+id/ivIpAddressIcon"
                     android:src="@drawable/ip_address" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
+                    style="@style/plPanelMoreDetailsText"
                     android:id="@+id/tvIpAddress"
                     android:layout_toRightOf="@id/ivIpAddressIcon"
                     android:text="192.168.1.2" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="5dp"
+                    style="@style/plPanelMoreDetailsIcon"
                     android:id="@+id/ivLastUpdateIcon"
                     android:layout_below="@id/ivIpAddressIcon"
                     android:src="@drawable/last_update" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
+                    style="@style/plPanelMoreDetailsText"
                     android:id="@+id/tvLastUpdate"
                     android:layout_below="@id/tvIpAddress"
                     android:layout_toRightOf="@id/ivLastUpdateIcon"
                     android:text="07-07-2021 10:14" />
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="5dp"
+                    style="@style/plPanelMoreDetailsIcon"
                     android:id="@+id/ivStatusIcon"
                     android:layout_below="@id/ivLastUpdateIcon"
                     android:src="@drawable/online" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
+                    style="@style/plPanelMoreDetailsText"
                     android:id="@+id/tvStatus"
                     android:layout_below="@id/tvLastUpdate"
                     android:layout_toRightOf="@id/ivStatusIcon"
@@ -114,23 +77,13 @@ android:layout_height="wrap_content">
             </RelativeLayout>
 
             <RelativeLayout
+                style="@style/plPanelChartSection"
                 android:id="@+id/rlProductionLineTemperatureGauge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rlProductionLineDetails"
-                android:background="@drawable/gray_top_border"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:layout_below="@+id/rlProductionLineDetails">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Temperature"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_500"/>
+                    style="@style/plPanelChartTitle"
+                    android:text="Temperature" />
 
                 <com.ekn.gruzer.gaugelibrary.HalfGauge
                     android:id="@+id/temperatureGauge"
@@ -140,24 +93,14 @@ android:layout_height="wrap_content">
             </RelativeLayout>
 
             <RelativeLayout
+                style="@style/plPanelChartSection"
                 android:id="@+id/rlProductionLineHumidityGauge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rlProductionLineTemperatureGauge"
-                android:background="@drawable/gray_top_border"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:layout_below="@+id/rlProductionLineTemperatureGauge">
 
                 <TextView
+                    style="@style/plPanelChartTitle"
                     android:id="@+id/tvTemperatureGaugeTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Humidity"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_500"/>
+                    android:text="Humidity" />
 
                 <com.ekn.gruzer.gaugelibrary.ArcGauge
                     android:id="@+id/humidityGauge"
