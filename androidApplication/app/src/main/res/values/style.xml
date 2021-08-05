@@ -1,46 +1,211 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="ivProductionLineIcon">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
+    <style name="fruitCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/rect_white_shadow</item>
+        <item name="android:elevation">5dp</item>
     </style>
 
-    <style name="tvProductionLineTitle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">32dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_marginLeft">8dp</item>
-        <item name="android:layout_marginRight">12dp</item>
-        <item name="android:textSize">22dp</item>
-        <item name="android:textColor">@color/gray_500</item>
+    <style name="card_fruitImage">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="card_fruitName">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/gray_800</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="rlProductionLine">
+    <style name="card_fruitDescription">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">148dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:layout_marginTop">20dp</item>
-        <item name="android:layout_marginLeft">20dp</item>
-        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <style name="ivProductionLinePanelIcons">
+    <style name="card_rgbColorIcon">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginTop">14dp</item>
+    </style>
+
+    <style name="card_rgbColorLabels">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="card_rgbColorValues">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="plInspectionElement">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/rect_white_shadow</item>
+        <item name="android:elevation">5dp</item>
+    </style>
+
+    <style name="plInspectionElement_titleSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/yellow_200</item>
+        <item name="android:radius">6dp</item>
+    </style>
+
+    <style name="plInspectionElement_plIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="plInspectionElement_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">23dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+    </style>
+
+    <style name="currentFruitSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/gray_bottom_border</item>
+    </style>
+
+    <style name="currentFruitTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@color/gray_500</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="currentFruitImage">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="currentFruitName">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+    </style>
+
+    <style name="currentFruitColorIcon">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="currentFruitRGBLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="currentFruitRGBValues">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+    <style name="plPanel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@drawable/rect_white_shadow</item>
+        <item name="android:elevation">5dp</item>
+    </style>
+
+    <style name="plPanelIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_margin">20dp</item>
+    </style>
+
+    <style name="plPanelTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_marginTop">23dp</item>
+        <item name="android:textColor">@color/gray_700</item>
+    </style>
+
+    <style name="plPanelMoreLessIcon">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:layout_alignParentEnd">true</item>
+    </style>
+
+    <style name="plPanelMoreDetails">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gray_top_border</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">5dp</item>
+    </style>
+
+    <style name="plPanelMoreDetailsIcon">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginLeft">9dp</item>
         <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">12dp</item>
     </style>
 
-    <style name="tvProductionLinePanelText">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="plPanelMoreDetailsText">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">24dp</item>
         <item name="android:layout_marginBottom">5dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+    </style>
+
+    <style name="plPanelChartSection">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/gray_top_border</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="plPanelChartTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray_500</item>
     </style>
 </resources>

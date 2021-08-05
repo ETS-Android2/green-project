@@ -4,22 +4,16 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardFruit"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/rect_white_shadow"
-        android:elevation="5dp">
+        style="@style/fruitCard"
+        android:id="@+id/cardFruit">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/ivFruit"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_margin="10dp" />
+                style="@style/card_fruitImage"
+                android:id="@+id/ivFruit" />
 
             <RelativeLayout
                 android:id="@+id/rlFruitContainer"
@@ -29,98 +23,61 @@
                 android:layout_margin="10dp">
 
                 <TextView
+                    style="@style/card_fruitName"
                     android:id="@+id/tvFruitName"
-                    android:layout_width="match_parent"
-                    android:layout_height="26dp"
-                    android:textSize="20dp"
-                    android:textColor="@color/gray_800"
-                    android:textStyle="bold"
-                    android:text="Fresa"/>
+                    android:text="Strawberry"/>
 
                 <TextView
+                    style="@style/card_fruitDescription"
                     android:id="@+id/tvFruitDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:textColor="@color/gray_700"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/tvFruitName"
-                    android:text="Roja y pequeña"/>
+                    android:text="Red and small"/>
 
                 <ImageView
+                    style="@style/card_rgbColorIcon"
                     android:id="@+id/ivFruitColor"
                     android:src="@drawable/color_square"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="14dp"
                     android:background="@color/red_600"
                     android:layout_below="@+id/tvFruitDescription" />
 
                 <TextView
+                    style="@style/card_rgbColorLabels"
                     android:id="@+id/tvFruitRed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_700"
-                    android:layout_margin="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/ivFruitColor"
                     android:text="R:"/>
 
                 <TextView
+                    style="@style/card_rgbColorValues"
                     android:id="@+id/tvFruitRedValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray_700"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/tvFruitRed"
                     android:text="255"/>
 
                 <TextView
+                    style="@style/card_rgbColorLabels"
                     android:id="@+id/tvFruitGreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_700"
-                    android:layout_margin="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/tvFruitRedValue"
                     android:text="G:"/>
 
                 <TextView
+                    style="@style/card_rgbColorValues"
                     android:id="@+id/tvFruitGreenValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray_700"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/tvFruitGreen"
                     android:text="255"/>
 
                 <TextView
+                    style="@style/card_rgbColorLabels"
                     android:id="@+id/tvFruitBlue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/gray_700"
-                    android:layout_margin="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/tvFruitGreenValue"
                     android:text="B:"/>
 
                 <TextView
+                    style="@style/card_rgbColorValues"
                     android:id="@+id/tvFruitBlueValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:textSize="14dp"
-                    android:textColor="@color/gray_700"
-                    android:layout_marginTop="10dp"
                     android:layout_below="@+id/tvFruitDescription"
                     android:layout_toRightOf="@+id/tvFruitBlue"
                     android:text="255"/>
