@@ -90,7 +90,7 @@ public class FruitsFragment extends Fragment {
                     fruits.add(new Fruit(fruit.getString("code"),
                                          fruit.getString("name"),
                                          fruit.getString("description"),
-                                         fruit.getString("image"),
+                                baseURL+"image/"+fruit.getString("image"),
                                          new Color(color.getInt("R"),
                                                    color.getInt("G"),
                                                    color.getInt("B"))));

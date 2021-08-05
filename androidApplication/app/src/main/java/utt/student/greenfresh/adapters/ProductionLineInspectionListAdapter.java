@@ -51,7 +51,7 @@ public class ProductionLineInspectionListAdapter extends BaseAdapter {
     private ArrayList<ProductionLine> productionLines;
     private static LayoutInflater inflater;
     private RequestQueue queue;
-    private String baseURL = "http://192.168.1.66:5000/";
+    private String baseURL = "http://192.168.1.65:5000/";
 
     // constructor
     public ProductionLineInspectionListAdapter(Activity activity, ArrayList<ProductionLine> productionLines) {

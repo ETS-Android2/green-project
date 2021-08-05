@@ -95,7 +95,7 @@ public class DashboardFragment extends Fragment {
                     productionLine.setCurrentFruit(new Fruit(currentFruit.getString("code"),
                                                              currentFruit.getString("name"),
                                                              currentFruit.getString("description"),
-                                                             currentFruit.getString("image"),
+                                                             baseURL+"image/"+ currentFruit.getString("image"),
                                                              new Color(cfColor.getInt("R"),
                                                                         cfColor.getInt("G"),
                                                                         cfColor.getInt("B"))));

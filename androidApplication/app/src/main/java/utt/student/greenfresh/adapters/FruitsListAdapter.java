@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Queue;
@@ -29,8 +30,6 @@ public class FruitsListAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<Fruit> fruits;
     private static LayoutInflater inflater;
-    private RequestQueue queue;
-    private String baseURL = "http://192.168.1.66:5000/";
 
     // constructors
     public FruitsListAdapter(Activity activity, ArrayList<Fruit> fruits) {
@@ -77,24 +76,7 @@ public class FruitsListAdapter extends BaseAdapter {
         int g = f.getColor().getGreen();
         int b = f.getColor().getBlue();
         ivFruitColor.setBackgroundColor(Color.rgb(r, g, b));
-        // new request
-        queue = Volley.newRequestQueue(activity);
-        // image request
-        ImageRequest request = new ImageRequest(baseURL + "image/" + f.getImage(), new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                Log.d("Image Request:", "Successful");
-                ivFruit.setImageBitmap(response);
-            }
-        }, 0, 0, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Request Error:", error.toString());
-                ivFruit.setImageResource(R.drawable.fruits);
-            }
-        });
-        // add queue request
-        queue.add(request);
+        Picasso.get().load(f.getImage()).into(ivFruit);
 
         return v;
     }
