@@ -4,31 +4,32 @@ import android.graphics.drawable.Drawable;
 
 import java.util.ArrayList;
 
+import utt.student.greenfresh.R;
+
 public class Status {
     //attributes
     private String lastConnection;
-    private String value;
-    private Drawable image;
+    private Boolean value;
+    private String name;
 
-    //getters and setters
-    public Drawable getImage() {return image;}
-    public void setImage(Drawable image) { this.image = image;}
-    public String getLastConnection() {return lastConnection; }
+    // getters and setters
+    public String getLastConnection() { return lastConnection; }
     public void setLastConnection(String lastConnection) { this.lastConnection = lastConnection; }
-    public String getValue() { return value; }
-    public void setValue(String value) { this.value = value; }
+    public Boolean getValue() { return value; }
+    public void setValue(Boolean value) { this.value = value; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-
-    //constructor
-    public Status() {
-        this.lastConnection = "";
-        this.value = "";
-        this.image = null;
-    }
-
-    public Status(String lastConnection, String value) {
+    // constructors
+    public Status(String lastConnection, Boolean value, String name) {
         this.lastConnection = lastConnection;
         this.value = value;
+        this.name = name;
+    }
 
+    public Status() {
+        this.lastConnection = "";
+        this.value = false;
+        this.name = "";
     }
 }

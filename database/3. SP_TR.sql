@@ -29,7 +29,50 @@ begin
 	into fruit;
     
 	set new.fk_fruit=fruit; 
-   
+    
+    set @r_m=0.0;
+	set @g_m=0.0;
+	set @b_m=0.0;
+    
+    set @r_v=0.0;
+	set @g_v=0.0;
+	set @b_v=0.0;
+    
+	select r_avg into @r_m from fruit_requirements where fk_fruitCode = fruit;
+	select g_avg into @g_m from fruit_requirements where fk_fruitCode = fruit;
+	select b_avg into @b_m from fruit_requirements where fk_fruitCode = fruit;
+    
+	select r_var into @r_v from fruit_requirements where fk_fruitCode = fruit;
+	select g_var into @g_v from fruit_requirements where fk_fruitCode = fruit;
+	select b_var into @b_v from fruit_requirements where fk_fruitCode = fruit;
+    
+	IF ( @r_m is not null and @g_m is not null and @b_m is not null and @r_v is not null and @g_v is not null and @b_v is not null) 
+	THEN
+	BEGIN
+    
+		if (not EXISTS(Select * from fruit_results where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine ))
+		then
+		begin
+			insert into fruit_results 
+            (fk_fruit, fk_productionLine, day_date, acceptedFruits, rejectedFruits)
+            values (fruit, new.fk_productionLine, current_date(), 0, 0);
+		end;
+		end if;
+    
+		if ( (new.R > (@r_m + @r_v) or new.R < (@r_m - @r_v)) or (new.G > (@g_m + @g_v) or new.G < (@g_m - @g_v)) or (new.B > (@b_m + @b_v) or new.B < (@b_m - @b_v)))
+        THEN
+		BEGIN
+			
+            update fruit_results set rejectedFruits = (rejectedFruits+1) where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine;
+            
+		END;
+        else 
+        begin 
+			update fruit_results set acceptedFruits = (acceptedFruits+1) where fk_fruit=fruit and day_date = current_date() and fk_productionLine = new.fk_productionLine ;
+        end;
+		END IF;
+	END;
+	END IF;
 end //
 DELIMITER ;
 
@@ -51,12 +94,24 @@ begin
 end //
 DELIMITER ;
 
+## 3- a Trigger that is activated every time a new fruit is
+## inserted.
+
+drop trigger if exists TR_insert_fruit;
+DELIMITER // 
+Create trigger TR_insert_fruit after insert on fruits
+for each row 
+begin 
+	insert into fruit_requirements (fk_fruitCode)
+    values (new.fruitCode);
+end //
+DELIMITER ;
+
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
 ## Store Procedures ______ Store Procedures
 
 ## 1.- Insert a new Production Line
-
 drop procedure if exists SP_insert_productionLine;
 DELIMITER //
 create procedure SP_insert_productionLine(
@@ -79,7 +134,10 @@ begin
 	THEN
 	BEGIN
 		update productionLines 
-		set lastConnection = current_timestamp()
+		set lastConnection = current_timestamp(),
+        description = _description,
+        ipAddress = ip,
+        status = _status
 		where prCode = code;
 	END;
     ELSE 
@@ -94,7 +152,7 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_productionLine('Test', '0.0.0.0.', 'Production Line Testing', 'Online');
+call SP_insert_productionLine('Test', '0.0.0.0.', 'Production Line #Testing', 'Online');
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
@@ -187,10 +245,42 @@ DELIMITER ;
 call SP_fruit_productionLine_relation('Test','BAN');
 call SP_fruit_productionLine_relation('Test','APP');
 
-
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
 ## 5.- Insert a new reading of the fruits. 
+
+
+drop procedure if exists SP_insert_fruitRequirements;
+DELIMITER //
+create procedure SP_insert_fruitRequirements (
+	in fruit char(3),
+    
+    in r_m double,
+    in g_m double,
+    in b_m double,
+    
+    in r_v double,
+    in g_v double,
+    in b_v double
+    
+)
+begin
+	update fruit_requirements
+    set  r_avg = r_m, g_avg = g_m, b_avg = b_m, r_var = r_v, g_var = g_v, b_var = b_v
+    where fk_fruitCode = fruit;
+end //
+DELIMITER ;
+
+call SP_insert_fruitRequirements
+('APP',230,20,12,40, 8, 3);
+
+call SP_insert_fruitRequirements
+('BAN',190,80,18,40, 20, 3);
+
+
+#_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
+
+## 6.- Insert a new reading of the fruits. 
 
 drop procedure if exists SP_insert_fruitReading;
 DELIMITER //
@@ -210,5 +300,4 @@ end //
 DELIMITER ;
 
 call SP_insert_fruitReading
-('Test',23.4,5,5,5);
-
+('Test',17.4,190,80,18);

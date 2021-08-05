@@ -1,7 +1,36 @@
 
 
 <div class="container">
+
+    <!-- <div class="box box-full box-short "> 
+        <form  class="fruit-box-insert" >
+        
+            <h1>  Set a fruit  </h1>
     
+            <div class="input-box">
+    
+                <label for="new-code"> Fruit </label>
+                <select class="input-selector" (change)="selectFruit($event)" >
+                    <option value="" selected>Select a Fruit</option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
+                </select>                                
+                
+            </div>
+           
+            <div *ngIf="selectedOptionFruit != ''" class="input-box">
+                <label for="Production Line"> Prod. Line: </label>
+
+                <select class="input-selector" (change)="selectProductionLine($event)" >
+                    <option value="" selected>Production Line</option>
+                    <option *ngFor="let pl of productionLines" [value]="pl.code" [selected]="selectedOptionPl === pl.code "> {{pl.description}} </option>
+                </select> 
+
+               
+            </div>
+        </form>
+    </div> -->
+    
+
     <div class="box box-normal box-tall ">
         <form [formGroup]="uploadForm" class="fruit-box-insert" (ngSubmit)="submit()">
         
@@ -28,12 +57,12 @@
                    
                 <!-- <label for="the-image"> * </label> -->
                 
-                <img [src]="imageURL" [alt]="uploadForm.value.name"/>
+                <img [src]="imageURL" /> <button type="submit">Submit</button> 
                 
             </div>
            
     
-            <button type="submit">Submit</button>
+           
     
         </form>
     </div>
@@ -50,14 +79,37 @@
                 <label for="new-code"> Fruit </label>
                 <select class="input-selector" (change)="selectFruit($event)" >
                     <option value="" selected>Select a Fruit</option>
-                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOption === fruit.code "> {{fruit.name}} </option>
+                    <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
                 </select>                                
                 
             </div>
            
-    
-            <button type="submit">Start</button>
-    
+            <div *ngIf="selectedOptionFruit != ''" class="input-box">
+                <label for="Production Line"> Prod. Line: </label>
+
+                <select class="input-selector" (change)="selectProductionLine($event)" >
+                    <option value="" selected>Production Line</option>
+                    <option *ngFor="let pl of productionLines" [value]="pl.code" [selected]="selectedOptionPl === pl.code "> {{pl.description}} </option>
+                </select> 
+
+               
+            </div>
+            
+            <div *ngIf="selectedOptionPl != '' && selectedOptionFruit != '' " class="examination-box">
+                <div class="examination-box-row" *ngIf = "currentReading != undefined">
+                    <!-- 'rgb(currentReading.color.R, currentReading.color.G, currentReading.color.B)' -->
+                    <div class="examination-box-label">RGB: </div> <fa-icon icon="square" [ngStyle]="{ 'color': color}" style="font-size: 12pt;text-align: center;"></fa-icon>
+                    
+                    <fa-icon (click)="currentReading = undefined" icon="times" style="font-size: 12pt;text-align: center; color: var(--red_600); margin:0 10px; cursor: pointer; "></fa-icon>
+                    <fa-icon (click)="acceptFruit(currentReading)" icon="check" style="font-size: 12pt;text-align: center; color: var(--green_500);margin:0 10px; cursor: pointer;"></fa-icon>
+                    
+
+
+                </div>
+            </div>
+
+            <button (click)="sendRequirements()" *ngIf="selectedOptionPl != '' && selectedOptionFruit != ''" type="submit">Send</button>
+
         </form>
     </div>
 

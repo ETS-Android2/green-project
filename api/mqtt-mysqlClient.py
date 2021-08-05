@@ -10,10 +10,10 @@ from logs.errorLogs import ErrorLogs
 path.append("./mysql")
 from mysql_connection import mysqlConnection
 
-# broker = "broker.hivemq.com"
-# port = 1883
-broker = "127.0.0.1"
-port = 1885
+broker = "broker.hivemq.com"
+port = 1883
+# broker = "127.0.0.1"
+# port = 1885
 
 ## /UTT/register/productionLine -> Registrar una nueva línea de producción
 ## /UTT/register/enviromentVariables -> Humidity and Temperature
@@ -42,18 +42,18 @@ def on_message(client, userdata, msg):
     conn = mysqlConnection()
 
     if intopic == topicInsertPL:
-        if 'IP' and 'ID' in json_data:
+        if 'IP' and 'ID' and 'description' in json_data:
             
             conn.insert(
-                "call SP_insert_productionLine('%s', '%s', 'Not description by now', 'Online')" 
-                % (json_data['ID'],json_data['IP'])
+                "call SP_insert_productionLine('%s', '%s', '%s', 'Online')" 
+                % (json_data['ID'],json_data['IP'], json_data['description'])
             )
 
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. ")
 
     if intopic == topicInsertEV:
         if 'ToC' and 'RH' and 'ID' in json_data:
@@ -66,7 +66,7 @@ def on_message(client, userdata, msg):
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. " )
 
     if intopic == topicInsertFR:
         if 'Color' and 'W' and 'ID' in json_data:
@@ -79,12 +79,12 @@ def on_message(client, userdata, msg):
                 )
                 
             else: 
-                ErrorLogs(" ** LOG ERROR: The message received: ",json_data['Colors'],". has not the required params: " + str(e))    
+                ErrorLogs(" ** LOG ERROR: The message received: "+json_data['Colors']+". has not the required params ")    
 
         else: 
             ## We should try to make callback function in
             ## case we recived the wrong params. 
-            ErrorLogs(" ** LOG ERROR: The message received: ",json_data,". has not the required params: " + str(e))
+            ErrorLogs(" ** LOG ERROR: The message received: "+json_data+". has not the required params. " )
 
     conn.closeConnection()
 

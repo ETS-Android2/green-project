@@ -1,1 +1,115 @@
-<p>dashboard works!</p>
+<div class="container"> 
+    <div class="box box-full box-tall" id = "chart-results-today">
+        <!-- Perdidas y ganancias totales del dia
+        de todas las lineas de producción
+
+        <br>Nota: sin tomar en cuenta frutas individuales
+        sino toda la producción sindistinción de frutas -->
+    </div>
+
+    <div class="box box-normal box-tall" id = "chart-results-week">
+        <!-- Perdidas y ganancias totales de la semana
+        de todas las lineas de producción
+
+        <br>Nota: sin tomar en cuenta frutas individuales
+        sino toda la producción sindistinción de frutas -->
+    </div>
+
+    <div class="box box-normal box-tall">
+        Perdidas y ganancias totales del mes
+        de todas las lineas de producción
+
+        <br>Nota: sin tomar en cuenta frutas individuales
+        sino toda la producción sindistinción de frutas
+    </div>
+
+    <!-- Production Line Menu -->
+    <div class="box box-full production-line-menu">
+        <p *ngFor = "let pl of productionLines" (click)="setProductionLine(pl)">{{pl.description}}&nbsp; / &nbsp;</p>
+        
+    </div>
+
+    <div class="box box-full subtitle-section"><p>Production Line Panel</p></div>
+
+    <div class="box box-small box-short" *ngIf = "now != undefined">
+        <div class="datetime-box">
+            <div class="datetime-box-hour">
+                {{now.getHours()}}:{{now.getMinutes()}}
+            </div>
+    
+            <div class="datetime-box-date">
+                {{days[now.getDay()]}} {{now.getDate()}}, {{months[now.getMonth()] }} {{now.getFullYear()}}
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-small box-short">
+        <div class="enviroment-variable-box" *ngIf="currentAreaReading != undefined">
+            <div class="enviroment-variable-box-value">
+                {{currentAreaReading.humidity}}%
+            </div>
+
+            <div class="enviroment-variable-box-hint">
+                Humidity
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-small box-short">
+        <div class="enviroment-variable-box" *ngIf="currentAreaReading != undefined">
+            <div class="enviroment-variable-box-value">
+                {{currentAreaReading.temperature}} °C
+            </div>
+
+            <div class="enviroment-variable-box-hint">
+                Temperature
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-small box-short" *ngIf="currentFruit != undefined">
+        <div class="fruit-box">
+
+            <div class = "fruit-box-target">
+                Working with:  
+            </div>
+
+            
+            
+            <div *ngIf="currentFruit.image != false; else elseImage" class="fruit-box-icon">
+                <img  [src]="currentFruit.image" />
+            </div>
+            
+            <ng-template #elseImage >
+                <img src="../../../assets/img/manzana.png" />
+            </ng-template>
+
+            <div class="fruit-box-value">
+                {{currentFruit.name}}
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div id='chart-test' class="box box-large box-tall">
+    </div>
+
+    <div class="box box-small box-tall production-line-container" *ngIf="currentPl != undefined">
+        <p><strong>Name: </strong>{{currentPl.description}}</p>
+        <p><strong>IP: </strong>{{currentPl.ip}}</p>
+        <p><strong>Last Connection: </strong>{{currentPl.status.lastConnection}}</p>
+
+        <p>
+            <fa-icon *ngIf = "currentPl.status.res == true else ElseBlock" icon="wifi" style="font-size: 12pt; color: var(--green_500); margin-right: 10px;"></fa-icon>
+
+            <ng-template #ElseBlock>
+                <fa-icon icon="wifi" style="font-size: 12pt; color: var(--red_600); margin-right: 10px;"></fa-icon>
+            </ng-template>
+
+            <strong >{{currentPl.status.value}}</strong>
+        </p>
+
+        
+    </div>
+</div>

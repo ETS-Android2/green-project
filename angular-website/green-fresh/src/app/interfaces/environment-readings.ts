@@ -1,13 +1,10 @@
+import { AreaValue } from "./area-value";
+import { ProductionLine } from "./production-line";
+
+
+
 export interface EnvironmentReadings {
-    code: string;
-    ip: string;
-    description: string;
-    status: {
-        lastConnection: string;
-        value: string;
-    }
-    values: {
-        temperarure: number;
-        humidity: number;
-    }
+    productionLine: ProductionLine;
+
+    values: AreaValue[];
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/rect_white_shadow"
+        android:elevation="5dp">
+
+        <RelativeLayout
+            android:id="@+id/rlFruitContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:radius="6dp"
+            android:background="@drawable/gray_bottom_border">
+
+            <ImageView
+                android:id="@+id/ivFruitImage"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/fruit"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/tvFruitName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Strawberry"
+                android:textSize="16dp"
+                android:textColor="@color/gray_500"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@+id/ivFruitImage"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlInspectionResults"
+            android:layout_below="@+id/rlFruitContainer"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/gray_bottom_border">
+
+            <TextView
+                android:id="@+id/tvInspectionResultsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inspection Results"
+                android:textSize="16dp"
+                android:textColor="@color/gray_500"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <com.anychart.AnyChartView
+                android:id="@+id/chartInspectionResults"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvInspectionResultsTitle"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/rlInspectionResults"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/gray_bottom_border">
+
+            <TextView
+                android:id="@+id/tvWeightResultsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weight Results"
+                android:textSize="16dp"
+                android:textColor="@color/gray_500"
+                android:textStyle="bold"
+                android:layout_margin="10dp"/>
+
+            <com.anychart.AnyChartView
+                android:id="@+id/chartWeightResults"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvWeightResultsTitle" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,106 +1,5 @@
 @import url(../../../styles.css);
 
-
-
-.datetime-box, .enviroment-variable-box, .fruit-box, .info-box {
-    width: 100%;
-    margin: auto;
-} 
-
-.datetime-box-date, .datetime-box-hour {
-    margin: 0 auto;
-    width: 80%;
-}
-
-.datetime-box-hour {
-    color: var(--gray_800);
-    font-size: 20pt;
-
-    text-align: center;
-    border-bottom: 2px solid #DDD;
-}
-
-.datetime-box-date {
-    color: var(--gray_800);
-    font-size: 14pt;
-
-    text-align: center;
-} 
-
-
-.enviroment-variable-box-value {
-    color: var(--gray_800);
-    font-size: 22pt;
-
-    text-align: center;
-}
-
-.enviroment-variable-box-hint {
-    color: var(--gray_800);
-    font-size: 12pt;
-
-    text-align: center;
-}
-
-.fruit-box-target {
-    color: var(--gray_500);
-    font-size: 10pt;
-
-    text-align: center;
-}
-
-.fruit-box-icon {
-    color: var(--gray_800);
-    font-size: 20pt;
-
-    text-align: center;
-}
-
-.fruit-box-value {
-    color: var(--gray_800);
-    font-size: 12pt;
-
-    text-align: center;
-}
-
-.info-box {
-    /* justify-content: space-between;
-    display: flex;
-    flex-direction: column; */
-    
-    height: calc(80% - 30px);
-    padding: 15px ;
-    width: 100%;
-    /* line-height: 5px; */
-
-}
-
-.info-box-value {
-
-    min-height: 35px;
-    color: var(--gray_800);
-    font-size: 14pt;
-    text-align: left;
-
-}
-
-.status-box {
-    height: calc(20% - 30px);
-    padding: 15px;
-}
-
-.status-box-value {
-    color: var(--gray_800);
-    font-size: 16pt;
-    text-align: left;
-    font-weight: bold;
-}
-
-.status-box-icon  {
-    width: 100%;
-    margin: auto;
-}
-
 /* Fruit Containers */
 .list-title{
     margin-top: 20px;
@@ -141,6 +40,24 @@
     margin: 5px 0 0 0;
     width: 100%;
     color: var(--gray_700);
+}
+
+/* Production Line Menu */
+.fruit-weight-menu{
+    margin-top: 30px;
+    margin-bottom: 0px;
+    border-color: #FFF;
+}
+
+.fruit-weight-menu p{
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--gray_500);
+    cursor: pointer;
+}
+
+.fruit-weight-menu p:hover{
+    color: var(--orange_200);
 }
 
 /* --- RESPONSIVE --- */
