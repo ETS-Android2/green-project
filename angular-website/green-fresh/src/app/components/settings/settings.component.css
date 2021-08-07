@@ -1,73 +1,150 @@
 @import url(../../../styles.css);
 
-.fruit-box-insert {
-    width: 80%;
-    height: 100%;
-    margin: auto;
-
+.list-title{
+    margin-top: 20px;
+    height: 30px;
+    border-color: white;
 }
 
-.fruit-box-insert h1 {
-    font-size: 22pt;
+.list-title p{
+    font-size: 18px;
+    font-weight: 500;
+    width: 100%;
+    color: var(--gray_500);
 }
 
-.fruit-box-insert button {
-    float: right;
-
-    width: 120px;
-    height: 35px;
-    margin:20px ;
-    background-color: var(--green_500);
-    border-radius: 30px ;
-    border: 1px var(--gray_400) solid;
-    font-size: 10pt;
-    color: var(--white);
-    font-weight: bold;
-    cursor: pointer
-    
+.indications-section{
+    margin-top: 0px;
+    padding-bottom: 10px;
+    border: none;
+    border-bottom: 1px solid #DDD;
 }
 
-.input-box {
-    margin: 20px;
-
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    grid-row-gap: 10px;
-}
-
-.input-box button {
-
-
-    width: 120px;
-    height: 35px;
-    margin:20px ;
-    background-color: var(--green_500);
-    border-radius: 30px ;
-    border: 1px var(--gray_400) solid;
-    font-size: 10pt;
-    color: var(--white);
-    font-weight: bold;
-    cursor: pointer
-}
-
-.input-box label {
+.indications-section p{
+    font-size: 16px;
     color: var(--gray_700);
-    font-weight: bold;    
 }
 
-.input-box input {
-    outline-color:  var(--gray_400);
+.form{
+    padding: 0;
+    border: none;
+} 
+
+.fruit-box-insert, .requirements-box-insert{
+    width: 85%;
+    margin: 0 auto;
 }
 
-.input-box img {
+.fruit-box-insert div{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 15px;
+    margin: 30px 0px 20px 0px;
+}
+
+.fruit-box-insert h1, .requirements-box-insert h1{
+    font-size: 22px;
+    color: var(--green_500);
+    width: 100%;
+    text-align: center;
+}
+
+.fruit-box-insert label{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--gray_700);
+    text-align: left;
+}
+
+.fruit-box-insert input{
+    font-size: 16px;
+    color: var(--gray_800);
+    text-align: left; 
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--gray_500);
+    outline:none;
+    padding: 0px 15px 0px 16px;
+}
+
+.fruit-box-insert input:focus{
+    box-shadow: 0 0 0 1pt var(--green_500);
+}
+
+.fruit-box-insert button, .requirements-box-insert button {
+    margin: 20px 0px 20px 0px;
+    float: right;
+    width: 130px;
+    height: 35px;
+    background-color: var(--green_500);
+    border-radius: 30px ;
+    border: 1px var(--gray_400) solid;
+    font-size: 10pt;
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer
     
+}
+
+.fruit-box-insert button:hover, .requirements-box-insert button:hover {
+    background-color: #4eba27;
+}
+
+.fruit-box-insert section {
+    width: 100%;
+    text-align: center;
+}
+
+.fruit-box-insert img {
+    margin: 0 auto;
     width: 80px;
 }
 
+#new-image{
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left; 
+    height: 20px;
+    border-radius: 30px;
+    border: 1px solid var(--gray_500);
+    outline:none;
+    padding: 5px 15px 5px 16px;
+}
+
+.custom-file-upload:focus, .custom-file-upload:hover{
+    box-shadow: 0 0 0 1pt var(--green_500);
+}
+
+.input-box{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin: 30px 0px 0px 0px;
+}
+
+.input-box label{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--gray_700);
+    text-align: left;
+}
+
+#waiting-message{
+    margin-top: 25px;
+    font-size: 14px;
+    color: var(--gray_500);
+}
+
 .examination-box {
-    width: 90%;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    width: 100%;
     background-color: var(--gray_100);
-    border-radius: 30px var(--gray_400);
+
 }
 
 .examination-box-row {
@@ -76,14 +153,27 @@
     align-items: center;
     justify-content: center;
     display: flex;
-
-   
 }
 
 .examination-box-label {
     color: var(--gray_700);
     font-weight: bold;    
-    margin: 0 10px;
-
+    margin: 10px 25px 10px 10px;
+    font-size: 16px;
 }   
+
+.input-selector{
+    font-size: 16px;
+    color: var(--gray_700);
+    text-align: left; 
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--gray_500);
+    outline:none;
+    padding: 0px 10px 0px 10px;
+}
+
+.input-selector:focus{
+    box-shadow: 0 0 0 1pt var(--green_500);
+}
 

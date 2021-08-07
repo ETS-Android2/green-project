@@ -100,6 +100,79 @@
     font-size: 12pt;
 }
 
+.set-fruit{
+    border: none;
+    margin-bottom: 40px;
+    margin-top: 0px;
+}
+
+.set-fruit div{
+    width: 100%;
+    text-align: left;
+}
+
+.set-fruit label{
+    color: var(--gray_700);
+    font-size: 16px;
+}
+
+.set-fruit select{
+    margin: 0px 20px 0px 20px;
+    font-size: 16px;
+    color: var(--gray_700);
+    text-align: left; 
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--gray_500);
+    outline:none;
+    padding: 0px 10px 0px 10px;
+}
+
+.set-fruit select:focus{
+    box-shadow: 0 0 0 1pt var(--green_500);
+}
+
+.set-fruit button {
+    margin: 15px 0px 0px 0px;
+    width: 130px;
+    height: 35px;
+    background-color: var(--green_500);
+    border-radius: 30px ;
+    border: 1px var(--gray_400) solid;
+    font-size: 10pt;
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer
+    
+}
+
+.set-fruit button:hover {
+    background-color: #4eba27;
+}
+
+.refresh{
+    margin-top: 20px;
+}
+
+#refresh-button{
+    float: left;
+    width: 130px;
+    height: 35px;
+    background-color: var(--green_500);
+    border-radius: 30px ;
+    border: 1px var(--gray_400) solid;
+    font-size: 10pt;
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer
+    
+}
+
+#refresh-button:hover{
+    background-color: #4eba27;
+}
+
+
 /* --- RESPONSIVE --- */
 
 /* notebook or small desktop */
