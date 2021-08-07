@@ -4,20 +4,20 @@
         <!--title-->
         <title>Appi Documentación</title>
         <!--stylesheets-->
-        <link href="css/style.css" rel="stylesheet" />	
-        <link href="css/readings.css" rel="stylesheet" />	
+        <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">	
+        <link href="{{ url_for('static',filename='css/readings.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
             <div class="title">
-                <a href="index.html">
+                <a href="{{url_for('index')}}"></a>
                     <label class="label-header-title">Appi Documentación</label>
                 </a>
             </div>
         </header>
         <div class="info">
             <div class="img">
-                <img src="img/frutass.jpg" alt="">
+                <img src="static/circuloFrutas.jpg" alt="">
             </div>
             <div class="text">
                 <p>Documentacion de la appi de 
@@ -38,16 +38,16 @@
                     <ul id="menu">
                         <li><input type="checkbox" name="list" id="nivel1-1"><label for="nivel1-1">get-parameters</label>
                         <ul class="interior">
-                              <li><a href="reading.html">get_readings</a></li>
-                              <li><a href="fruits.html">get_fruits</a></li>
-                              <li><a href="results.html">get_fruits_result</a></li>
-                              <li><a href="production.html">get_productionLines</a></li>
-                              <li><a href="emviroment.html">get_enviromentVariables</a></li>
+                            <li><a href="{{url_for('get_readings')}}">get_readings</a></li>
+                            <li><a href="{{url_for('get_fruits')}}">get_fruits</a></li>
+                            <li><a href="{{url_for('get_fruitResults')}}">get_fruits_result</a></li>
+                            <li><a href="{{url_for('get_productionLines')}}">get_productionLines</a></li>
+                            <li><a href="{{url_for('get_enviromentVariables')}}">get_enviromentVariables</a></li>
                            </ul>
                         </li>
                         <li><input type="checkbox" name="list" id="nivel1-2" checked=""><label for="nivel1-2">set-parameters</label>
                            <ul class="interior">
-                              <li><a href="#r">set_fruit</a></li>
+                              <li><a href="{{url_for('get_set_fruit')}}">set_fruit</a></li>
                            </ul>
                         </li>
                     </ul>

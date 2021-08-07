@@ -114,6 +114,116 @@ public class MainActivity extends AppCompatActivity {
         // add to request queue
         queue.add(request);
 
+<<<<<<< HEAD
+    }
+
+    private void getFruitReadings(){
+        // request URL
+        String url = baseURL + "api?action=get_readings";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // get reading object from data
+                    JSONObject reading = data.getJSONObject("reading");
+                    // get color object from reading
+                    JSONObject color = reading.getJSONObject("color");
+                    // get weight object from reading
+                    JSONObject weight = reading.getJSONObject("weight");
+                    // adding a fruit to the array list
+                    fruitReadings.add(new FruitReadings(
+                            new ProductionLine( data.getString("code"),
+                                                data.getString("ip"),
+                                                data.getString("description"),
+                                                new Status( status.getString("lastConnection"),
+                                                            status.getString("value"))),
+                            reading.getString("date"),
+                            new Fruit(reading.getString("fruit")),
+                            weight.getDouble("value"),
+                            color.getInt("r"),
+                            color.getInt("g"),
+                            color.getInt("b")
+                    ));
+                    // Log.d("Date", reading.getString("date"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
+    }
+
+    private void getProductionLines(){
+        // request URL
+        String url = baseURL + "api?action=get_productionLines";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // adding a production line to the array list
+                    productionLines.add(new ProductionLine(
+                            data.getString("code"),
+                            data.getString("ip"),
+                            data.getString("description"),
+                            new Status( status.getString("lastConnection"),
+                                        status.getString("value"))
+                    ));
+                    Log.d("Request", data.getString("code"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
+    }
+
+    private void getAreaReadings(){
+        // request URL
+        String url = baseURL + "api?action=get_enviromentVariables";
+        // JSON request
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            // handle response from API
+            try {
+                for(int i = 0; i < response.length(); i++){
+                    JSONObject data = response.getJSONObject(i);
+                    // get status object from data
+                    JSONObject status = data.getJSONObject("status");
+                    // get values object from data
+                    JSONObject values = data.getJSONObject("values");
+                    // adding area readings to the array list
+                    areaReadings.add(new AreaReadings(
+                            new ProductionLine( data.getString("code"),
+                                                data.getString("ip"),
+                                                data.getString("description"),
+                                                new Status( status.getString("lastConnection"),
+                                                            status.getString("value"))),
+                            values.getDouble("temperature"),
+                            values.getInt("humidity")
+                    ));
+                    Log.d("Temperature", values.getString("temperature"));
+                }
+                Log.d("Request", "Successful");
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }, error -> Log.e("Request Error:", error.toString()));
+        // add to request queue
+        queue.add(request);
+    }
+=======
     }*/
+
 
 }

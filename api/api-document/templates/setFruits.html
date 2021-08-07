@@ -4,20 +4,20 @@
         <!--title-->
         <title>Appi Documentación</title>
         <!--stylesheets-->
-        <link href="css/style.css" rel="stylesheet" />	
-        <link href="css/readings.css" rel="stylesheet" />	
+        <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">	
+        <link href="{{ url_for('static',filename='css/readings.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
             <div class="title">
-                <a href="index.html">
+                <a href="{{url_for('index')}}">
                     <label class="label-header-title">Appi Documentación</label>
                 </a>
             </div>
         </header>
         <div class="info">
             <div class="img">
-                <img src="img/frutass.jpg" alt="">
+                <img src="static/circuloFrutas.jpg" alt="">
             </div>
             <div class="text">
                 <p>Documentacion de la appi de 
@@ -38,33 +38,28 @@
                     <ul id="menu">
                         <li><input type="checkbox" name="list" id="nivel1-1"><label for="nivel1-1">get-parameters</label>
                         <ul class="interior">
-                              <li><a href="reading.html">get_readings</a></li>
-                              <li><a href="fruits.html">get_fruits</a></li>
-                              <li><a href="results.html">get_fruits_result</a></li>
-                              <li><a href="production.html">get_productionLines</a></li>
-                              <li><a href="emviroment.html">get_enviromentVariables</a></li>
+                              <li><a href="{{url_for('get_readings')}}">get_readings</a></li>
+                              <li><a href="{{url_for('get_fruits')}}">get_fruits</a></li>
+                              <li><a href="{{url_for('get_fruitResults')}}">get_fruits_result</a></li>
+                              <li><a href="{{url_for('get_productionLines')}}">get_productionLines</a></li>
+                              <li><a href="{{url_for('get_enviromentVariables')}}">get_enviromentVariables</a></li>
                            </ul>
                         </li>
                         <li><input type="checkbox" name="list" id="nivel1-2" checked=""><label for="nivel1-2">set-parameters</label>
                            <ul class="interior">
-                              <li><a href="#r">set_fruit</a></li>
+                              <li><a href="{{url_for('get_set_fruit')}}">set_fruit</a></li>
                            </ul>
                         </li>
                     </ul>
                 </div>
                 <div class="doc">
-                    <h1>get_readings</h1>
+                    <h1>set_fruits</h1>
                     <hr>
                     <p>
-                        Con get_readings en la api como su nombre lo 
-                        indica nos va arrojar todas las frutas que fueron
-                        leidas en la ultima hora.
-                        Dentro de la api nos arroja los datos tales como
-                        la ip, el color, la fecha y la hora que fue realizado el test,
-                        el tipo de fruta, el peso y entre otras cosas.
-
+                         En esta seccion de la appi podemos realizar inserts de las
+                         nuevas frutas en las cueles deseamos registrar en el momento.
                     </p>
-                    <iframe src="http://189.223.79.36:7000/api?action=get_readings" width="90%"  
+                    <iframe src="http://189.223.79.36:7000/api?action=set_fruits" width="90%"  
                     height="300px" name="iframeRead"></iframe>
 
     
