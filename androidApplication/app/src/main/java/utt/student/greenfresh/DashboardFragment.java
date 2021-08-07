@@ -33,7 +33,7 @@ import utt.student.greenfresh.classes.Status;
 
 public class DashboardFragment extends Fragment {
     // attributes
-    private String baseURL = "http://192.168.1.66:5000/";
+    private String baseURL = "http://192.168.1.65:5000/";
     private RequestQueue queue;
     private ArrayList<ProductionLine> productionLines = new ArrayList<>();
 
@@ -95,7 +95,7 @@ public class DashboardFragment extends Fragment {
                     productionLine.setCurrentFruit(new Fruit(currentFruit.getString("code"),
                                                              currentFruit.getString("name"),
                                                              currentFruit.getString("description"),
-                                                             currentFruit.getString("image"),
+                                                             baseURL+"image/"+ currentFruit.getString("image"),
                                                              new Color(cfColor.getInt("R"),
                                                                         cfColor.getInt("G"),
                                                                         cfColor.getInt("B"))));
@@ -114,7 +114,7 @@ public class DashboardFragment extends Fragment {
                                                                 new Fruit(  fruit.getString("code"),
                                                                             fruit.getString("name"),
                                                                             fruit.getString("description"),
-                                                                            fruit.getString("image"),
+                                                                        baseURL+"image/"+fruit.getString("image"),
                                                                             new Color(  color.getInt("R"),
                                                                                         color.getInt("G"),
                                                                                         color.getInt("B"))),
@@ -130,7 +130,7 @@ public class DashboardFragment extends Fragment {
 
                 // bind production lines to list view
                 ListView lvProductionLine = (ListView)view.findViewById(R.id.lvProductionLineInspection);
-                ListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
+                ProductionLineInspectionListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
                 lvProductionLine.setAdapter(adapter);
 
             } catch (JSONException e){

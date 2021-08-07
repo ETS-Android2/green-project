@@ -27,6 +27,7 @@ import com.anychart.chart.common.listener.ListenersInterface;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
     private Context context;
     private Activity activity;
     private RequestQueue queue;
-    private String baseURL = "http://192.168.1.66:5000/";
+    private String baseURL = "http://192.168.1.65:5000/";
 
     // constructor
     public InspectionAdapter(ArrayList<ProductionLine> productionLines, Context context, Activity activity) {
@@ -78,7 +79,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         TextView tvProductionLineName = (TextView)v.findViewById(R.id.tvProductionLineName);
         TextView tvCurrentFruit = (TextView)v.findViewById(R.id.tvCurrentFruitName);
         TextView tvRGBColor = (TextView)v.findViewById(R.id.tvRGBValue);
-        ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
+        //ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
         ImageView ivFruitColor = (ImageView)v.findViewById(R.id.ivFruitColor);
 
         // read item
@@ -96,25 +97,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         int b = pl.getCurrentFruit().getColor().getBlue();
         ivFruitColor.setBackgroundColor(Color.rgb(r, g, b));
         // new request
-        queue = Volley.newRequestQueue(this.context);
-        // image request
-        String url = baseURL + "image/" + pl.getCurrentFruit().getImage();
-        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                Log.d("Image Request:", "Successful");
-                ivFruitImage.setImageBitmap(response);
-            }
-        }, 0, 0, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Request Error:", error.toString());
-                ivFruitImage.setImageResource(R.drawable.fruits);
-            }
-        });
-        // add queue request
-        queue.add(request);
-
+        //Picasso.get().load(pl.getCurrentFruit().getImage()).into(ivFruitImage);
         return v;
     }
 
@@ -136,24 +119,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         // bind data to controls
         tvFruitName.setText(i.getFruit().getName());
         // new request
-        queue = Volley.newRequestQueue(this.context);
-        // image request
-        String url = baseURL + "image/" + i.getFruit().getImage();
-        ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                Log.d("Image Request:", "Successful");
-                ivFruitImage.setImageBitmap(response);
-            }
-        }, 0, 0, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Request Error:", error.toString());
-                ivFruitImage.setImageResource(R.drawable.fruits);
-            }
-        });
-        // add queue request
-        queue.add(request);
+
 
         // Testing chart
         AnyChartView anyChartView = v.findViewById(R.id.inspectionResultsChart);

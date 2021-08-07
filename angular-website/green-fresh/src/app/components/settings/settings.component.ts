@@ -195,9 +195,8 @@ export class SettingsComponent implements OnInit {
     });
     
     this.api.insertFruit(data).subscribe(
-      (res : any) => {console.log(res); }
+      (res : any) => {console.log(res); window.location.reload();}
     );
-
   }
 
   sendRequirements() : void {
@@ -214,7 +213,7 @@ export class SettingsComponent implements OnInit {
     }
 
     this.api.insertFruitRequirements(data).subscribe(
-      (res : any) => {console.log(res); }
+      (res : any) => {console.log(res); window.location.reload();}
     );
     
     this.selectedOptionPl = "";
