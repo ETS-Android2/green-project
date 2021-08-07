@@ -79,7 +79,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         TextView tvProductionLineName = (TextView)v.findViewById(R.id.tvProductionLineName);
         TextView tvCurrentFruit = (TextView)v.findViewById(R.id.tvCurrentFruitName);
         TextView tvRGBColor = (TextView)v.findViewById(R.id.tvRGBValue);
-        ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
+        //ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
         ImageView ivFruitColor = (ImageView)v.findViewById(R.id.ivFruitColor);
 
         // read item
@@ -97,7 +97,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         int b = pl.getCurrentFruit().getColor().getBlue();
         ivFruitColor.setBackgroundColor(Color.rgb(r, g, b));
         // new request
-        Picasso.get().load(pl.getCurrentFruit().getImage()).into(ivFruitImage);
+        //Picasso.get().load(pl.getCurrentFruit().getImage()).into(ivFruitImage);
         return v;
     }
 

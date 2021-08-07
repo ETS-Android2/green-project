@@ -114,7 +114,7 @@ public class DashboardFragment extends Fragment {
                                                                 new Fruit(  fruit.getString("code"),
                                                                             fruit.getString("name"),
                                                                             fruit.getString("description"),
-                                                                            fruit.getString("image"),
+                                                                        baseURL+"image/"+fruit.getString("image"),
                                                                             new Color(  color.getInt("R"),
                                                                                         color.getInt("G"),
                                                                                         color.getInt("B"))),
@@ -130,7 +130,7 @@ public class DashboardFragment extends Fragment {
 
                 // bind production lines to list view
                 ListView lvProductionLine = (ListView)view.findViewById(R.id.lvProductionLineInspection);
-                ListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
+                ProductionLineInspectionListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
                 lvProductionLine.setAdapter(adapter);
 
             } catch (JSONException e){
