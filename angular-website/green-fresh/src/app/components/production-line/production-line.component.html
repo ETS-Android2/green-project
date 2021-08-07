@@ -28,27 +28,28 @@
 
     <div class="box box-full list-title"><p>Fruits' Inspection </p></div>
 
-    <div class="box box-normal box-tall">
-        Ganancias del dia, por fruta
+    <div class="box box-normal box-tall" id="inspection-result-day">
+        <!-- Ganancias del dia, por fruta
 
-        <br>Nota: sin tomar en cuenta la linea de producción
+        <br>Nota: sin tomar en cuenta la linea de producción -->
     </div>
-    <div class="box box-normal box-tall">
-        Ganancias de la semana, por fruta
 
-        <br>Nota: sin tomar en cuenta la linea de producción
+    <div class="box box-normal box-tall">
+        <fa-icon icon="chevron-left" style="font-size: 18pt; cursor: pointer;" (click)="changeItem(-1)"></fa-icon>
+        
+        <div style="width: 90%; height: 90%;" id="plot-chart">
+
+        </div>
+
+        <fa-icon icon="chevron-right" style="font-size: 18pt;cursor: pointer; " (click)="changeItem(1)"></fa-icon>
     </div>
 
     <!-- Fruit Weight Menu -->
     <div class="box box-full fruit-weight-menu">
-        <p>Apple&nbsp; / &nbsp;</p>
-        <p>Banana&nbsp; / &nbsp;</p>
-        <p>Orange</p>
+        <p *ngFor="let fruit of fruits" (click)="setFruit(fruit)">{{fruit.name}}&nbsp; / &nbsp;</p>
+    
     </div>
 
-    <div class="box box-full box-tall">
-        Peso de las frutas por linea de producción
-
-        <br>Nota: Tomando en cuenta solo la fruta seleccionada del menu
+    <div class="box box-full box-tall" id="chart-weight">        
     </div>
 </div>

@@ -235,6 +235,8 @@ def getInspectionResults():
 
   conn = mysqlConnection()
   params = request.args
+
+  consultQuery = "select * from VW_fruits_result_today;"
   
   if 'period' in params: 
 
@@ -252,6 +254,9 @@ def getInspectionResults():
 
       return jsonify(data)
 
+    elif params['period'] == 'day-all' :
+      consultQuery = "select * from VW_fruits_results_all_day;"
+
     elif params['period'] == 'week':
       
 
@@ -264,18 +269,16 @@ def getInspectionResults():
         data.append(row)
 
       return jsonify(data)
-
-    return jsonify(responseJsonHandler("The given period is wrong: %s. " % params['period']))
+    else :
+      return jsonify(responseJsonHandler("The given period is wrong: %s. " % params['period']))
     
-
-  conn.consult("select * from VW_fruits_result_today;")
 
   data = []
 
-  for ir in conn.consult("select * from VW_fruits_result_today;") :
-
-    row = InspectionResultStructure(ir)
-    row['productionLine'] = ProductionLineStructure(ir)
+  for ir in conn.consult(consultQuery) :
+    print(ir)
+    row = InspectionResultStructure(ir) 
+    row['productionLine'] = ProductionLineStructure(ir) if 'ip' and 'code' and 'description' and 'status' and 'lastConnection' in ir else "undefined"
     row['fruit'] = FruitStructure(conn.consult("select * from VW_fruits where code = '%s';" % ir['fruitCode'])[0])
 
     data.append(row)
@@ -669,7 +672,7 @@ def fruitReadingStructure(row):
 
 def InspectionResultStructure(row):
   return {
-    'date': row['date'],
+    'date':  row['date'],
     'results' : {
       'accepted'  : int(row['accepted']),
       'rejected' : int(row['rejected'])
