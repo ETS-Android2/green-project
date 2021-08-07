@@ -1,18 +1,13 @@
 <div class="container"> 
-    <div class="box box-full box-tall" id = "chart-results-today">
-        <!-- Perdidas y ganancias totales del dia
-        de todas las lineas de producción
+    <div class="box box-full subtitle-section refresh">
+        <p>Production charts</p>
+        <button id="refresh-button" (click)="ngOnInit()">Refresh</button>
+    </div>
 
-        <br>Nota: sin tomar en cuenta frutas individuales
-        sino toda la producción sindistinción de frutas -->
+    <div class="box box-full box-tall" id = "chart-results-today">
     </div>
 
     <div class="box box-normal box-tall" id = "chart-results-week">
-        <!-- Perdidas y ganancias totales de la semana
-        de todas las lineas de producción
-
-        <br>Nota: sin tomar en cuenta frutas individuales
-        sino toda la producción sindistinción de frutas -->
     </div>
 
     <div class="box box-normal box-tall" >
@@ -30,10 +25,11 @@
     <!-- Production Line Menu -->
     <div class="box box-full production-line-menu">
         <p *ngFor = "let pl of productionLines" (click)="setProductionLine(pl)">{{pl.description}}&nbsp; / &nbsp;</p>
-        
     </div>
 
-    <div class="box box-full subtitle-section"><p>Production Line Panel</p></div>
+    <div class="box box-full subtitle-section">
+        <p>Production Line Panel</p>
+    </div>
 
     <div class="box box-small box-short" *ngIf = "now != undefined">
         <div class="datetime-box">
@@ -119,14 +115,16 @@
 
     <div class="box box-full subtitle-section"><p>Set Fruit</p></div>
 
-    <div class=" box box-full box-short" *ngIf="currentPl != undefined">
-        <label for="fruit-selector"> Select a fruit for {{currentPl.description}}: </label> 
+    <div class=" box box-full set-fruit" *ngIf="currentPl != undefined">
+        <div>
+            <label for="fruit-selector"> Select a fruit for {{currentPl.description}}: </label> 
 
-        <select id="fruit-selector" (change)="selectFruit($event)">
-            <option value=""> Select a Fruit </option>
-            <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
-        </select>
-
-        <button *ngIf="selectedOptionFruit != ''" (click)="setFruit()"> Set Fruit</button>
+            <select id="fruit-selector" (change)="selectFruit($event)">
+                <option value=""> Select a Fruit </option>
+                <option *ngFor="let fruit of fruits" [value]="fruit.code" [selected]="selectedOptionFruit === fruit.code "> {{fruit.name}} </option>
+            </select>
+            <br/>
+            <button *ngIf="selectedOptionFruit != ''" (click)="setFruit()"> Set Fruit</button>
+        </div>
     </div>
 </div>

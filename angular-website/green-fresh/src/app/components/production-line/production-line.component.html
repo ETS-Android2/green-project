@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="box box-full list-title"><p>Fruit's List</p></div>
+    <div class="box box-full list-title">
+        <p>Fruit's List</p>
+        <button id="refresh-button" (click)="ngOnInit()">Refresh</button>
+    </div>
     <div *ngFor="let fruit of fruits">
         <div class="box box-short box-small fruit-container">
 

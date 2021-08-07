@@ -29,50 +29,59 @@
             </div>
         </form>
     </div> -->
-    
 
-    <div class="box box-normal box-tall ">
+    <div class="box box-full list-title"><p>Process to adding fruits to the system</p></div>
+
+    <div class="box box-full indications-section">
+        <div>
+            <p>
+                To add a new fruit to the system you should type the information required, 
+                all the fields must be filled, after that, you should assign it the color 
+                requirements for that reason you must select the fruit added recently, 
+                select a production line that will provide you data about that fruit 
+                and wait for the results.
+            </p>
+    
+            <p>
+                Accept the results that you want, the more results you accept the assigned 
+                requirements will be more specific.
+            </p>
+        </div>
+    </div>
+
+    <div class="box box-normal form">
         <form [formGroup]="uploadForm" class="fruit-box-insert" (ngSubmit)="submit()">
         
-            <h1>  Insert a Fruit </h1>
+            <h1>Insert a Fruit</h1>
     
-            <div class="input-box">
-    
+            <div>
                 <label for="new-code"> Code: </label>
                 <input formControlName="code" id="new-code" type="text" minlength="3" maxlength="3" #fruitCode/>
         
-        
                 <label for="new-fruit"> Name: </label>
                 <input formControlName="name" id="new-fruit" type="text" minlength="3" maxlength="15" #fruitName/>
-                
-                
         
                 <label for="new-description"> Description: </label>
-                <input formControlName="description" id="new-description" type="text" minlength="3" maxlength="250" #fruitDescription/>
-                
-                
+                <input formControlName="description" id="new-description" type="text" minlength="3" maxlength="250" #fruitDescription/>        
         
                 <label for="new-image"> Image: </label>
-                <input id="new-image" type='file' accept="image/*" (change)="showPreview($event)" #fruitImage/>
-                   
-                <!-- <label for="the-image"> * </label> -->
-                
-                <img [src]="imageURL" /> <button type="submit">Submit</button> 
-                
-            </div>
-           
-    
-           
-    
+                <label class="custom-file-upload">
+                    <input id="new-image" type='file' accept="image/*" (change)="showPreview($event)" #fruitImage/>
+                    Upload Image
+                </label>
+            </div>       
+            
+            <section><img [src]="imageURL" /></section>
+            <section><button type="submit">Submit</button></section>
         </form>
     </div>
 
     
 
-    <div class="box box-normal box-tall">
-        <form  class="fruit-box-insert" >
+    <div class="box box-normal form">
+        <form class="requirements-box-insert">
         
-            <h1>  Fruits Requirements </h1>
+            <h1>Fruits Requirements</h1>
     
             <div class="input-box">
     
@@ -94,16 +103,19 @@
 
                
             </div>
+
+            <div *ngIf="selectedOptionPl !='' " id="waiting-message">
+                Waiting for messages...
+            </div>
             
             <div *ngIf="selectedOptionPl != '' && selectedOptionFruit != '' " class="examination-box">
                 <div class="examination-box-row" *ngIf = "currentReading != undefined">
                     <!-- 'rgb(currentReading.color.R, currentReading.color.G, currentReading.color.B)' -->
-                    <div class="examination-box-label">RGB: </div> <fa-icon icon="square" [ngStyle]="{ 'color': color}" style="font-size: 12pt;text-align: center;"></fa-icon>
+                    <fa-icon icon="square" [ngStyle]="{ 'color': color}" style="font-size: 24pt;text-align: center;"></fa-icon>
+                    <div class="examination-box-label">RGB</div>
                     
-                    <fa-icon (click)="currentReading = undefined" icon="times" style="font-size: 12pt;text-align: center; color: var(--red_600); margin:0 10px; cursor: pointer; "></fa-icon>
+                    <fa-icon (click)="currentReading = undefined" icon="times" style="font-size: 12pt;text-align: center; color: var(--red_600); margin:0 10px; cursor: pointer;"></fa-icon>
                     <fa-icon (click)="acceptFruit(currentReading)" icon="check" style="font-size: 12pt;text-align: center; color: var(--green_500);margin:0 10px; cursor: pointer;"></fa-icon>
-                    
-
 
                 </div>
             </div>

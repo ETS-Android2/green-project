@@ -123,7 +123,7 @@ export class DashboardComponent implements OnInit {
     },
 
     title: {
-      text: 'Production Line Comparision - Weekly'
+      text: 'Production Line Comparison - Weekly'
     },
 
     xAxis: {
@@ -218,6 +218,8 @@ export class DashboardComponent implements OnInit {
     this.getFruitResults("period=week").then((data : FruitResults | InspectionResults[]) => {
       if (Array.isArray(data)) {
         let inspectionResults : InspectionResults[] = data;
+
+        this.plResultChart.series = [];
 
         if (inspectionResults.length > 0 ) {
          
