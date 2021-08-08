@@ -2,7 +2,7 @@
 <html>
     <head>
         <!--title-->
-        <title>Appi Documentación</title>
+        <title>Appi Documentation</title>
         <!--stylesheets-->
         <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">	
         <link href="{{ url_for('static',filename='css/readings.css') }}" rel="stylesheet" type="text/css">	
@@ -11,7 +11,7 @@
         <header>
             <div class="title">
                 <a href="{{url_for('index')}}"></a>
-                    <label class="label-header-title">Appi Documentación</label>
+                    <label class="label-header-title">Appi Documentation</label>
                 </a>
             </div>
         </header>
@@ -20,20 +20,19 @@
                 <img src="static/circuloFrutas.jpg" alt="">
             </div>
             <div class="text">
-                <p>Documentacion de la appi de 
+                <p>API Documentation
                    <br> Green & Fresh
                 </p>
                 <p class="p2">
-                    Todo acerca de la información y los metodos 
-                    para el <br> fununcionamiento de la appi.
+                    All about information and 
+                    methods for the operation of the appi.
                 </p>    
             </div>
             <div class="cont">
                 <div class="list">
                     <p>
-                        Simplifique el desarrollo de API para usuarios, 
-                        equipos y empresas con el conjunto de herramientas
-                        profesionales y de código abierto.
+                        Simplify API development for users, teams and companies
+                        with the toolkit professional and open source.
                     </p>
                     <ul id="menu">
                         <li><input type="checkbox" name="list" id="nivel1-1"><label for="nivel1-1">get-parameters</label>
@@ -56,10 +55,10 @@
                     <h1>get_fruits_result</h1>
                     <hr>
                     <p>
-                         En get_fruits_result encontraremos el resultado de todas
-                         frutas que fueron testeadas durante el dia en las cuales nos 
-                         mostrara cuantas fueron aceptadas o no y la lineas de producción con mayor
-                         productividad.
+                        In get_fruits_result we will find the result of all
+                          fruits that were tested during the day in which we
+                          will show how many were accepted or not and the production lines with the highest
+                          productivity.
                     </p>
                     <iframe src="http://189.223.79.36:7000/api?action=get_fruits_results" width="90%"  
                     height="300px" name="iframeRead"></iframe>
