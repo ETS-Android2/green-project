@@ -1,5 +1,48 @@
 @import url(../../../styles.css);
 
+.api-app-description-container{
+    width: 60%;
+    margin: 0px 20px;
+    height: 80%;
+}
+
+.api-app-description-container div{
+    width: 100%;
+    display: flex;
+}
+
+.api-app-description-container h2{
+    color: var(--gray_800);
+    font-size: 16px;
+    margin: 20px 10px 0px 10px;
+}
+
+.api-app-description-container p{
+    color: var(--gray_700);
+    font-size: 15px;
+}
+
+#green-fresh-description-box{
+    border: none;
+}
+
+#green-fresh-description{
+    width: 100%;
+    height: 100%;
+}
+
+#green-fresh-description h2{
+    font-size: 22px;
+    color: var(--green_500);
+    margin-top: 50px;
+}
+
+#green-fresh-description p{
+    font-size: 16px;
+    color: var(--gray_700);
+    line-height: 1.5;
+}
+
 /* --- RESPONSIVE --- */
 
 /* notebook or small desktop */

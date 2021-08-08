@@ -2,15 +2,15 @@
 <html>
     <head>
         <!--title-->
-        <title>Appi Documentación</title>
+        <title>Green & Fresh API</title>
         <!--stylesheets-->
         <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">	
     </head>
     <body>
         <header>
-            <div class="title">
-                <label class="label-header-title">Appi Documentación</label>
-                </a>
+            <div class="container">
+                <a href="{{url_for('index')}}"><img src="{{ url_for('static',filename='logo.png') }}" width="160px"/></a>
+                <p>API Documentation</p>
             </div>
         </header>
         <div class="info">
@@ -18,20 +18,20 @@
                 <img src="static/circuloFrutas.jpg" alt="">
             </div>
             <div class="text">
-                <p>Documentacion de la appi de 
+                <p>API Documentation
                    <br> Green & Fresh
                 </p>
                 <p class="p2">
-                    Todo acerca de la información y los metodos 
-                    para el <br> fununcionamiento de la appi.
+                    All about the information and methods 
+                    <br>
+                    for the operation of the API
                 </p>    
             </div>
             <div class="cont">
                 <div class="list">
                     <p>
-                        Simplifique el desarrollo de API para usuarios, 
-                        equipos y empresas con el conjunto de herramientas
-                        profesionales y de código abierto.
+                        Simplify API development for users, teams, and 
+                        businesses with the open source and professional toolset. 
                     </p>
                     <ul id="menu">
                         <li><input type="checkbox" name="list" id="nivel1-1"><label for="nivel1-1">get-parameters</label>
@@ -53,10 +53,8 @@
                 </div>
                 <div class="doc">
                     <p>
-                        La documentación se puede 
-                        generar automáticamente a 
-                        partir de una definición de 
-                        API.
+                        Documentation can be automatically 
+                        generated from an API definition. 
                     </p>
                     <table>
                         <tr>
