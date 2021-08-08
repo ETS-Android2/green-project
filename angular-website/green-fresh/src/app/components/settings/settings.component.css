@@ -177,3 +177,26 @@
     box-shadow: 0 0 0 1pt var(--green_500);
 }
 
+/* --- RESPONSIVE --- */
+
+/* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+}
+/* smartphone */
+@media only screen and (max-width:480px) {
+    .fruit-box-insert, .requirements-box-insert{ width: 100%; margin: 0}
+    .fruit-box-insert input,.custom-file-upload{ width: calc(100% - 20px); padding: 0px 10px;}
+    .custom-file-upload{padding: 5px 10px;}
+}

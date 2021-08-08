@@ -39,7 +39,7 @@ import utt.student.greenfresh.classes.UnitOfMeasurement;
 
 public class FruitsFragment extends Fragment {
     // attributes
-    private String baseURL = "http://192.168.1.65:5000/";
+    private String baseURL = "http://192.168.1.66:5000/";
     private RequestQueue queue;
     private ArrayList<Fruit> fruits = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class FruitsFragment extends Fragment {
                     fruits.add(new Fruit(fruit.getString("code"),
                                          fruit.getString("name"),
                                          fruit.getString("description"),
-                                baseURL+"image/"+fruit.getString("image"),
+                                   baseURL+"image/"+fruit.getString("image"),
                                          new Color(color.getInt("R"),
                                                    color.getInt("G"),
                                                    color.getInt("B"))));

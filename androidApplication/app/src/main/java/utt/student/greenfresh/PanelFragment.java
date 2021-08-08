@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,7 +37,7 @@ import utt.student.greenfresh.classes.UnitOfMeasurement;
 
 public class PanelFragment extends Fragment {
     // attributes
-    private String baseURL = "http://192.168.1.65:5000/";
+    private String baseURL = "http://192.168.1.66:5000/";
     private RequestQueue queue;
     private ArrayList<ProductionLine> productionLines = new ArrayList<>();
 

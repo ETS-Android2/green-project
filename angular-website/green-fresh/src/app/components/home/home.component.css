@@ -1,1 +1,24 @@
 @import url(../../../styles.css);
+
+/* --- RESPONSIVE --- */
+
+/* notebook or small desktop */
+@media only screen and (max-width:1280px) {  
+}
+/* notebook */
+@media only screen and (max-width:1024px) {  
+}
+/* tablet */
+@media only screen and (max-width:900px) {  
+}
+/* tablet */
+@media only screen and (max-width:768px) {  
+}
+/* large smartphone */
+@media only screen and (max-width:640px) { 
+    .main-image{height: 200px;}
+}
+/* smartphone */
+@media only screen and (max-width:480px) {
+    .main-image{height: 150px;}
+}

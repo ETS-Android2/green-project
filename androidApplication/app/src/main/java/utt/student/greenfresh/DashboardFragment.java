@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -23,6 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import utt.student.greenfresh.adapters.FruitsListAdapter;
+import utt.student.greenfresh.adapters.InspectionAdapter;
 import utt.student.greenfresh.adapters.ProductionLineInspectionListAdapter;
 import utt.student.greenfresh.classes.Color;
 import utt.student.greenfresh.classes.Fruit;
@@ -33,7 +35,7 @@ import utt.student.greenfresh.classes.Status;
 
 public class DashboardFragment extends Fragment {
     // attributes
-    private String baseURL = "http://192.168.1.65:5000/";
+    private String baseURL = "http://192.168.1.66:5000/";
     private RequestQueue queue;
     private ArrayList<ProductionLine> productionLines = new ArrayList<>();
 
@@ -129,9 +131,12 @@ public class DashboardFragment extends Fragment {
                 Log.d("Request", "Successful");
 
                 // bind production lines to list view
-                ListView lvProductionLine = (ListView)view.findViewById(R.id.lvProductionLineInspection);
-                ProductionLineInspectionListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
+                ExpandableListView lvProductionLine = (ExpandableListView)view.findViewById(R.id.lvProductionLineInspection);
+                InspectionAdapter adapter = new InspectionAdapter(productionLines, getContext(), getActivity());
                 lvProductionLine.setAdapter(adapter);
+                /*ListView lvProductionLine = (ListView)view.findViewById(R.id.lvProductionLineInspection);
+                ProductionLineInspectionListAdapter adapter = new ProductionLineInspectionListAdapter(getActivity(), productionLines);
+                lvProductionLine.setAdapter(adapter);*/
 
             } catch (JSONException e){
                 e.printStackTrace();
