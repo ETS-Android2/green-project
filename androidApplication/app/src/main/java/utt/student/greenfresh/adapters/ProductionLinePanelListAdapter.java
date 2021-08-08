@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.media.RatingCompat;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ekn.gruzer.gaugelibrary.ArcGauge;
@@ -50,6 +53,9 @@ public class ProductionLinePanelListAdapter extends BaseAdapter {
         if(v == null) v = inflater.inflate(R.layout.production_line_panel_layout, parent, false);
 
         // reference layout controls
+        RelativeLayout panel = (RelativeLayout)v.findViewById(R.id.rlProductionLinePanel);
+        RelativeLayout moreContent = (RelativeLayout)v.findViewById(R.id.rlMoreContent);
+        ImageView moreContentIcon = (ImageView)v.findViewById(R.id.ivArrowIcon);
         TextView tvProductionLine = (TextView)v.findViewById(R.id.tvProductionLineName);
         TextView tvIpAddress = (TextView)v.findViewById(R.id.tvIpAddress);
         TextView tvLastUpdate = (TextView)v.findViewById(R.id.tvLastUpdate);
@@ -65,6 +71,22 @@ public class ProductionLinePanelListAdapter extends BaseAdapter {
         tvIpAddress.setText(pl.getIp());
         tvLastUpdate.setText(pl.getStatus().getLastConnection());
         tvStatus.setText(pl.getStatus().getName());
+
+        // set listener to the panel
+        moreContentIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(moreContent.getVisibility() == View.VISIBLE){
+                    TransitionManager.beginDelayedTransition(panel, new AutoTransition());
+                    moreContent.setVisibility(View.GONE);
+                    moreContentIcon.setImageResource(R.drawable.arrow_down);
+                }else{
+                    TransitionManager.beginDelayedTransition(panel, new AutoTransition());
+                    moreContent.setVisibility(View.VISIBLE);
+                    moreContentIcon.setImageResource(R.drawable.arrow_up);
+                }
+            }
+        });
 
         if(pl.getStatus().getValue() == true){ ivStatus.setImageResource(R.drawable.online); }
         else{ ivStatus.setImageResource(R.drawable.offline); }

@@ -4,6 +4,7 @@ android:layout_width="match_parent"
 android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:id="@+id/rlProductionLinePanel"
         style="@style/plPanel">
 
         <RelativeLayout
@@ -29,10 +30,11 @@ android:layout_height="wrap_content">
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlMoreContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlProductionLineCard">
-            <!-- android:visibility="gone" -->
+            android:layout_below="@+id/rlProductionLineCard"
+            android:visibility="gone">
 
             <RelativeLayout
                 style="@style/plPanelMoreDetails"
