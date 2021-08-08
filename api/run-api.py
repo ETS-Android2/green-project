@@ -390,7 +390,7 @@ def insertFruitRequirements():
     g_medi = g_medi[int(middle/2-1)]  if middle%2 > 1 else (g_medi[int(middle/2-1)] + g_medi[int(middle/2)])/2
     b_medi = b_medi[int(middle/2-1)]  if middle%2 > 1 else (b_medi[int(middle/2-1)] + b_medi[int(middle/2)])/2
 
-    conn.insert("call SP_insert_fruitRequirements('%s',%d,%d,%d,%d,%d,%d);" % (params['fruit'], r_med, g_med, b_med, math.sqrt(r_des) , math.sqrt(g_des), math.sqrt(b_des) ))
+    conn.insert("call SP_insert_fruitRequirements('%s',%d,%d,%d,%d,%d,%d);" % (params['fruit'], r_med, g_med, b_med, math.sqrt(r_des)+15 , math.sqrt(g_des)+15, math.sqrt(b_des)+15 ))
 
     # return jsonify({ 
     #   "desviacion" : {"R": r_des, "G" : g_des, "B" : b_des} , 

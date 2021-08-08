@@ -20,7 +20,7 @@ export class ApiService {
   // attributes
   // baseURL = "http://189.223.79.36:7000/";
   // baseURL = "http://127.0.0.1:5000/";
-  baseURL = "http://192.168.1.66:5000/";
+  baseURL = "http://192.168.1.65:5000/";
 
   // constructor
   constructor(private http: HttpClient) { 
