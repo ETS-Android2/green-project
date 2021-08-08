@@ -4,9 +4,8 @@ from flask import send_file
 from sys import path
 from werkzeug.utils import secure_filename
 import math
-
-
 import os
+
 path.append("./mysql")
 from mysql_connection import mysqlConnection
 
@@ -680,6 +679,34 @@ def InspectionResultStructure(row):
   }
 
 def responseJsonHandler(res, status = False): return {'res' : res, 'status': status}
+
+@app.route('/documentation')
+def index():
+  return render_template('documentation.html') 
+
+@app.route('/documentReadings')
+def documentReadings():
+    return render_template('reading.html')
+
+@app.route('/documentFruits')
+def documentFruits():
+    return render_template('fruits.html')
+
+@app.route('/documentFruitResult')
+def documentFruitResult():
+     return render_template('results.html')
+
+@app.route('/documentProductionLine')
+def documentProductionLine():
+    return render_template('production.html')
+
+@app.route('/documentEnviromentVariables')
+def documentEnviromentVariables():
+    return render_template('emviroment.html')  
+
+@app.route('/documentFruits')
+def documentationset():
+    return render_template('set.html')   
 
 
 app.run(host="0.0.0.0", port=5000)
