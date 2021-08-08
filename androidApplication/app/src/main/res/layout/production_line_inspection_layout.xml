@@ -10,7 +10,7 @@
             style="@style/plInspectionElement_titleSection"
             android:id="@+id/rlProductionLineCard">
 
-            <!--<ImageView
+            <ImageView
                 style="@style/plInspectionElement_plIcon"
                 android:id="@+id/ivProdLineIcon"
                 android:src="@drawable/production_line_gray_500" />-->
@@ -18,7 +18,7 @@
             <TextView
                 style="@style/plInspectionElement_title"
                 android:id="@+id/tvProductionLineName"
-
+                android:layout_toRightOf="@+id/ivProdLineIcon"
                 android:text="Production Line 1" />
 
         </RelativeLayout>
@@ -33,9 +33,8 @@
                 android:id="@+id/tvCurrentFruitTitle"
                 android:text="Current Fruit"/>
 
-             <!--<ImageView
+             <ImageView
                 style="@style/currentFruitImage"
-                android:src="@drawable/fruits"
                 android:id="@+id/ivCurrentFruitImage"
                 android:layout_below="@+id/tvCurrentFruitTitle" />-->
 
@@ -43,10 +42,10 @@
                 style="@style/currentFruitName"
                 android:id="@+id/tvCurrentFruitName"
                 android:layout_below="@+id/tvCurrentFruitTitle"
-
+                android:layout_toRightOf="@+id/ivCurrentFruitImage"
                 android:text="Strawberry" />
 
-            <!--<ImageView
+            <ImageView
                 style="@style/currentFruitColorIcon"
                 android:id="@+id/ivInspectionFruitColor"
                 android:src="@drawable/color_square"
@@ -58,6 +57,7 @@
                 style="@style/currentFruitRGBLabel"
                 android:id="@+id/tvRGBLabel"
                 android:layout_below="@id/tvCurrentFruitName"
+                android:layout_toRightOf="@+id/ivInspectionFruitColor"
                 android:text="RGB:" />
 
             <TextView
@@ -67,42 +67,11 @@
                 android:layout_below="@id/tvCurrentFruitName"
                 android:text="250, 108, 255" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tvCurrentFruitName">
 
-                <TextView
-                    android:id="@+id/tvInspectionLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="30dp"
-                    android:text="Inspection Results"/>
-
-                <TextView
-                    android:id="@+id/tvAcceptedResults"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvInspectionLabel"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="Accepted: 15"
-                    />
-
-                <TextView
-                    android:id="@+id/tvRejectedResults"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvInspectionLabel"
-                    android:layout_toRightOf="@id/tvAcceptedResults"
-                    android:layout_marginHorizontal="10dp"
-                    android:text="Rejected: 15"
-                    />
-
-            </RelativeLayout>
 
         </RelativeLayout>
 
+        <!--
         <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -126,33 +95,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-<!--
-       <androidx.constraintlayout.widget.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_below="@+id/rlInspectionResults"
-            android:layout_width="match_parent"
-            android:layout_height="320dp">
-
-
-            <com.anychart.AnyChartView
-                android:id="@+id/chartWeightResults"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-
-            <ProgressBar
-                android:id="@+id/weightProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
--->
-
+        -->
 
     </RelativeLayout>
 

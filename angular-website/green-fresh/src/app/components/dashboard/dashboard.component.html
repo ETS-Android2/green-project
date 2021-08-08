@@ -113,10 +113,12 @@
         
     </div>
 
-    <div class="box box-full subtitle-section"><p>Set Fruit</p></div>
+    <div class="box box-full subtitle-section" id="set-fruit-title"><p>Set Fruit</p></div>
 
     <div class=" box box-full set-fruit" *ngIf="currentPl != undefined">
+
         <div>
+            <p id="hidde-title">Set Fruit</p>
             <label for="fruit-selector"> Select a fruit for {{currentPl.description}}: </label> 
 
             <select id="fruit-selector" (change)="selectFruit($event)">

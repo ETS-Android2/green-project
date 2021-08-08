@@ -44,10 +44,9 @@
             android:id="@+id/rlInspectionResults"
             android:layout_below="@+id/rlFruitContainer"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="350dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/gray_bottom_border">
+            android:layout_marginBottom="5dp">
 
             <com.anychart.AnyChartView
                 android:id="@+id/inspectionResultsChart"
@@ -66,30 +65,57 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
-            android:layout_below="@+id/rlInspectionResults"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/gray_bottom_border">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlInspectionResults"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/gray_top_border">
 
             <TextView
-                android:id="@+id/tvWeightResultsTitle"
+                android:id="@+id/tvAcceptedLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Weight Results"
-                android:textSize="16dp"
-                android:textColor="@color/gray_500"
+                android:layout_margin="10dp"
                 android:textStyle="bold"
-                android:layout_margin="10dp"/>
+                android:textColor="@color/gray_700"
+                android:textSize="16dp"
+                android:text="Accepted: " />
 
-            <com.anychart.AnyChartView
-                android:id="@+id/chartWeightResults"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/tvWeightResultsTitle" />
+            <TextView
+                android:id="@+id/tvAcceptedValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/gray_700"
+                android:textSize="16dp"
+                android:text="25pc"
+                android:layout_toRightOf="@+id/tvAcceptedLabel"/>
 
+            <TextView
+                android:id="@+id/tvRejectedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/gray_700"
+                android:textSize="16dp"
+                android:text="Rejected: "
+                android:layout_toLeftOf="@+id/tvRejectedValues"/>
+
+            <TextView
+                android:id="@+id/tvRejectedValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/gray_700"
+                android:textSize="16dp"
+                android:text="25pc"
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
+
 
     </RelativeLayout>
 
