@@ -16,7 +16,7 @@ CORS(app)
 
 @app.route('/')
 def home():
-  return render_template('index.html')
+  return render_template('documentation.html')
 
 ## Getting the fruit readings 
 @app.route("/get-readings", methods=['GET'])

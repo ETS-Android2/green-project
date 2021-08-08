@@ -2,15 +2,16 @@
 <html>
     <head>
         <!--title-->
-        <title>Appi Documentation</title>
+
+        <title>Green & Fresh API</title>
         <!--stylesheets-->
         <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css">	
     </head>
     <body>
         <header>
-            <div class="title">
-                <label class="label-header-title">Appi Documentation</label>
-                </a>
+            <div class="container">
+                <a href="{{url_for('index')}}"><img src="{{ url_for('static',filename='logo.png') }}" width="160px"/></a>
+                <p>API Documentation</p>
             </div>
         </header>
         <div class="info">
@@ -22,16 +23,16 @@
                    <br> Green & Fresh
                 </p>
                 <p class="p2">
-                    All about information and methods
-                    for the operation of the appi.
+                    All about the information and methods 
+                    <br>
+                    for the operation of the API
                 </p>    
             </div>
             <div class="cont">
                 <div class="list">
                     <p>
-                        Simplify API development for users,
-                        teams and companies with the toolkit
-                        professional and open source.
+                        Simplify API development for users, teams, and 
+                        businesses with the open source and professional toolset. 
                     </p>
                     <ul id="menu">
                         <li><input type="checkbox" name="list" id="nivel1-1"><label for="nivel1-1">get-parameters</label>
@@ -53,10 +54,8 @@
                 </div>
                 <div class="doc">
                     <p>
-                        Documentation can be
-                        automatically generate to
-                        starting from a definition of
-                        API.
+                        Documentation can be automatically 
+                        generated from an API definition. 
                     </p>
                     <table>
                         <tr>
