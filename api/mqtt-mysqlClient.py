@@ -10,10 +10,10 @@ from logs.errorLogs import ErrorLogs
 path.append("./mysql")
 from mysql_connection import mysqlConnection
 
-broker = "broker.hivemq.com"
-port = 1883
-# broker = "127.0.0.1"
-# port = 1885
+# broker = "broker.hivemq.com"
+# port = 1883
+broker = "127.0.0.1"
+port = 1885
 
 ## /UTT/register/productionLine -> Registrar una nueva línea de producción
 ## /UTT/register/enviromentVariables -> Humidity and Temperature

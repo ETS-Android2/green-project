@@ -152,7 +152,6 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_productionLine('Test', '0.0.0.0.', 'Production Line #Testing', 'Online');
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
@@ -172,8 +171,6 @@ begin
     (temp, hum, productionLine);
 end //
 DELIMITER ;
-
-call SP_insert_eviromentVariable('Test', 22.2, 78);
 
 
 
@@ -196,9 +193,6 @@ begin
     (code, name, _description, urlImage);
 end //
 DELIMITER ;
-
-call SP_insert_fruit('BAN', 'Banana', 'es una banana','banana.jpeg');
-call SP_insert_fruit('APP', 'Apple', 'es una manzana','manzana.jpeg');
 
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
@@ -242,9 +236,6 @@ begin
 end //
 DELIMITER ;
 
-call SP_fruit_productionLine_relation('Test','BAN');
-call SP_fruit_productionLine_relation('Test','APP');
-
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
 ## 5.- Insert a new reading of the fruits. 
@@ -271,12 +262,6 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_fruitRequirements
-('APP',230,20,12,40, 8, 3);
-
-call SP_insert_fruitRequirements
-('BAN',190,80,18,40, 20, 3);
-
 
 #_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_
 
@@ -299,5 +284,3 @@ begin
 end //
 DELIMITER ;
 
-call SP_insert_fruitReading
-('Test',17.4,230,20,12);
