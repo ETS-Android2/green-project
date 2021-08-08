@@ -41,8 +41,6 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
     private ArrayList<ProductionLine> productionLines;
     private Context context;
     private Activity activity;
-    private RequestQueue queue;
-    private String baseURL = "http://192.168.1.65:5000/";
 
     // constructor
     public InspectionAdapter(ArrayList<ProductionLine> productionLines, Context context, Activity activity) {
@@ -79,8 +77,8 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         TextView tvProductionLineName = (TextView)v.findViewById(R.id.tvProductionLineName);
         TextView tvCurrentFruit = (TextView)v.findViewById(R.id.tvCurrentFruitName);
         TextView tvRGBColor = (TextView)v.findViewById(R.id.tvRGBValue);
-        //ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
-        ImageView ivFruitColor = (ImageView)v.findViewById(R.id.ivFruitColor);
+        ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivCurrentFruitImage);
+        ImageView ivFruitColor = (ImageView)v.findViewById(R.id.ivInspectionFruitColor);
 
         // read item
         ProductionLine pl = productionLines.get(groupPosition);
@@ -97,7 +95,7 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         int b = pl.getCurrentFruit().getColor().getBlue();
         ivFruitColor.setBackgroundColor(Color.rgb(r, g, b));
         // new request
-        //Picasso.get().load(pl.getCurrentFruit().getImage()).into(ivFruitImage);
+        Picasso.get().load(pl.getCurrentFruit().getImage()).into(ivFruitImage);
         return v;
     }
 
@@ -112,14 +110,17 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         // reference layout controls
         ImageView ivFruitImage = (ImageView)v.findViewById(R.id.ivFruitImage);
         TextView tvFruitName = (TextView)v.findViewById(R.id.tvFruitName);
+        TextView tvFruitsAccepted = (TextView)v.findViewById(R.id.tvAcceptedValues);
+        TextView tvFruitsRejected = (TextView)v.findViewById(R.id.tvRejectedValues);
 
         // read item
         Inspection i = productionLines.get(groupPosition).getInspectionResults().get(childPosition);
 
         // bind data to controls
         tvFruitName.setText(i.getFruit().getName());
-        // new request
-
+        tvFruitsAccepted.setText(Integer.toString(i.getAccepted()) + "pc");
+        tvFruitsRejected.setText(Integer.toString(i.getRejected()) + "pc");
+        Picasso.get().load(i.getFruit().getImage()).into(ivFruitImage);
 
         // Testing chart
         AnyChartView anyChartView = v.findViewById(R.id.inspectionResultsChart);
@@ -135,22 +136,17 @@ public class InspectionAdapter extends BaseExpandableListAdapter {
         });
 
         List<DataEntry> data = new ArrayList<>();
-        data.add(new ValueDataEntry("Apples", 6371664));
-        data.add(new ValueDataEntry("Pears", 789622));
-        data.add(new ValueDataEntry("Bananas", 7216301));
-        data.add(new ValueDataEntry("Grapes", 1486621));
-        data.add(new ValueDataEntry("Oranges", 1200000));
+        data.add(new ValueDataEntry("Accepted", i.getAccepted()));
+        data.add(new ValueDataEntry("Rejected", i.getRejected()));
 
         pie.data(data);
 
-        pie.title("Fruits imported in 2015 (in kg)");
+        pie.title(i.getFruit().getName() + "s analyzed today (in pc)");
 
         pie.labels().position("outside");
 
-        pie.legend().title().enabled(true);
-        pie.legend().title()
-                .text("Retail channels")
-                .padding(0d, 0d, 10d, 0d);
+        // pie.legend().title().enabled(true);
+        // pie.legend().title().text("Retail channels").padding(0d, 0d, 10d, 0d);
 
         pie.legend()
                 .position("center-bottom")
