@@ -1,5 +1,6 @@
 #include <WiFiClient.h>
-#include <WebServer.h>
+#include<ESP8266WiFi.h>
+//#include <WebServer.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.hpp>
 #include <ArduinoJson.h>
@@ -7,18 +8,20 @@
 
 // Define DHT
 //#define BUZZER 2                // Pending --
-#define DHTPIN 15                 // D15
+#define DHTPIN 5                // D1
 #define DHTTYPE DHT11             // DHT 11
 DHT dht(DHTPIN, DHTTYPE);         // Initialize DHT
 
 // --------------------------------
 // Network credentials
-const char *ssid = "ARRIS-00F2";
-const char *password = "Guarneros0512"; 
-String clientId = "ESP3212";
+const char *ssid = "INFINITUMC5A4_2.4";
+const char *password = "25hnd7wx32"; 
+String clientId = "MNRD8418";
 // --------------------------------
 
- const char *mqtt_broker = "189.223.79.36";
+ const char *mqtt_broker = "201.171.67.35";
+ const int port = 6000;
+ // const int port = 1883;
 //const char *mqtt_broker = "broker.hivemq.com";   // For testing
 String ipAddress;
 int ipSent = 0;
@@ -214,11 +217,11 @@ void sendAreaVariables(){
 
 void setup() {
   pinMode(BUILTIN_LED, OUTPUT);                       // Initialize the BUILTIN_LED pin as an output
-  Serial.begin(74880);                                // Initializing on 748800
+  Serial.begin(115200);                                // Initializing on 748800
   dht.begin();                                        // Initialize dht
   setup_wifi();                                       // Connecting to the network
   //client.setServer(mqtt_broker, 1883);                // Initializing connection with the broker
-   client.setServer(mqtt_broker, 6000);                // Initializing connection with the broker
+   client.setServer(mqtt_broker, port);                // Initializing connection with the broker
   client.setCallback(callback);                       // Callback based on the function with the same name
   
 }
